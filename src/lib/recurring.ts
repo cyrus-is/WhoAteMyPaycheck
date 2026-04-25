@@ -5,7 +5,14 @@ import { normalizeVendorName } from './normalize'
 /** Minimum occurrences for a merchant to be considered recurring */
 const MIN_OCCURRENCES = 3
 
-/** Cadence windows (in days): [low, high] for mean interval, max stddev */
+/**
+ * Cadence windows (in days): [low, high] for mean interval, max stddev.
+ *
+ * Windows are intentionally non-overlapping with gaps (8→25, 35→85) so any
+ * given mean interval matches at most one cadence. Widening a window into
+ * a gap creates ambiguous classifications — e.g. a 20-day mean would match
+ * both weekly and monthly. Narrow within a window if needed; do not bridge.
+ */
 const CADENCE_WINDOWS = [
   { cadence: 'weekly',    min: 6,   max: 8,  maxStddev: 2  },
   { cadence: 'monthly',   min: 25,  max: 35, maxStddev: 5  },
