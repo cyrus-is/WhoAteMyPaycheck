@@ -174,3 +174,7 @@ Lenses live in `src/lib/lenses/`. Each lens remaps category strings for the Sank
 - Dark theme only (light mode is a tracked issue)
 - Hardcoded hex values throughout — CSS custom properties are a tracked issue, don't add more raw hex in the meantime
 - No CSS Modules, no Tailwind
+
+## Credentials
+
+GitHub PATs, AWS tokens, Cloudflare keys, and similar credentials referenced by this project live at `~/.claude/pats/` on the Mac Mini (gitignored). Some entries are symlinks to the canonical tool locations.

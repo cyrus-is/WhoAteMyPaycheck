@@ -29,3 +29,7 @@ coverage/
 
 # Claude
 .claude/worktrees/
+
+# Credentials live in ~/.claude/pats/ — defensive belt-and-suspenders
+# in case a *.pat ever ends up inside this repo
+*.pat
