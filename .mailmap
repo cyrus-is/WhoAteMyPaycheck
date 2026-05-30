@@ -1,0 +1,12 @@
+# .mailmap — canonicalize git author display across machines.
+# See: https://git-scm.com/docs/gitmailmap
+#
+# Format: <canonical-name> <canonical-email> <commit-name> <commit-email>
+# GitHub and Swift Package Index both honor this for contributor lists.
+# Non-destructive: rewrites display only, not git history.
+
+Cyrus Gray <cyrus@cyrus.is>  Cyrus <104619940+cyrus-is@users.noreply.github.com>
+Cyrus Gray <cyrus@cyrus.is>  Cyrus-is <cgray@msn.com>
+Cyrus Gray <cyrus@cyrus.is>  Cyrus-is <cyrus@cyrus.is>
+Cyrus Gray <cyrus@cyrus.is>  clawrus <cgray@msn.com>
+Cyrus Gray <cyrus@cyrus.is>  clawrus <clawrus@users.noreply.github.com>
