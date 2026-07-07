@@ -178,3 +178,11 @@ Lenses live in `src/lib/lenses/`. Each lens remaps category strings for the Sank
 ## Credentials
 
 GitHub PATs, AWS tokens, Cloudflare keys, and similar credentials referenced by this project live at `~/.claude/pats/` on the Mac Mini (gitignored). Some entries are symlinks to the canonical tool locations.
+
+## Branch protection & merge rules
+
+`main` is protected — uniform across all cyrus-is / FiniteHQ repos:
+
+- **Force-push and deletion are blocked, enforced even for admins.** Rewriting `main` requires manually deleting the protection first — intentionally painful; reconsider before doing it.
+- **Linear history required** — no merge commits into `main`. Land PRs via **squash** or **rebase** only.
+- **No required reviews while solo** — commit directly to `main`. When a real second contributor joins *this* repo, turn required reviews on for it.
