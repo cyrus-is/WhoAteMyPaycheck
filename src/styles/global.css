@@ -410,6 +410,14 @@ body {
   padding: 2px 8px;
 }
 
+.api-key-status__remembered {
+  border: 1px solid #4a5568;
+  border-radius: 999px;
+  color: #a0aec0;
+  font-size: 0.75rem;
+  padding: 1px 8px;
+}
+
 /* File summary */
 .file-summary {
   font-size: 0.875rem;

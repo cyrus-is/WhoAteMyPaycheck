@@ -109,7 +109,7 @@ export function HowItWorksModal({ open, onClose }: HowItWorksModalProps) {
             <li>Go to <strong>console.anthropic.com</strong> and create a free account.</li>
             <li>In the sidebar, click <strong>API Keys</strong> → <strong>Create Key</strong>.</li>
             <li>Copy the key (it starts with <code>sk-ant-</code>) and paste it into the API key field at the top of this page.</li>
-            <li>The key is stored only in your browser's session memory — it disappears when you close the tab.</li>
+            <li>The key is stored only in your browser: in session memory that disappears when you close the tab, or — if you check <strong>Remember my key</strong> — in this browser's local storage until you clear it.</li>
             <li>Save it somewhere you can find it later.</li>
           </ol>
           <p className="hiw-note">

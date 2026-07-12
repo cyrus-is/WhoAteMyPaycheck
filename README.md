@@ -66,7 +66,7 @@ The tax lens flags transactions that could fit multiple IRS categories for your 
 - All CSV parsing and processing runs locally in the page
 - The only outbound network call is to the Claude API for transaction categorization
 - That call sends merchant names and amounts only — **account numbers are never sent**
-- Your Claude API key is stored in `sessionStorage` (cleared when you close the tab, never sent anywhere except Anthropic's API)
+- Your Claude API key is stored only in your browser — in `sessionStorage` by default (cleared when you close the tab), or in `localStorage` if you check "Remember my key" (kept on this device until you clear it). It is never sent anywhere except Anthropic's API
 - No analytics, no telemetry, no server of any kind
 
 This is the core design constraint, not an afterthought. The reason the app exists is that connecting real bank credentials to a third party is a significant trust ask. CSV export sidesteps that entirely.

@@ -31,6 +31,14 @@ export function ApiKeyEntry({ onKey, hasKey }: ApiKeyEntryProps) {
       <div className="api-key-status">
         <span className="api-key-status__dot" />
         <span className="api-key-status__text">Claude API key set</span>
+        {isKeyRemembered() && (
+          <span
+            className="api-key-status__remembered"
+            title="Stored in this browser's localStorage until you clear it"
+          >
+            remembered on this device
+          </span>
+        )}
         <button className="api-key-status__clear" onClick={handleClear}>
           Clear
         </button>
@@ -75,7 +83,10 @@ export function ApiKeyEntry({ onKey, hasKey }: ApiKeyEntryProps) {
           checked={remember}
           onChange={(e) => setRemember(e.target.checked)}
         />
-        Remember my key
+        Remember my key{' '}
+        <span className="api-key-form__hint">
+          (kept in this browser&apos;s localStorage until you clear it)
+        </span>
       </label>
     </form>
   )
