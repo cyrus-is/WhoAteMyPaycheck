@@ -98,7 +98,7 @@ What lives where:
 - Budget → `localStorage` (survives page refresh)
 - Categorization cache → `sessionStorage` (keyed by description+amount+type+mode)
 - Tax cache → `sessionStorage` (keyed by description+amount)
-- API key → `sessionStorage`
+- API key → `sessionStorage` by default; `localStorage` when "Remember my key" is checked
 - Hidden categories → `localStorage`
 - How-it-works seen flag → `localStorage`
 
@@ -114,7 +114,7 @@ Lenses live in `src/lib/lenses/`. Each lens remaps category strings for the Sank
 ## Key Decisions
 
 1. **Client-side only.** No backend, no database. The only network call is the Claude API for categorization. The Anthropic SDK is lazy-loaded — it doesn't ship in the initial bundle.
-2. **Privacy-first.** Bank data never touches a server we control. The Claude API call sends merchant descriptions, amounts, and debit/credit type only — no account numbers, balances, or PII. API key is in sessionStorage, never localStorage.
+2. **Privacy-first.** Bank data never touches a server we control. The Claude API call sends merchant descriptions, amounts, and debit/credit type only — no account numbers, balances, or PII. API key is in sessionStorage by default; localStorage only when the user opts in via "Remember my key".
 3. **CSV-first, not bank-API.** Users export CSVs manually. Avoids Plaid/credentials complexity. Every bank supports CSV export.
 4. **Budget from reality.** The budget generator uses actual spending patterns (median monthly for discretionary, last-observed for fixed recurring, CV thresholds to classify). No prescriptive targets.
 5. **BSL over fully permissive.** Open for personal use and self-hosting; public competing services require permission. Converts to MIT in 2030.
@@ -164,7 +164,7 @@ Lenses live in `src/lib/lenses/`. Each lens remaps category strings for the Sank
 ### Security
 - Never log or persist raw bank data (raw CSV rows, account numbers, balances)
 - `console.debug` calls in `categorize.ts` are DEV-only (`import.meta.env.DEV` guard)
-- Claude API key: sessionStorage only, never localStorage
+- Claude API key: sessionStorage by default; localStorage only via the explicit "Remember my key" opt-in (`src/lib/apiKey.ts`)
 - CSP is set in `index.html` — don't weaken it
 - CSV exports sanitize formula injection prefixes (`=`, `+`, `-`, `@`)
 - No telemetry, no analytics, no tracking
