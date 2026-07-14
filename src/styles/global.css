@@ -1983,3 +1983,89 @@ body {
   accent-color: #63b3ed;
   cursor: pointer;
 }
+
+/* ── Recurring Panel ──────────────────────────────────────────────────────── */
+
+.recurring-panel {
+  margin: 24px 0;
+  background: #1a202c;
+  border: 1px solid #2d3748;
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+
+.recurring-panel__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.recurring-panel__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.recurring-panel__total {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.recurring-panel__total-unit {
+  font-size: 13px;
+  font-weight: 400;
+  color: #718096;
+  margin-left: 2px;
+}
+
+.recurring-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.recurring-table th {
+  text-align: left;
+  color: #718096;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 6px 12px;
+  border-bottom: 1px solid #2d3748;
+}
+
+.recurring-row td {
+  padding: 7px 12px;
+  color: #e2e8f0;
+  border-bottom: 1px solid #1a202c;
+}
+
+.recurring-row__merchant {
+  font-weight: 600;
+}
+
+.recurring-row__category {
+  display: block;
+  font-size: 12px;
+  color: #718096;
+}
+
+.recurring-row--drift td {
+  background: rgba(214, 158, 46, 0.08);
+}
+
+.recurring-row__drift-flag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  background: #744210;
+  color: #fefcbf;
+}

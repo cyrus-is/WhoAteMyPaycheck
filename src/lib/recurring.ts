@@ -38,6 +38,25 @@ function daysBetween(a: Date, b: Date): number {
   return (b.getTime() - a.getTime()) / (1000 * 60 * 60 * 24)
 }
 
+/** Amount a merchant would cost per month if its cadence were normalized to monthly */
+export function monthlyEquivalent(merchant: RecurringMerchant): number {
+  return (
+    merchant.cadence === 'weekly'    ? merchant.averageAmount * 4.33 :
+    merchant.cadence === 'quarterly' ? merchant.averageAmount / 3    :
+    merchant.averageAmount  // monthly
+  )
+}
+
+/** Drift threshold above which the last payment is visually flagged vs. the average */
+export const DRIFT_THRESHOLD = 0.05
+
+/** Fractional drift of the last payment vs. the average (positive = last was higher) */
+export function driftFraction(merchant: RecurringMerchant): number {
+  return merchant.averageAmount > 0
+    ? (merchant.lastAmount - merchant.averageAmount) / merchant.averageAmount
+    : 0
+}
+
 /**
  * Detect recurring expense merchants from a list of categorized transactions.
  *
