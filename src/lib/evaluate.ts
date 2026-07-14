@@ -90,11 +90,15 @@ export const transferKeywordClassifier: OfflineClassifier = (row) => {
 
 /**
  * Layer 4 — bank-provided category harvesting (bankCategory.ts:classifyByBankCategory),
- * evaluated as a merchant-dictionary fallback: only consulted when Layer 1 misses, same
- * as the real pipeline (useCategorization.ts:handleFiles).
+ * evaluated standalone over the full corpus — including rows Layer 1 (merchant
+ * dictionary) would have intercepted in the real pipeline. Its printed accuracy is
+ * therefore raw bank-column agreement with gold, not the pipeline's actual Layer-4
+ * accuracy; only combinedOfflineClassifier reflects real pipeline behavior (transfers,
+ * then merchant dictionary, then bank category, same order as
+ * useCategorization.ts:handleFiles).
  */
 export const bankCategoryClassifier: OfflineClassifier = (row) =>
-  classifyByBankCategory(row.bankCategory)?.category ?? null
+  classifyByBankCategory(row.bankCategory, row.type)?.category ?? null
 
 /** All zero-network layers, in real-pipeline order: transfers, then merchant dictionary,
  *  then bank-provided category. */

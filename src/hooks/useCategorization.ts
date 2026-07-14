@@ -134,7 +134,7 @@ export function useCategorization(apiKey: string): CategorizationState {
             if (tx.category === 'Transfer' || tx.subcategory !== '') return tx
             const match = classifyByMerchant(tx.description, tx.type)
             if (match) return { ...tx, category: match.category, subcategory: match.subcategory }
-            const bankMatch = classifyByBankCategory(tx.bankCategory)
+            const bankMatch = classifyByBankCategory(tx.bankCategory, tx.type)
             if (bankMatch) {
               return { ...tx, category: bankMatch.category, subcategory: bankMatch.subcategory, source: bankMatch.source }
             }
@@ -192,7 +192,7 @@ export function useCategorization(apiKey: string): CategorizationState {
             if (tx.category === 'Transfer') return tx
             const result = resultMap.get(tx.id)
             if (!result) return tx
-            return { ...tx, category: result.category, subcategory: result.subcategory }
+            return { ...tx, category: result.category, subcategory: result.subcategory, source: undefined }
           }),
         })),
       )

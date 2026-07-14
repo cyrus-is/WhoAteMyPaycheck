@@ -10,7 +10,7 @@
  */
 import { CATEGORIES, type Category } from './types'
 
-export const CATEGORY_ALIASES: Record<string, string> = {
+export const CATEGORY_ALIASES: Record<string, Category> = {
   // Groceries
   grocery: 'Groceries', supermarket: 'Groceries', 'grocery store': 'Groceries',
   'warehouse grocery': 'Groceries', 'grocery delivery': 'Groceries',
@@ -86,6 +86,5 @@ export function resolveCategoryAlias(raw: string): Category | null {
   const lower = raw.toLowerCase().trim()
   const titled = lower.charAt(0).toUpperCase() + lower.slice(1)
   if (VALID_CATEGORIES.has(titled)) return titled as Category
-  const alias = CATEGORY_ALIASES[lower]
-  return alias && VALID_CATEGORIES.has(alias) ? (alias as Category) : null
+  return CATEGORY_ALIASES[lower] ?? null
 }

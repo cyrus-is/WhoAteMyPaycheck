@@ -22,15 +22,21 @@ export interface BankCategoryClassification {
 /**
  * Translate a bank's own category label to our taxonomy. Returns null when the bank
  * category is missing or has no home in the taxonomy (e.g. Chase's "Charity", "Tax") —
- * never guesses.
+ * never guesses. Also returns null when the alias resolves to Income on a debit (e.g. a
+ * bank's "Interest" label meaning interest charged, not earned) — Sankey buckets debits
+ * as expenses, so that combination would render an expense-side "Income" node.
  */
-export function classifyByBankCategory(bankCategory: string | undefined): BankCategoryClassification | null {
+export function classifyByBankCategory(
+  bankCategory: string | undefined,
+  type: 'debit' | 'credit',
+): BankCategoryClassification | null {
   if (!bankCategory) return null
   const trimmed = bankCategory.trim()
   if (!trimmed) return null
 
   const category = resolveCategoryAlias(trimmed)
   if (!category) return null
+  if (category === 'Income' && type === 'debit') return null
 
   return { category, subcategory: trimmed, source: 'bank' }
 }

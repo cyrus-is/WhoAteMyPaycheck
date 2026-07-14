@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { resolveCategoryAlias, CATEGORY_ALIASES } from './categoryAliases'
-import { CATEGORIES } from './types'
+import { resolveCategoryAlias } from './categoryAliases'
 
 describe('resolveCategoryAlias', () => {
   it('resolves an exact canonical category unchanged', () => {
@@ -32,12 +31,5 @@ describe('resolveCategoryAlias', () => {
     expect(resolveCategoryAlias('Charity')).toBeNull()
     expect(resolveCategoryAlias('Tax')).toBeNull()
     expect(resolveCategoryAlias('Something Totally Unrecognized')).toBeNull()
-  })
-
-  it('every alias value is a real taxonomy category', () => {
-    const valid = new Set<string>(CATEGORIES)
-    for (const [alias, category] of Object.entries(CATEGORY_ALIASES)) {
-      expect(valid.has(category), `alias "${alias}" -> "${category}" is not a valid Category`).toBe(true)
-    }
   })
 })

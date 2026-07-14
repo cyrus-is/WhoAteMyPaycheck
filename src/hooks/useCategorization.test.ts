@@ -98,4 +98,50 @@ describe('useCategorization — offline-first classification', () => {
       vi.unstubAllGlobals()
     }
   })
+
+  it('clears the bank source tag when a mode-change re-run overwrites it with a Claude result', async () => {
+    vi.doMock('../lib/categorize', () => ({
+      categorizeTransactions: vi.fn(async (transactions: { id: string }[]) =>
+        transactions.map((tx) => ({ id: tx.id, category: 'Shopping', subcategory: 'Online shopping' })),
+      ),
+    }))
+    try {
+      const { result } = renderHook(() => useCategorization('sk-ant-test-key'))
+
+      // monzo-uk.csv alone is fully covered by the offline layers (dictionary + bank
+      // harvesting), so it never reaches Claude on its own. bofa-credit-card.csv has a
+      // genuine offline miss (see the "gates the Claude button" test above), which forces
+      // the first handleCategorize call to actually run and record lastCategorizedMode —
+      // required for a later mode switch to be recognized as a mode-change re-run.
+      await act(async () => {
+        await result.current.handleFiles([loadSampleFile('monzo-uk.csv'), loadSampleFile('bofa-credit-card.csv')])
+      })
+
+      const amazon = result.current.allTransactions.find((tx) => tx.description === 'Amazon')
+      expect(amazon?.source).toBe('bank')
+
+      await act(async () => {
+        await result.current.handleCategorize()
+      })
+      expect(result.current.lastCategorizedMode).toBe('simple')
+      expect(result.current.allTransactions.find((tx) => tx.description === 'Amazon')?.source).toBe('bank')
+
+      // Now switch modes and re-run — a mode-change run resends ALL non-Transfer
+      // transactions to Claude, including the already bank-categorized Amazon row.
+      act(() => {
+        result.current.setCategorizationMode('detailed')
+      })
+
+      await act(async () => {
+        await result.current.handleCategorize()
+      })
+
+      const reCategorized = result.current.allTransactions.find((tx) => tx.description === 'Amazon')
+      expect(reCategorized?.category).toBe('Shopping')
+      expect(reCategorized?.subcategory).toBe('Online shopping')
+      expect(reCategorized?.source).toBeUndefined()
+    } finally {
+      vi.doUnmock('../lib/categorize')
+    }
+  })
 })
