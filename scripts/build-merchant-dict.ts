@@ -39,6 +39,11 @@ interface MerchantSource {
   phrase: string
   category: Category
   subcategory: string
+  /** Restricts this entry to credit-type transactions — mirrors merchantLookup.ts's
+   *  requiresCredit gate (see ALL_RULES). Without it, an Income phrase like "DIRECT
+   *  DEPOSIT" would also fire on a same-worded debit (e.g. a "DIRECT DEPOSIT REVERSAL"
+   *  debit), misclassifying it as incoming payroll. */
+  requiresCredit?: boolean
 }
 
 // ---------------------------------------------------------------------------
@@ -81,7 +86,11 @@ const MERCHANT_SOURCES: MerchantSource[] = [
   { phrase: "SAINSBURY'S", category: 'Groceries', subcategory: 'Supermarket' },
   { phrase: 'M&S FOOD', category: 'Groceries', subcategory: 'Specialty Food' },
   { phrase: 'INSTACART', category: 'Groceries', subcategory: 'Grocery Delivery' },
-  // "COSTCO GAS" / "COSTCO WHSE" must outrank bare "COSTCO" (longer match wins).
+  // "COSTCO GAS" / "COSTCO WHSE" / "COSTCO WHSE GAS" must outrank bare "COSTCO" (longer
+  // match wins) — and "COSTCO WHSE GAS" must itself outrank "COSTCO WHSE" so a warehouse
+  // gas pump doesn't get classified as the warehouse club membership (mirrors
+  // merchantLookup.ts's "Costco Gas" rule).
+  { phrase: 'COSTCO WHSE GAS', category: 'Transport', subcategory: 'Gas Station' },
   { phrase: 'COSTCO WHSE', category: 'Groceries', subcategory: 'Warehouse Club' },
   { phrase: 'COSTCO', category: 'Groceries', subcategory: 'Warehouse Club' },
 
@@ -100,7 +109,15 @@ const MERCHANT_SOURCES: MerchantSource[] = [
   { phrase: 'TFL TRAVEL', category: 'Transport', subcategory: 'Public Transit' },
 
   // --- Shopping ---
+  // These longer phrases must outrank the bare "AMAZON"/"AMZN" fallbacks below (longer
+  // match wins) — mirrors merchantLookup.ts's dedicated Amazon Prime/Fresh/AWS rules so the
+  // dictionary doesn't shadow them with a more generic Shopping classification.
   { phrase: 'AMAZON.COM PRIME', category: 'Subscriptions', subcategory: 'Streaming' },
+  { phrase: 'AMAZON PRIME', category: 'Subscriptions', subcategory: 'Streaming' },
+  { phrase: 'AMZN PRIME', category: 'Subscriptions', subcategory: 'Streaming' },
+  { phrase: 'AMAZON FRESH', category: 'Groceries', subcategory: 'Grocery Delivery' },
+  { phrase: 'AMZN FRESH', category: 'Groceries', subcategory: 'Grocery Delivery' },
+  { phrase: 'AMAZON WEB SERVICES', category: 'Subscriptions', subcategory: 'Cloud Storage' },
   { phrase: 'AMAZON.COM', category: 'Shopping', subcategory: 'Online Retail' },
   { phrase: 'AMAZON', category: 'Shopping', subcategory: 'Online Retail' },
   { phrase: 'AMZN', category: 'Shopping', subcategory: 'Online Retail' },
@@ -176,13 +193,16 @@ const MERCHANT_SOURCES: MerchantSource[] = [
   // --- Transfer / Income ---
   { phrase: 'VENMO', category: 'Transfer', subcategory: 'Transfer' },
   { phrase: 'ZELLE', category: 'Transfer', subcategory: 'Transfer' },
-  { phrase: 'DIRECT DEPOSIT', category: 'Income', subcategory: 'Payroll' },
-  { phrase: 'ADP PAYROLL', category: 'Income', subcategory: 'Payroll' },
-  { phrase: 'EMPLOYER SALARY', category: 'Income', subcategory: 'Payroll' },
-  { phrase: 'INTEREST PAYMENT', category: 'Income', subcategory: 'Interest' },
-  { phrase: 'INTEREST EARNED', category: 'Income', subcategory: 'Interest' },
-  { phrase: 'STATE TAX REFUND', category: 'Income', subcategory: 'Tax Refund' },
-  { phrase: 'SIDE JOB', category: 'Income', subcategory: 'Side Income' },
+  // requiresCredit: these phrases also appear on debit-side text describing the same
+  // relationship in reverse (e.g. a "DIRECT DEPOSIT REVERSAL" debit) — mirrors
+  // merchantLookup.ts's requiresCredit-gated income rules.
+  { phrase: 'DIRECT DEPOSIT', category: 'Income', subcategory: 'Payroll', requiresCredit: true },
+  { phrase: 'ADP PAYROLL', category: 'Income', subcategory: 'Payroll', requiresCredit: true },
+  { phrase: 'EMPLOYER SALARY', category: 'Income', subcategory: 'Payroll', requiresCredit: true },
+  { phrase: 'INTEREST PAYMENT', category: 'Income', subcategory: 'Interest', requiresCredit: true },
+  { phrase: 'INTEREST EARNED', category: 'Income', subcategory: 'Interest', requiresCredit: true },
+  { phrase: 'STATE TAX REFUND', category: 'Income', subcategory: 'Tax Refund', requiresCredit: true },
+  { phrase: 'SIDE JOB', category: 'Income', subcategory: 'Side Income', requiresCredit: true },
 
   // --- Other ---
   { phrase: 'CHARITY WATER', category: 'Other', subcategory: 'Donation' },
@@ -198,6 +218,7 @@ interface MerchantDictEntry {
   tokens: string[]
   category: Category
   subcategory: string
+  requiresCredit?: boolean
 }
 
 interface MerchantDictData {
@@ -226,7 +247,12 @@ function buildIndex(sources: MerchantSource[]): MerchantDictData {
     }
     seenPhrases.add(key)
 
-    const entry: MerchantDictEntry = { tokens, category: source.category, subcategory: source.subcategory }
+    const entry: MerchantDictEntry = {
+      tokens,
+      category: source.category,
+      subcategory: source.subcategory,
+      ...(source.requiresCredit ? { requiresCredit: true } : {}),
+    }
     const bucket = index[tokens[0]] ?? []
     bucket.push(entry)
     index[tokens[0]] = bucket

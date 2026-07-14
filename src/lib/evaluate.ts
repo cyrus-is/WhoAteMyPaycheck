@@ -72,7 +72,7 @@ export function evaluateLayer(layer: string, rows: GoldTransaction[], classify: 
  * chunk has loaded.
  */
 export const dictionaryClassifier: OfflineClassifier = (row) =>
-  classifyByDictionary(row.description)?.category ?? null
+  classifyByDictionary(row.description, row.type)?.category ?? null
 
 /** Layer 2 — the static merchant regex table (merchantLookup.ts:classifyByMerchant). */
 export const merchantLookupClassifier: OfflineClassifier = (row) =>

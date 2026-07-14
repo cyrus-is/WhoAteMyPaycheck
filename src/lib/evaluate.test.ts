@@ -57,12 +57,20 @@ describe('offline classification eval harness', () => {
   let fixtureRows: GoldTransaction[]
   let adversarialRows: GoldTransaction[]
   let messyVariantRows: GoldTransaction[]
+  let dictShadowRows: GoldTransaction[]
+  let unseenMerchantRows: GoldTransaction[]
   let allRows: GoldTransaction[]
 
   beforeAll(async () => {
     fixtureRows = loadGoldCsv('fixtures-gold.csv')
     adversarialRows = loadGoldCsv('adversarial-probes.csv')
     messyVariantRows = loadGoldCsv('messy-variants.csv')
+    // Not folded into allRows / the recorded floor constants below — these are dedicated
+    // regression slices with their own tests (see "dictionary no longer shadows..." and
+    // "dictionary honestly under-covers..." below), so adding rows to them never requires
+    // hand-recomputing the unrelated aggregate floors.
+    dictShadowRows = loadGoldCsv('dict-shadow-probes.csv')
+    unseenMerchantRows = loadGoldCsv('unseen-merchants.csv')
     allRows = [...fixtureRows, ...adversarialRows, ...messyVariantRows]
     // dictionaryClassifier / combinedOfflineClassifier return null unconditionally until
     // the generated chunk has loaded (docs/classification-improvement-fable.md §4 PR-7).
@@ -246,6 +254,39 @@ describe('offline classification eval harness', () => {
     expect(dictOnAll.accuracy).toBeGreaterThanOrEqual(DICTIONARY_ACCURACY_FLOOR)
 
     console.log(`\nDictionary layer — messy-variants.csv: ${(messy.coverage * 100).toFixed(1)}% coverage; full corpus: ${(dictOnAll.accuracy * 100).toFixed(1)}% accuracy on ${dictOnAll.covered} hits\n`)
+  })
+
+  it('dictionary no longer shadows more-specific regex rules with coarse fallback entries (regression test — PR-7 review finding #1)', () => {
+    // dict-shadow-probes.csv: bare "AMAZON"/"AMZN"/"COSTCO WHSE" dictionary fallbacks used
+    // to steal descriptors that merchantLookup.ts classifies more specifically (Amazon
+    // Prime -> Subscriptions, Amazon Fresh -> Groceries, AWS -> Subscriptions/Cloud
+    // Storage, Costco gas pumps -> Transport), regressing behavior vs. the pre-PR-7 regex
+    // table. Fixed by adding the longer override phrases to MERCHANT_SOURCES (see
+    // build-merchant-dict.ts) — this must stay at 100%, not just meet a floor.
+    const report = evaluateLayer('dict-shadow-probes.csv', dictShadowRows, dictionaryClassifier)
+    expect(report.coverage).toBe(1)
+    expect(report.correct).toBe(report.total)
+  })
+
+  it('dictionary honestly under-covers merchants absent from its own source list (contrast with the messy-variants floor above — PR-7 review finding #5)', () => {
+    // messy-variants.csv is generated from the same fixture-merchant universe that
+    // MERCHANT_SOURCES was hand-curated from, so its coverage above measures list overlap
+    // with the dictionary's own source, not generalization to merchants it has never seen.
+    // unseen-merchants.csv is a small hand-picked slice of real US/UK grocery, dining, and
+    // gas-station chains absent from MERCHANT_SOURCES (a few happen to be covered by the
+    // much larger merchantLookup.ts regex table already) — this is what the dictionary's
+    // real-world coverage looks like against the long tail it doesn't know about: close to
+    // nothing. That's expected, not a regression; it's the honest number the messy-variants
+    // ≥85% floor should not be mistaken for.
+    const dict = evaluateLayer('dictionary on unseen-merchants.csv', unseenMerchantRows, dictionaryClassifier)
+    const combined = evaluateLayer('combined offline layers on unseen-merchants.csv', unseenMerchantRows, combinedOfflineClassifier)
+
+    console.log(`\nUnseen-merchant slice (${unseenMerchantRows.length} rows) — dictionary: ${(dict.coverage * 100).toFixed(1)}% coverage; combined offline layers: ${(combined.coverage * 100).toFixed(1)}% coverage\n`)
+
+    // Sanity check on the fixture itself: if this ever climbs, either MERCHANT_SOURCES grew
+    // to include one of these merchants (regenerate this slice with fresh unseen ones so the
+    // contrast with messy-variants stays meaningful) or something is matching by accident.
+    expect(dict.coverage).toBeLessThanOrEqual(0.1)
   })
 
   it('shipped merchant dictionary never fires on the §1.4a adversarial probes', () => {

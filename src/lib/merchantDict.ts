@@ -31,6 +31,7 @@ interface MerchantDictEntry {
   tokens: string[]
   category: Category
   subcategory: string
+  requiresCredit?: boolean
 }
 
 interface MerchantDictData {
@@ -44,13 +45,22 @@ let loadPromise: Promise<void> | null = null
  * Triggers the lazy chunk fetch (a no-op after the first successful call). Callers must
  * await this before classifyByDictionary can return anything but null — see
  * useCategorization.ts:handleFiles for the intended call site.
+ *
+ * On rejection (offline, stale-deploy hashed-chunk 404), clears the cached promise so a
+ * later call retries the fetch instead of replaying the same rejection forever — callers
+ * should catch and degrade to the regex/bank-category layers rather than failing outright.
  */
 export function loadMerchantDict(): Promise<void> {
   if (dictIndex) return Promise.resolve()
   if (!loadPromise) {
-    loadPromise = import('./merchantDict.generated.json').then((mod) => {
-      dictIndex = (mod.default as MerchantDictData).index
-    })
+    loadPromise = import('./merchantDict.generated.json')
+      .then((mod) => {
+        dictIndex = (mod.default as MerchantDictData).index
+      })
+      .catch((err) => {
+        loadPromise = null
+        throw err
+      })
   }
   return loadPromise
 }
@@ -80,8 +90,15 @@ function tokensMatchAt(tokens: string[], start: number, entryTokens: string[]): 
  * Look up a raw bank-statement description against the shipped merchant dictionary.
  * Returns null if the dictionary hasn't finished loading yet (see loadMerchantDict) or no
  * entry matches — callers should fall back to classifyByMerchant (merchantLookup.ts).
+ *
+ * @param type - 'debit' | 'credit', when known — gates entries marked `requiresCredit`
+ *   (e.g. "DIRECT DEPOSIT") so they never fire on debit-side text, mirroring
+ *   merchantLookup.ts's requiresCredit gate.
  */
-export function classifyByDictionary(rawDescription: string): MerchantDictMatch | null {
+export function classifyByDictionary(
+  rawDescription: string,
+  type?: 'debit' | 'credit',
+): MerchantDictMatch | null {
   if (!dictIndex) return null
 
   const { tokens } = normalizeMerchant(rawDescription)
@@ -93,6 +110,7 @@ export function classifyByDictionary(rawDescription: string): MerchantDictMatch 
     const candidates = dictIndex[cleaned[i]]
     if (!candidates) continue
     for (const entry of candidates) {
+      if (entry.requiresCredit && type === 'debit') continue
       if (tokensMatchAt(cleaned, i, entry.tokens)) {
         return { category: entry.category, subcategory: entry.subcategory }
       }
