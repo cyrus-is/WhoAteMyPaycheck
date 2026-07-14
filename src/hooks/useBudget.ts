@@ -5,6 +5,7 @@ import type { DateRange } from '../components/DateFilter'
 import { generateBudget, compareBudgetToActual, countMonths } from '../lib/budget'
 import type { BudgetComparisonResult } from '../lib/budget-types'
 import { saveBudget, loadBudget, clearBudget } from '../lib/budgetStorage'
+import { isUnclassifiedDefault } from '../lib/classification'
 
 function toDateStr(d: Date): string {
   return d.toISOString().substring(0, 10)
@@ -62,7 +63,11 @@ export function useBudget(
     const sourceRange = minDate && maxDate
       ? { start: minDate, end: maxDate }
       : { start: toDateStr(new Date()), end: toDateStr(new Date()) }
-    const generated = generateBudget(allTransactions, sourceRange)
+    // Exclude still-unclassified debit spend so it doesn't silently book into the "Other"
+    // expense line — income is left untouched since it's already correctly bucketed as
+    // Income regardless of subcategory detail.
+    const classified = allTransactions.filter((tx) => tx.type !== 'debit' || !isUnclassifiedDefault(tx))
+    const generated = generateBudget(classified, sourceRange)
     setBudget(generated)
     saveBudget(generated)
   }, [hasCategorized, allTransactions, minDate, maxDate])

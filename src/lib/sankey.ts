@@ -1,6 +1,7 @@
 import type { Transaction } from './types'
 import { EXPENSE_CATEGORIES } from './types'
 import { normalizeVendorName, normalizeSource } from './normalize'
+import { isUnclassifiedDefault } from './classification'
 
 export interface VendorTotal {
   name: string
@@ -47,6 +48,9 @@ const CATEGORY_COLORS: Record<string, string> = {
   Health: '#90cdf4',
   Subscriptions: '#fed7aa',
   Other: '#a0aec0',
+  // Distinct from Other — this is the offline-classification remainder, not a real category
+  // (docs/product-review-fable.md §5 PR-2's "Uncategorized" sink node).
+  Uncategorized: '#718096',
 }
 
 const INCOME_COLOR = '#68d391'
@@ -64,11 +68,19 @@ export function buildSankeyData(
 ): SankeyData {
   const nodeColors = { ...CATEGORY_COLORS, ...extraNodeColors }
 
-  // Apply overrides
-  const txns = transactions.map((tx) => ({
-    ...tx,
-    category: overrides[tx.id] ?? tx.category,
-  }))
+  // Apply overrides. isUnclassifiedDefault (shared with the visibility toggle and
+  // TransactionTable so all surfaces agree — see lib/classification.ts) routes transactions
+  // that haven't been touched by any classification layer to a distinct "Uncategorized" sink
+  // rather than silently blending them into a real category (docs/product-review-fable.md §5
+  // PR-2). A transaction genuinely classified as Other with a blank subcategory (e.g. an LLM
+  // response that omitted one) is the one rare case this can't distinguish — same ambiguity
+  // the pre-existing `tx.subcategory || tx.category` detailed-mode fallback had.
+  const txns = transactions.map((tx) => {
+    const overrideCategory = overrides[tx.id]
+    if (overrideCategory !== undefined) return { ...tx, category: overrideCategory }
+    if (isUnclassifiedDefault(tx)) return { ...tx, category: 'Uncategorized' }
+    return tx
+  })
 
   // Filter out transfers
   const nonTransfer = txns.filter((tx) => tx.category !== 'Transfer')

@@ -311,11 +311,6 @@ export async function categorizeTransactions(
   /** 'simple' | 'detailed' — used as cache key discriminator */
   mode = 'simple',
 ): Promise<CategorizationResult[]> {
-  const client = new Anthropic({
-    apiKey,
-    dangerouslyAllowBrowser: true,
-  })
-
   const total = transactions.length
   const allResults: CategorizationResult[] = []
   let done = 0
@@ -351,6 +346,14 @@ export async function categorizeTransactions(
     batches.push(cacheMisses.slice(i, i + BATCH_SIZE))
   }
 
+  // Constructed lazily — a keyed run where everything resolves offline/cache should never
+  // pay for a client it doesn't use.
+  let client: Anthropic | null = null
+  const getClient = (): Anthropic => {
+    if (!client) client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true })
+    return client
+  }
+
   const runBatch = async (batch: Transaction[]): Promise<CategorizationResult[]> => {
     if (signal?.aborted) throw new Error('Categorization cancelled.')
     const items = batch.map((tx) => ({ id: tx.id, description: tx.description, amount: tx.amount }))
@@ -361,7 +364,7 @@ export async function categorizeTransactions(
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
       if (signal?.aborted) throw new Error('Categorization cancelled.')
       try {
-        const response = await client.messages.create({
+        const response = await getClient().messages.create({
           model: 'claude-sonnet-4-6',
           max_tokens: 4096,
           system: mode === 'detailed' ? DETAILED_SYSTEM_PROMPT : SYSTEM_PROMPT,

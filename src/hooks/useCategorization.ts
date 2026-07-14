@@ -4,6 +4,7 @@ import type { CategorizationMode } from '../components/CategorizationModeSelecto
 import { readCsvFile } from '../lib/readCsv'
 import { detectFormat, parseTransactions } from '../lib/parser'
 import { detectTransfers } from '../lib/transfers'
+import { classifyByMerchant } from '../lib/merchantLookup'
 
 let fileCounter = 0
 
@@ -24,6 +25,7 @@ export interface CategorizationState {
   lastCategorizedMode: CategorizationMode | null
   modeChanged: boolean
   uncategorizedCount: number
+  percentCategorized: number
   showCategorizeBtn: boolean
   setAppState: (s: AppState) => void
   abortRef: React.MutableRefObject<AbortController | null>
@@ -58,9 +60,21 @@ export function useCategorization(apiKey: string): CategorizationState {
   const modeChanged =
     hasCategorized && lastCategorizedMode !== null && lastCategorizedMode !== categorizationMode
 
-  const uncategorizedCount = modeChanged
-    ? allTransactions.filter((tx) => tx.category !== 'Transfer').length
-    : allTransactions.filter((tx) => tx.subcategory === '' && tx.category !== 'Transfer').length
+  const nonTransferCount = allTransactions.filter((tx) => tx.category !== 'Transfer').length
+
+  const actualUncategorizedCount =
+    allTransactions.filter((tx) => tx.subcategory === '' && tx.category !== 'Transfer').length
+
+  const uncategorizedCount = modeChanged ? nonTransferCount : actualUncategorizedCount
+
+  // Based on actualUncategorizedCount (not the modeChanged-inflated uncategorizedCount) and
+  // capped below 100 while any transaction remains uncategorized, so the banner never claims
+  // full coverage for a mode switch or a rounding-up remainder.
+  const percentCategorized = nonTransferCount === 0
+    ? 0
+    : actualUncategorizedCount === 0
+      ? 100
+      : Math.min(99, Math.round(((nonTransferCount - actualUncategorizedCount) / nonTransferCount) * 100))
 
   const showCategorizeBtn =
     (uncategorizedCount > 0 || modeChanged) && !!apiKey && appState !== 'categorizing'
@@ -106,13 +120,18 @@ export function useCategorization(apiKey: string): CategorizationState {
 
         const allTx = next.flatMap((f) => f.transactions)
         const transferIds = detectTransfers(allTx)
-        if (transferIds.size === 0) return next
 
+        // Free, key-free offline layers — transfer detection above, and merchant lookup
+        // here — run unconditionally so a Sankey can render before any API key exists
+        // (docs/classification-improvement-fable.md §2.C, docs/product-review-fable.md §5 PR-2).
         return next.map((file) => ({
           ...file,
-          transactions: file.transactions.map((tx) =>
-            transferIds.has(tx.id) ? { ...tx, category: 'Transfer' } : tx,
-          ),
+          transactions: file.transactions.map((tx) => {
+            if (transferIds.has(tx.id)) return { ...tx, category: 'Transfer' }
+            if (tx.category === 'Transfer' || tx.subcategory !== '') return tx
+            const match = classifyByMerchant(tx.description, tx.type)
+            return match ? { ...tx, category: match.category, subcategory: match.subcategory } : tx
+          }),
         }))
       })
     } catch (e) {
@@ -200,6 +219,7 @@ export function useCategorization(apiKey: string): CategorizationState {
     lastCategorizedMode,
     modeChanged,
     uncategorizedCount,
+    percentCategorized,
     showCategorizeBtn,
     setAppState,
     abortRef,

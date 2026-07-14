@@ -1,5 +1,6 @@
 import type { Transaction } from '../lib/types'
 import { CATEGORIES } from '../lib/types'
+import { isUnclassifiedDefault } from '../lib/classification'
 
 interface TransactionTableProps {
   transactions: Transaction[]
@@ -66,7 +67,13 @@ export function TransactionTable({ transactions, overrides, onOverride }: Transa
                         <option key={c} value={c}>{c}</option>
                       ))}
                     </select>
-                    {tx.subcategory && <span className="tx-subcategory"> · {tx.subcategory}</span>}
+                    {tx.subcategory ? (
+                      <span className="tx-subcategory"> · {tx.subcategory}</span>
+                    ) : (
+                      !overrides[tx.id] && isUnclassifiedDefault(tx) && (
+                        <span className="tx-subcategory"> · Uncategorized</span>
+                      )
+                    )}
                     {isCorrected && (
                       <span className="tx-report-wrap">
                         <a
