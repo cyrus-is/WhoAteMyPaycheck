@@ -47,6 +47,9 @@ const CATEGORY_COLORS: Record<string, string> = {
   Health: '#90cdf4',
   Subscriptions: '#fed7aa',
   Other: '#a0aec0',
+  // Distinct from Other — this is the offline-classification remainder, not a real category
+  // (docs/product-review-fable.md §5 PR-2's "Uncategorized" sink node).
+  Uncategorized: '#718096',
 }
 
 const INCOME_COLOR = '#68d391'
@@ -64,11 +67,23 @@ export function buildSankeyData(
 ): SankeyData {
   const nodeColors = { ...CATEGORY_COLORS, ...extraNodeColors }
 
-  // Apply overrides
-  const txns = transactions.map((tx) => ({
-    ...tx,
-    category: overrides[tx.id] ?? tx.category,
-  }))
+  // Apply overrides. A transaction still sitting at parser.ts's type-based default
+  // (Income for credit / Other for debit) with no subcategory has not been touched by any
+  // classification layer yet — route it to a distinct "Uncategorized" sink rather than
+  // silently blending it into a real category (docs/product-review-fable.md §5 PR-2).
+  // A transaction genuinely classified as Other/Income with a blank subcategory (e.g. an
+  // LLM response that omitted one) is the one rare case this can't distinguish — same
+  // ambiguity the pre-existing `tx.subcategory || tx.category` detailed-mode fallback had.
+  const txns = transactions.map((tx) => {
+    const overrideCategory = overrides[tx.id]
+    if (overrideCategory !== undefined) return { ...tx, category: overrideCategory }
+    const isUnclassifiedDefault =
+      tx.subcategory === '' &&
+      ((tx.type === 'debit' && tx.category === 'Other') ||
+        (tx.type === 'credit' && tx.category === 'Income'))
+    if (isUnclassifiedDefault) return { ...tx, category: 'Uncategorized' }
+    return tx
+  })
 
   // Filter out transfers
   const nonTransfer = txns.filter((tx) => tx.category !== 'Transfer')

@@ -277,7 +277,9 @@ export function App() {
         {cat.showCategorizeBtn && (
           <div className="categorize-wrap">
             <button className="categorize-btn" onClick={cat.handleCategorize}>
-              {cat.hasCategorized ? 'Re-categorize with Claude' : 'Categorize with Claude'}
+              {cat.modeChanged
+                ? 'Re-categorize with Claude'
+                : `Categorize remaining ${cat.uncategorizedCount} with Claude`}
             </button>
             <p className="categorize-hint">
               Sends merchant names and amounts to Claude API to classify{' '}
@@ -295,10 +297,10 @@ export function App() {
           </div>
         )}
 
-        {!apiKey && cat.uncategorizedCount > 0 && (
+        {!apiKey && cat.allTransactions.length > 0 && cat.uncategorizedCount > 0 && (
           <div className="warn-banner">
-            No API key set. Add your Claude API key above to categorize transactions and see the
-            Sankey diagram.
+            {cat.percentCategorized}% categorized on-device. Add a Claude API key to categorize
+            the rest.
           </div>
         )}
 
