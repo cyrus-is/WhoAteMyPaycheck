@@ -15,6 +15,7 @@ import { ESSENTIALS_BUCKETS } from './lib/lenses/types'
 import { mapToEssentialsBucket } from './lib/lenses/essentials'
 import { exportTaxCSV } from './lib/lenses/export'
 import { getStoredApiKey } from './lib/apiKey'
+import { fetchDemoFile } from './lib/demoData'
 import { buildSankeyData } from './lib/sankey'
 import { useCategorization } from './hooks/useCategorization'
 import { useTaxLens } from './hooks/useTaxLens'
@@ -36,6 +37,8 @@ export function App() {
   const [mergeThreshold, setMergeThreshold] = useState(0.02)
   const [activeLens, setActiveLens] = useState<LensId>('spending')
   const [showHowItWorks, setShowHowItWorks] = useState<boolean>(() => !getHowItWorksSeen())
+  const [isDemoMode, setIsDemoMode] = useState(false)
+  const [demoLoading, setDemoLoading] = useState(false)
   const [hiddenCategories, setHiddenCategories] = useState<Set<string>>(() => {
     try {
       const stored = localStorage.getItem('whoatemypaycheck:hidden-categories')
@@ -120,6 +123,32 @@ export function App() {
   const handleCloseHowItWorks = useCallback(() => {
     setShowHowItWorks(false)
   }, [])
+
+  // Routes real drops/browses through the same handleFiles pipeline as the demo button —
+  // it just also clears the demo label, since the data is no longer purely the sample set.
+  const handleDroppedFiles = useCallback((newFiles: File[]) => {
+    setIsDemoMode(false)
+    cat.handleFiles(newFiles)
+  }, [cat])
+
+  const handleTryDemo = useCallback(async () => {
+    setDemoLoading(true)
+    cat.setError(null)
+    try {
+      const file = await fetchDemoFile()
+      await cat.handleFiles([file])
+      setIsDemoMode(true)
+    } catch (e) {
+      cat.setError(e instanceof Error ? e.message : 'Failed to load sample data')
+    } finally {
+      setDemoLoading(false)
+    }
+  }, [cat])
+
+  const handleDismissDemo = useCallback(() => {
+    cat.handleClearAll()
+    setIsDemoMode(false)
+  }, [cat])
 
   const handleLensChange = useCallback(async (lens: LensId) => {
     setActiveLens(lens)
@@ -236,9 +265,33 @@ export function App() {
         <ApiKeyEntry onKey={handleApiKey} hasKey={!!apiKey} />
 
         <DropZone
-          onFiles={cat.handleFiles}
-          disabled={cat.appState === 'categorizing' || cat.appState === 'loading'}
+          onFiles={handleDroppedFiles}
+          disabled={cat.appState === 'categorizing' || cat.appState === 'loading' || demoLoading}
         />
+
+        {cat.files.length === 0 && cat.appState !== 'loading' && (
+          <div className="demo-prompt">
+            <span className="demo-prompt__text">Don't have a CSV handy?</span>
+            <button
+              className="demo-prompt__btn"
+              onClick={handleTryDemo}
+              disabled={demoLoading}
+            >
+              {demoLoading ? 'Loading sample data…' : 'Try with sample data'}
+            </button>
+          </div>
+        )}
+
+        {isDemoMode && (
+          <div className="demo-banner">
+            <span>
+              Viewing sample data — a fictional household, not your real spending.
+            </span>
+            <button className="demo-banner__dismiss" onClick={handleDismissDemo}>
+              Dismiss
+            </button>
+          </div>
+        )}
 
         {cat.appState === 'loading' && (
           <div className="loading-state">
