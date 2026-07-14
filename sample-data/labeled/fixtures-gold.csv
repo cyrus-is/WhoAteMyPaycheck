@@ -1,0 +1,1004 @@
+sourceFile,description,amount,type,category,subcategory
+amex-gold.csv,GRUBHUB INC,34.2,debit,Dining,Food Delivery
+amex-gold.csv,AMAZON.COM,129,debit,Shopping,Online Retail
+amex-gold.csv,DELTA AIR LINES,387.5,debit,Travel,Flight
+amex-gold.csv,WHOLEFOODS #SF,92.15,debit,Groceries,Specialty Food
+amex-gold.csv,MARRIOTT HOTELS,312,debit,Travel,Hotel
+amex-gold.csv,UBER *TRIP,18.4,debit,Transport,Rideshare
+amex-gold.csv,APPLE STORE,999,debit,Shopping,Electronics
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,2200,credit,Transfer,Transfer
+amex-gold.csv,SWEETGREEN,16.75,debit,Dining,Fast Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,AMAZON.COM REFUND,45,credit,Shopping,Online Retail
+amex-gold.csv,INSTACART,78.32,debit,Groceries,Grocery Delivery
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,RESY *RESTAURANT,145,debit,Dining,Restaurant
+amex-gold.csv,DELTA AIR LINES,214,debit,Travel,Flight
+amex-gold.csv,WHOLEFOODS #SF,88.4,debit,Groceries,Specialty Food
+amex-gold.csv,AMAZON.COM,67.49,debit,Shopping,Online Retail
+amex-gold.csv,GRUBHUB INC,28.9,debit,Dining,Food Delivery
+amex-gold.csv,SWEETGREEN,15.25,debit,Dining,Fast Food
+amex-gold.csv,APPLE.COM/BILL,2.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,ANTHROPIC *API,23.47,debit,Subscriptions,Software/SaaS
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1800,credit,Transfer,Transfer
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,UBER *TRIP,22.1,debit,Transport,Rideshare
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,INSTACART,94.15,debit,Groceries,Grocery Delivery
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,BLUE BOTTLE COFFEE,9.5,debit,Dining,Coffee Shop
+amex-gold.csv,WHOLEFOODS #SF,81.7,debit,Groceries,Specialty Food
+amex-gold.csv,AMAZON.COM,44.99,debit,Shopping,Online Retail
+amex-gold.csv,SWEETGREEN,17,debit,Dining,Fast Food
+amex-gold.csv,GRUBHUB INC,31.4,debit,Dining,Food Delivery
+amex-gold.csv,APPLE STORE,49,debit,Shopping,Electronics
+amex-gold.csv,ANTHROPIC *API,18.92,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1600,credit,Transfer,Transfer
+amex-gold.csv,DELTA AIR LINES REFUND,100,credit,Travel,Flight
+amex-gold.csv,INSTACART,71.88,debit,Groceries,Grocery Delivery
+amex-gold.csv,UBER *TRIP,15.6,debit,Transport,Rideshare
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,BLUE BOTTLE COFFEE,8.75,debit,Dining,Coffee Shop
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,RESY *RESTAURANT,210,debit,Dining,Restaurant
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1400,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,41.5,debit,Dining,Food Delivery
+amex-gold.csv,SWEETGREEN,16.25,debit,Dining,Fast Food
+amex-gold.csv,DELTA AIR LINES,285,debit,Travel,Flight
+amex-gold.csv,MARRIOTT NYC,420,debit,Travel,Hotel
+amex-gold.csv,WHOLEFOODS #SF,78.9,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,ANTHROPIC *API,31.5,debit,Subscriptions,Software/SaaS
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,UBER *TRIP,24.3,debit,Transport,Rideshare
+amex-gold.csv,SWEETGREEN,17.8,debit,Dining,Fast Food
+amex-gold.csv,INSTACART,88.45,debit,Groceries,Grocery Delivery
+amex-gold.csv,AMAZON.COM,55,debit,Shopping,Online Retail
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1450,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,38.9,debit,Dining,Food Delivery
+amex-gold.csv,SWEETGREEN,15.8,debit,Dining,Fast Food
+amex-gold.csv,WHOLEFOODS #SF,84.2,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,UBER *TRIP,19.5,debit,Transport,Rideshare
+amex-gold.csv,ANTHROPIC *API,27.8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,INSTACART,72.3,debit,Groceries,Grocery Delivery
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,BLUE BOTTLE COFFEE,9.5,debit,Dining,Coffee Shop
+amex-gold.csv,SWEETGREEN,16.9,debit,Dining,Fast Food
+amex-gold.csv,AMAZON.COM,67.44,debit,Shopping,Online Retail
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1350,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,44.2,debit,Dining,Food Delivery
+amex-gold.csv,DELTA AIR LINES,385,debit,Travel,Flight
+amex-gold.csv,AIRBNB,650,debit,Travel,Vacation Rental
+amex-gold.csv,WHOLEFOODS #SF,92.3,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,UBER *TRIP,31.8,debit,Transport,Rideshare
+amex-gold.csv,ANTHROPIC *API,35.2,debit,Subscriptions,Software/SaaS
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,SWEETGREEN,18.9,debit,Dining,Fast Food
+amex-gold.csv,INSTACART,95.4,debit,Groceries,Grocery Delivery
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1800,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,36.8,debit,Dining,Food Delivery
+amex-gold.csv,SWEETGREEN,17.2,debit,Dining,Fast Food
+amex-gold.csv,WHOLEFOODS #SF,88.75,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,UBER *TRIP,22.4,debit,Transport,Rideshare
+amex-gold.csv,ANTHROPIC *API,29.6,debit,Subscriptions,Software/SaaS
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,INSTACART,81.2,debit,Groceries,Grocery Delivery
+amex-gold.csv,BLUE BOTTLE COFFEE,9.25,debit,Dining,Coffee Shop
+amex-gold.csv,AMAZON.COM,44.99,debit,Shopping,Online Retail
+amex-gold.csv,SWEETGREEN,16.5,debit,Dining,Fast Food
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1400,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,39.5,debit,Dining,Food Delivery
+amex-gold.csv,SWEETGREEN,15.9,debit,Dining,Fast Food
+amex-gold.csv,WHOLEFOODS #SF,91.4,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,UBER *TRIP,28.7,debit,Transport,Rideshare
+amex-gold.csv,ANTHROPIC *API,41.3,debit,Subscriptions,Software/SaaS
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,INSTACART,76.8,debit,Groceries,Grocery Delivery
+amex-gold.csv,RESY *RESTAURANT,125,debit,Dining,Restaurant
+amex-gold.csv,AMAZON.COM,33.99,debit,Shopping,Online Retail
+amex-gold.csv,SWEETGREEN,18.2,debit,Dining,Fast Food
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1550,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,42.6,debit,Dining,Food Delivery
+amex-gold.csv,DELTA AIR LINES,310,debit,Travel,Flight
+amex-gold.csv,HILTON HOTELS,380,debit,Travel,Hotel
+amex-gold.csv,SWEETGREEN,16.8,debit,Dining,Fast Food
+amex-gold.csv,WHOLEFOODS #SF,85.3,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,ANTHROPIC *API,38.7,debit,Subscriptions,Software/SaaS
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,UBER *TRIP,19.9,debit,Transport,Rideshare
+amex-gold.csv,INSTACART,88.6,debit,Groceries,Grocery Delivery
+amex-gold.csv,BLUE BOTTLE COFFEE,9.75,debit,Dining,Coffee Shop
+amex-gold.csv,SWEETGREEN,17.4,debit,Dining,Fast Food
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1700,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,37.4,debit,Dining,Food Delivery
+amex-gold.csv,SWEETGREEN,16.1,debit,Dining,Fast Food
+amex-gold.csv,WHOLEFOODS #SF,87.5,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,UBER *TRIP,23.8,debit,Transport,Rideshare
+amex-gold.csv,ANTHROPIC *API,33.2,debit,Subscriptions,Software/SaaS
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,INSTACART,79.4,debit,Groceries,Grocery Delivery
+amex-gold.csv,RESY *RESTAURANT,95,debit,Dining,Restaurant
+amex-gold.csv,AMAZON.COM,78.88,debit,Shopping,Online Retail
+amex-gold.csv,SWEETGREEN,17.9,debit,Dining,Fast Food
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,1450,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,45.8,debit,Dining,Food Delivery
+amex-gold.csv,SWEETGREEN,17.5,debit,Dining,Fast Food
+amex-gold.csv,WHOLEFOODS #SF,118.4,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,AMAZON.COM,245,debit,Shopping,Online Retail
+amex-gold.csv,ANTHROPIC *API,47.2,debit,Subscriptions,Software/SaaS
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,UBER *TRIP,28.4,debit,Transport,Rideshare
+amex-gold.csv,INSTACART,105.6,debit,Groceries,Grocery Delivery
+amex-gold.csv,DELTA AIR LINES,420,debit,Travel,Flight
+amex-gold.csv,RESY *RESTAURANT,310,debit,Dining,Restaurant
+amex-gold.csv,AMAZON.COM,189,debit,Shopping,Online Retail
+amex-gold.csv,AUTOPAY PAYMENT - THANK YOU,2200,credit,Transfer,Transfer
+amex-gold.csv,GRUBHUB INC,48.9,debit,Dining,Food Delivery
+amex-gold.csv,SWEETGREEN,18.2,debit,Dining,Fast Food
+amex-gold.csv,WHOLEFOODS #SF,145.8,debit,Groceries,Specialty Food
+amex-gold.csv,ZOOM.US,14.99,debit,Subscriptions,Software/SaaS
+amex-gold.csv,EQUINOX FITNESS,180,debit,Health,Gym
+amex-gold.csv,AMAZON.COM,312,debit,Shopping,Online Retail
+amex-gold.csv,ANTHROPIC *API,52.3,debit,Subscriptions,Software/SaaS
+amex-gold.csv,NOTION.SO,8,debit,Subscriptions,Software/SaaS
+amex-gold.csv,UBER *TRIP,34.2,debit,Transport,Rideshare
+amex-gold.csv,INSTACART,128.4,debit,Groceries,Grocery Delivery
+amex-gold.csv,DELTA AIR LINES,485,debit,Travel,Flight
+amex-gold.csv,RESY *RESTAURANT,420,debit,Dining,Restaurant
+amex-gold.csv,APPLE STORE,599,debit,Shopping,Electronics
+bofa-credit-card.csv,WHOLEFDS MKT #10,87.43,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,SHELL SERVICE STATION,68.2,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,42.99,debit,Shopping,Online Retail
+bofa-credit-card.csv,UBER* PENDING,14.75,debit,Transport,Rideshare
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,PAYMENT THANK YOU,1200,credit,Transfer,Transfer
+bofa-credit-card.csv,CVS PHARMACY,23.58,debit,Health,Pharmacy
+bofa-credit-card.csv,STARBUCKS STORE 08432,6.75,debit,Dining,Coffee Shop
+bofa-credit-card.csv,COMCAST CABLE COMM,109.99,debit,Housing,Internet/Cable
+bofa-credit-card.csv,TRADER JOES #123,63.41,debit,Groceries,Specialty Food
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,18,credit,Shopping,Online Retail
+bofa-credit-card.csv,CHIPOTLE MEXICAN,12.85,debit,Dining,Fast Food
+bofa-credit-card.csv,ATT*BILL PAYMENT,89,debit,Housing,Phone Bill
+bofa-credit-card.csv,WHOLEFDS MKT #10,91.17,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,SHELL SERVICE STATION,72.4,debit,Transport,Gas Station
+bofa-credit-card.csv,HULU LLC,17.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,134,debit,Shopping,Online Retail
+bofa-credit-card.csv,LYFT *RIDE,11.5,debit,Transport,Rideshare
+bofa-credit-card.csv,PAYMENT THANK YOU,1400,credit,Transfer,Transfer
+bofa-credit-card.csv,TARGET STORE 00024831,57.32,debit,Shopping,Department Store
+bofa-credit-card.csv,CHEESECAKE FACTORY,78.9,debit,Dining,Restaurant
+bofa-credit-card.csv,COSTCO GAS #0472,58.2,debit,Transport,Gas Station
+bofa-credit-card.csv,TRADER JOES #123,55.88,debit,Groceries,Specialty Food
+bofa-credit-card.csv,PAYPAL *FREELANCE,350,credit,Income,Freelance
+bofa-credit-card.csv,CVS PHARMACY,14.29,debit,Health,Pharmacy
+bofa-credit-card.csv,DOORDASH*DASHPASS,9.99,debit,Dining,Food Delivery
+bofa-credit-card.csv,WHOLEFDS MKT #10,79.65,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,SHELL SERVICE STATION,68.8,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,29.99,debit,Shopping,Online Retail
+bofa-credit-card.csv,UBER EATS,34.2,debit,Dining,Food Delivery
+bofa-credit-card.csv,STARBUCKS STORE 08432,7.25,debit,Dining,Coffee Shop
+bofa-credit-card.csv,PAYMENT THANK YOU,1300,credit,Transfer,Transfer
+bofa-credit-card.csv,COSTCO WHSE #0472,187.43,debit,Groceries,Warehouse Club
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,APPLE.COM/BILL,2.99,debit,Subscriptions,Software/SaaS
+bofa-credit-card.csv,TRADER JOES #123,68.92,debit,Groceries,Specialty Food
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,DOORDASH*DOORDASH,28.5,debit,Dining,Food Delivery
+bofa-credit-card.csv,ADOBE INC,54.99,debit,Subscriptions,Software/SaaS
+bofa-credit-card.csv,WHOLEFDS MKT #10,86.4,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,COSTCO GAS #0472,62.1,debit,Transport,Gas Station
+bofa-credit-card.csv,CHEESECAKE FACTORY,71.4,debit,Dining,Restaurant
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,56.78,debit,Shopping,Online Retail
+bofa-credit-card.csv,UBER EATS,29.3,debit,Dining,Food Delivery
+bofa-credit-card.csv,PAYMENT THANK YOU,1200,credit,Transfer,Transfer
+bofa-credit-card.csv,TARGET STORE 00024831,103.44,debit,Shopping,Department Store
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,DOORDASH*DOORDASH,24.8,debit,Dining,Food Delivery
+bofa-credit-card.csv,TRADER JOES #123,68.2,debit,Groceries,Specialty Food
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,CVS PHARMACY,18.75,debit,Health,Pharmacy
+bofa-credit-card.csv,STARBUCKS STORE 08432,7.5,debit,Dining,Coffee Shop
+bofa-credit-card.csv,MCDONALDS #4821,9.25,debit,Dining,Fast Food
+bofa-credit-card.csv,WHOLEFDS MKT #10,91.22,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,SHELL SERVICE STATION,66.8,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,78.99,debit,Shopping,Online Retail
+bofa-credit-card.csv,CHIPOTLE MEXICAN,13.45,debit,Dining,Fast Food
+bofa-credit-card.csv,LYFT *RIDE,16.8,debit,Transport,Rideshare
+bofa-credit-card.csv,PAYMENT THANK YOU,1400,credit,Transfer,Transfer
+bofa-credit-card.csv,TRADER JOES #123,75.6,debit,Groceries,Specialty Food
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,TARGET STORE 00024831,65.44,debit,Shopping,Department Store
+bofa-credit-card.csv,DOORDASH*DOORDASH,31.5,debit,Dining,Food Delivery
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,STARBUCKS STORE 08432,8.25,debit,Dining,Coffee Shop
+bofa-credit-card.csv,APPLE.COM/BILL,2.99,debit,Subscriptions,Software/SaaS
+bofa-credit-card.csv,COSTCO GAS #0472,61.4,debit,Transport,Gas Station
+bofa-credit-card.csv,WHOLEFDS MKT #10,88.75,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,COSTCO GAS #0472,67.2,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,44.33,debit,Shopping,Online Retail
+bofa-credit-card.csv,SWEETGREEN,16.8,debit,Dining,Fast Food
+bofa-credit-card.csv,LYFT *RIDE,14.5,debit,Transport,Rideshare
+bofa-credit-card.csv,PAYMENT THANK YOU,1350,credit,Transfer,Transfer
+bofa-credit-card.csv,TRADER JOES #123,71.3,debit,Groceries,Specialty Food
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,UBER EATS,33.4,debit,Dining,Food Delivery
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,TARGET STORE 00024831,78.55,debit,Shopping,Department Store
+bofa-credit-card.csv,STARBUCKS STORE 08432,7.75,debit,Dining,Coffee Shop
+bofa-credit-card.csv,CVS PHARMACY,24.9,debit,Health,Pharmacy
+bofa-credit-card.csv,DOORDASH*DOORDASH,22.8,debit,Dining,Food Delivery
+bofa-credit-card.csv,WHOLEFDS MKT #10,96.4,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,SHELL SERVICE STATION,74.8,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,89.44,debit,Shopping,Online Retail
+bofa-credit-card.csv,CHIPOTLE MEXICAN,15.2,debit,Dining,Fast Food
+bofa-credit-card.csv,COSTCO GAS #0472,68.3,debit,Transport,Gas Station
+bofa-credit-card.csv,PAYMENT THANK YOU,1300,credit,Transfer,Transfer
+bofa-credit-card.csv,TRADER JOES #123,74.8,debit,Groceries,Specialty Food
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,TOTAL WINE AND MORE,52.4,debit,Entertainment,Nightlife
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,TARGET STORE 00024831,71.22,debit,Shopping,Department Store
+bofa-credit-card.csv,STARBUCKS STORE 08432,8,debit,Dining,Coffee Shop
+bofa-credit-card.csv,UBER EATS,29.9,debit,Dining,Food Delivery
+bofa-credit-card.csv,CVS PHARMACY,19.4,debit,Health,Pharmacy
+bofa-credit-card.csv,WHOLEFDS MKT #10,89.9,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,COSTCO GAS #0472,71.6,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,127.5,debit,Shopping,Online Retail
+bofa-credit-card.csv,SWEETGREEN,16.4,debit,Dining,Fast Food
+bofa-credit-card.csv,LYFT *RIDE,18.2,debit,Transport,Rideshare
+bofa-credit-card.csv,PAYMENT THANK YOU,1500,credit,Transfer,Transfer
+bofa-credit-card.csv,TRADER JOES #123,77.3,debit,Groceries,Specialty Food
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,CHEESECAKE FACTORY,84.6,debit,Dining,Restaurant
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,TARGET STORE 00024831,55.33,debit,Shopping,Department Store
+bofa-credit-card.csv,STARBUCKS STORE 08432,8.75,debit,Dining,Coffee Shop
+bofa-credit-card.csv,CVS PHARMACY,21.8,debit,Health,Pharmacy
+bofa-credit-card.csv,DOORDASH*DOORDASH,28.5,debit,Dining,Food Delivery
+bofa-credit-card.csv,WHOLEFDS MKT #10,84.2,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,SHELL SERVICE STATION,68.4,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,34.99,debit,Shopping,Online Retail
+bofa-credit-card.csv,CHIPOTLE MEXICAN,14.8,debit,Dining,Fast Food
+bofa-credit-card.csv,COSTCO GAS #0472,65.9,debit,Transport,Gas Station
+bofa-credit-card.csv,PAYMENT THANK YOU,1400,credit,Transfer,Transfer
+bofa-credit-card.csv,TRADER JOES #123,69.8,debit,Groceries,Specialty Food
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,COSTCO WHSE #0472,168.44,debit,Groceries,Warehouse Club
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,TARGET STORE 00024831,82.55,debit,Shopping,Department Store
+bofa-credit-card.csv,STARBUCKS STORE 08432,7.5,debit,Dining,Coffee Shop
+bofa-credit-card.csv,CVS PHARMACY,28.9,debit,Health,Pharmacy
+bofa-credit-card.csv,DOORDASH*DOORDASH,24.8,debit,Dining,Food Delivery
+bofa-credit-card.csv,WHOLEFDS MKT #10,92.3,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,COSTCO GAS #0472,73.2,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,67.44,debit,Shopping,Online Retail
+bofa-credit-card.csv,CHIPOTLE MEXICAN,15.3,debit,Dining,Fast Food
+bofa-credit-card.csv,LYFT *RIDE,21.4,debit,Transport,Rideshare
+bofa-credit-card.csv,PAYMENT THANK YOU,1350,credit,Transfer,Transfer
+bofa-credit-card.csv,TRADER JOES #123,82.6,debit,Groceries,Specialty Food
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,TARGET STORE 00024831,98.44,debit,Shopping,Department Store
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,STARBUCKS STORE 08432,8.25,debit,Dining,Coffee Shop
+bofa-credit-card.csv,CVS PHARMACY,42.18,debit,Health,Pharmacy
+bofa-credit-card.csv,DOORDASH*DOORDASH,31.2,debit,Dining,Food Delivery
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,88.99,debit,Shopping,Online Retail
+bofa-credit-card.csv,WHOLEFDS MKT #10,118.4,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,SHELL SERVICE STATION,72.8,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,156.78,debit,Shopping,Online Retail
+bofa-credit-card.csv,CHIPOTLE MEXICAN,15.9,debit,Dining,Fast Food
+bofa-credit-card.csv,LYFT *RIDE,19.5,debit,Transport,Rideshare
+bofa-credit-card.csv,PAYMENT THANK YOU,1600,credit,Transfer,Transfer
+bofa-credit-card.csv,TRADER JOES #123,91.3,debit,Groceries,Specialty Food
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,TARGET STORE 00024831,224.88,debit,Shopping,Department Store
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,STARBUCKS STORE 08432,9.25,debit,Dining,Coffee Shop
+bofa-credit-card.csv,CVS PHARMACY,35.8,debit,Health,Pharmacy
+bofa-credit-card.csv,DOORDASH*DOORDASH,38.5,debit,Dining,Food Delivery
+bofa-credit-card.csv,BEST BUY 00287,179.99,debit,Shopping,Electronics
+bofa-credit-card.csv,WHOLEFDS MKT #10,122.5,debit,Groceries,Specialty Food
+bofa-credit-card.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+bofa-credit-card.csv,COSTCO GAS #0472,70.3,debit,Transport,Gas Station
+bofa-credit-card.csv,AMAZON MKTPLACE PMTS,287.44,debit,Shopping,Online Retail
+bofa-credit-card.csv,CHIPOTLE MEXICAN,16.8,debit,Dining,Fast Food
+bofa-credit-card.csv,LYFT *RIDE,24.8,debit,Transport,Rideshare
+bofa-credit-card.csv,PAYMENT THANK YOU,1800,credit,Transfer,Transfer
+bofa-credit-card.csv,TRADER JOES #123,98.4,debit,Groceries,Specialty Food
+bofa-credit-card.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+bofa-credit-card.csv,TARGET STORE 00024831,144.55,debit,Shopping,Department Store
+bofa-credit-card.csv,GYM MEMBERSHIP,44.99,debit,Health,Gym
+bofa-credit-card.csv,STARBUCKS STORE 08432,11.5,debit,Dining,Coffee Shop
+bofa-credit-card.csv,CVS PHARMACY,28.9,debit,Health,Pharmacy
+bofa-credit-card.csv,DOORDASH*DOORDASH,34.8,debit,Dining,Food Delivery
+bofa-credit-card.csv,BEST BUY 00287,229.99,debit,Shopping,Electronics
+bofa-credit-card.csv,DELTA AIR LINES TICKET,389,debit,Travel,Flight
+bofa-credit-card.csv,MARRIOTT SAN JOSE CONF CTR,312,debit,Travel,Hotel
+bofa-credit-card.csv,OAK & VINE RESTAURANT,94.5,debit,Dining,Restaurant
+bofa-credit-card.csv,AMAZON.COM OFFICE SUPPLIES,67.89,debit,Shopping,Online Retail
+bofa-credit-card.csv,ASPEN DENTAL ASSOCIATES,425,debit,Health,Dentist
+bofa-credit-card.csv,DELTA AIR LINES TICKET,445,debit,Travel,Flight
+bofa-credit-card.csv,HILTON GARDEN INN,289,debit,Travel,Hotel
+bofa-credit-card.csv,MARKET BISTRO RESTAURANT,112.4,debit,Dining,Restaurant
+bofa-credit-card.csv,AMAZON.COM*9XM2K1PR,58.44,debit,Shopping,Online Retail
+bofa-credit-card.csv,DR SARAH CHEN MD OFFICE,250,debit,Health,Doctor/Medical
+bofa-credit-card.csv,GITHUB INC,100,debit,Subscriptions,Software/SaaS
+bofa-credit-card.csv,VISION SOURCE EYE CARE,195,debit,Health,Vision
+bofa-credit-card.csv,DELTA AIR LINES TICKET,512,debit,Travel,Flight
+bofa-credit-card.csv,WESTIN HOTEL,398,debit,Travel,Hotel
+bofa-credit-card.csv,TASTE OF ITALY RISTORANTE,87.6,debit,Dining,Restaurant
+bofa-credit-card.csv,AMAZON.COM*4PT8N2VX,142.33,debit,Shopping,Online Retail
+bofa-credit-card.csv,NOTION LABS INC,96,debit,Subscriptions,Software/SaaS
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,87.43,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,68.2,debit,Transport,Gas Station
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,AMAZON.COM*2K7LM9PQ4,42.99,debit,Shopping,Online Retail
+chase-checking.csv,UBER* TRIP,14.75,debit,Transport,Rideshare
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,CVS PHARMACY #7824,23.58,debit,Health,Pharmacy
+chase-checking.csv,STARBUCKS #08432,6.75,debit,Dining,Coffee Shop
+chase-checking.csv,PG&E ELECTRIC BILL,142.18,debit,Housing,Utilities
+chase-checking.csv,TRADER JOE S #123,63.41,debit,Groceries,Specialty Food
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,AMZN MKTP US*3R9KP REFUND,18,credit,Shopping,Online Retail
+chase-checking.csv,CHIPOTLE MEXICAN GRILL,12.85,debit,Dining,Fast Food
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,INTEREST PAYMENT,4.21,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,91.17,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,72.4,debit,Transport,Gas Station
+chase-checking.csv,HULU,17.99,debit,Subscriptions,Streaming
+chase-checking.csv,AMAZON.COM*9X2MN5TR8,134,debit,Shopping,Online Retail
+chase-checking.csv,LYFT *RIDE MON 5PM,11.5,debit,Transport,Rideshare
+chase-checking.csv,VALENTIN RESTAURANT,98,debit,Dining,Restaurant
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,TARGET 00024831,57.32,debit,Shopping,Department Store
+chase-checking.csv,CHEESECAKE FACTORY,78.9,debit,Dining,Restaurant
+chase-checking.csv,PG&E ELECTRIC BILL,138.55,debit,Housing,Utilities
+chase-checking.csv,TRADER JOE S #123,55.88,debit,Groceries,Specialty Food
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,CVS PHARMACY #7824,14.29,debit,Health,Pharmacy
+chase-checking.csv,INTEREST PAYMENT,4.35,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,79.65,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,AMAZON.COM*7K4JL2QP1,29.99,debit,Shopping,Online Retail
+chase-checking.csv,UBER EATS,34.2,debit,Dining,Food Delivery
+chase-checking.csv,STARBUCKS #08432,7.25,debit,Dining,Coffee Shop
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,COSTCO WHSE #0472,187.43,debit,Groceries,Warehouse Club
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,PG&E ELECTRIC BILL,138.55,debit,Housing,Utilities
+chase-checking.csv,TRADER JOE S #123,68.92,debit,Groceries,Specialty Food
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,APPLE.COM/BILL,2.99,debit,Subscriptions,Software/SaaS
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,VENMO PAYMENT,80,debit,Transfer,Transfer
+chase-checking.csv,INTEREST PAYMENT,4.18,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,82.33,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,69.9,debit,Transport,Gas Station
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,STATE TAX REFUND,812,credit,Income,Tax Refund
+chase-checking.csv,AMAZON.COM*3P8NX7YR2,56.78,debit,Shopping,Online Retail
+chase-checking.csv,STARBUCKS #08432,6.75,debit,Dining,Coffee Shop
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,TRADER JOE S #123,61.2,debit,Groceries,Specialty Food
+chase-checking.csv,PG&E ELECTRIC BILL,88.92,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,LYFT *RIDE,18.9,debit,Transport,Rideshare
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,WALGREENS STORE #4201,31.47,debit,Health,Pharmacy
+chase-checking.csv,INTEREST PAYMENT,4.42,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,94.67,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,67.9,debit,Transport,Gas Station
+chase-checking.csv,AMAZON.COM*5H2KL9MQ7,78.99,debit,Shopping,Online Retail
+chase-checking.csv,STARBUCKS #08432,7.5,debit,Dining,Coffee Shop
+chase-checking.csv,TRADER JOE S #123,72.14,debit,Groceries,Specialty Food
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,CHIPOTLE MEXICAN GRILL,14.2,debit,Dining,Fast Food
+chase-checking.csv,PG&E ELECTRIC BILL,91.1,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,TARGET 00024831,67.44,debit,Shopping,Department Store
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,TRADER JOE S #123,55.3,debit,Groceries,Specialty Food
+chase-checking.csv,INTEREST PAYMENT,4.61,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,88.91,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,74.2,debit,Transport,Gas Station
+chase-checking.csv,AMAZON.COM PRIME MEMBERSHIP,139,debit,Subscriptions,Streaming
+chase-checking.csv,STARBUCKS #08432,6.25,debit,Dining,Coffee Shop
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,TRADER JOE S #123,65.77,debit,Groceries,Specialty Food
+chase-checking.csv,AMAZON.COM*8Q3NV5WP1,45.33,debit,Shopping,Online Retail
+chase-checking.csv,PG&E ELECTRIC BILL,118.43,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,UBER EATS,28.5,debit,Dining,Food Delivery
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,INTEREST PAYMENT,4.55,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,102.48,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,TOTAL WINE & MORE,48.75,debit,Entertainment,Nightlife
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,AMAZON.COM*1L6PQ2TK9,33.47,debit,Shopping,Online Retail
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,71.6,debit,Transport,Gas Station
+chase-checking.csv,STARBUCKS #08432,7,debit,Dining,Coffee Shop
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,TRADER JOE S #123,70.33,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,PG&E ELECTRIC BILL,158.92,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,TARGET 00024831,44.22,debit,Shopping,Department Store
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,CVS PHARMACY #7824,22.4,debit,Health,Pharmacy
+chase-checking.csv,INTEREST PAYMENT,4.72,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,85.6,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,69.4,debit,Transport,Gas Station
+chase-checking.csv,AMAZON.COM*4R7MN8PQ3,127.5,debit,Shopping,Online Retail
+chase-checking.csv,STARBUCKS #08432,7.25,debit,Dining,Coffee Shop
+chase-checking.csv,TRADER JOE S #123,75.44,debit,Groceries,Specialty Food
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,CVS PHARMACY #7824,18.75,debit,Health,Pharmacy
+chase-checking.csv,UBER EATS,35.8,debit,Dining,Food Delivery
+chase-checking.csv,PG&E ELECTRIC BILL,172.3,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,TRADER JOE S #123,62.1,debit,Groceries,Specialty Food
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,CHIPOTLE MEXICAN GRILL,13.9,debit,Dining,Fast Food
+chase-checking.csv,INTEREST PAYMENT,4.83,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,92.28,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,66.8,debit,Transport,Gas Station
+chase-checking.csv,AMAZON.COM*9W2PK5QR6,89.99,debit,Shopping,Online Retail
+chase-checking.csv,STARBUCKS #08432,7.75,debit,Dining,Coffee Shop
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,TRADER JOE S #123,58.6,debit,Groceries,Specialty Food
+chase-checking.csv,PG&E ELECTRIC BILL,118.75,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,COSTCO WHSE #0472,156.78,debit,Groceries,Warehouse Club
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,WALGREENS STORE #4201,28.5,debit,Health,Pharmacy
+chase-checking.csv,INTEREST PAYMENT,5.1,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,89.4,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,73.3,debit,Transport,Gas Station
+chase-checking.csv,AMAZON.COM*6T4NM2KW8,67.44,debit,Shopping,Online Retail
+chase-checking.csv,STARBUCKS #08432,7.75,debit,Dining,Coffee Shop
+chase-checking.csv,TRADER JOE S #123,77.22,debit,Groceries,Specialty Food
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,CHIPOTLE MEXICAN GRILL,14.75,debit,Dining,Fast Food
+chase-checking.csv,TARGET 00024831,88.55,debit,Shopping,Department Store
+chase-checking.csv,PG&E ELECTRIC BILL,102.18,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,CVS PHARMACY #7824,42.18,debit,Health,Pharmacy
+chase-checking.csv,INTEREST PAYMENT,5.24,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,108.3,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,72.1,debit,Transport,Gas Station
+chase-checking.csv,AMAZON.COM*2P5KQ9TN4,156.78,debit,Shopping,Online Retail
+chase-checking.csv,STARBUCKS #08432,7.25,debit,Dining,Coffee Shop
+chase-checking.csv,TRADER JOE S #123,88.4,debit,Groceries,Specialty Food
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,CHIPOTLE MEXICAN GRILL,14.9,debit,Dining,Fast Food
+chase-checking.csv,PG&E ELECTRIC BILL,121.44,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,TRADER JOE S #123,143.6,debit,Groceries,Specialty Food
+chase-checking.csv,TARGET 00024831,224.88,debit,Shopping,Department Store
+chase-checking.csv,INTEREST PAYMENT,5.35,credit,Income,Interest
+chase-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+chase-checking.csv,WHOLEFDS #10 MARKET ST,108.55,debit,Groceries,Specialty Food
+chase-checking.csv,NETFLIX.COM,15.49,debit,Subscriptions,Streaming
+chase-checking.csv,DIRECT DEPOSIT EMPLOYER PAYROLL,3500,credit,Income,Payroll
+chase-checking.csv,YEAR END BONUS,1000,credit,Income,Bonus
+chase-checking.csv,AMAZON.COM*8N3LQ7PK5,287.44,debit,Shopping,Online Retail
+chase-checking.csv,SHELL OIL 57442 SAN FRANCISCO CA,70.8,debit,Transport,Gas Station
+chase-checking.csv,STARBUCKS #08432,9.5,debit,Dining,Coffee Shop
+chase-checking.csv,TRADER JOE S #123,95.2,debit,Groceries,Specialty Food
+chase-checking.csv,SPOTIFY USA,9.99,debit,Subscriptions,Streaming
+chase-checking.csv,ONLINE TRANSFER TO SAV ...4821,500,debit,Transfer,Transfer
+chase-checking.csv,CHIPOTLE MEXICAN GRILL,16.4,debit,Dining,Fast Food
+chase-checking.csv,PG&E ELECTRIC BILL,145.33,debit,Housing,Utilities
+chase-checking.csv,PLANET FITNESS 0032,24.99,debit,Health,Gym
+chase-checking.csv,WHOLEFDS #10 MARKET ST,178.4,debit,Groceries,Specialty Food
+chase-checking.csv,AT&T *PAYMENT,89,debit,Housing,Phone Bill
+chase-checking.csv,TARGET 00024831,112.33,debit,Shopping,Department Store
+chase-checking.csv,INTEREST PAYMENT,5.48,credit,Income,Interest
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,CHARITY WATER DONATION,50,debit,Other,Donation
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,AMERICAN RED CROSS DONATION,100,debit,Other,Donation
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,COUNTY PROPERTY TAX PAYMENT,2200,debit,Other,Property Tax
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,2200,credit,Income,Freelance
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1800,credit,Income,Freelance
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,COUNTY PROPERTY TAX PAYMENT,2200,debit,Other,Property Tax
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,CHARITY WATER DONATION,50,debit,Other,Donation
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,2000,credit,Income,Freelance
+chase-checking.csv,DOCTORS MEDICAL GROUP,180,debit,Health,Doctor/Medical
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+chase-checking.csv,ACH CREDIT DESIGNCO CLIENT PAYMENT,1500,credit,Income,Freelance
+chase-checking.csv,AMERICAN RED CROSS DONATION,150,debit,Other,Donation
+chase-checking.csv,BRIGHT HORIZONS CHILDCARE,950,debit,Childcare,Daycare
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,87.43,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,68.2,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,42.99,debit,Shopping,Online Retail
+credit-union-checking.csv,UBER TRIP,14.75,debit,Transport,Rideshare
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,CVS PHARMACY,23.58,debit,Health,Pharmacy
+credit-union-checking.csv,STARBUCKS,6.75,debit,Dining,Coffee Shop
+credit-union-checking.csv,PG&E,142.18,debit,Housing,Utilities
+credit-union-checking.csv,TRADER JOES,63.41,debit,Groceries,Specialty Food
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,AMAZON REFUND,18,credit,Shopping,Online Retail
+credit-union-checking.csv,CHIPOTLE,12.85,debit,Dining,Fast Food
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,INTEREST EARNED,4.21,credit,Income,Interest
+credit-union-checking.csv,RENTER INSURANCE ALLSTATE,125,debit,Housing,Insurance
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,91.17,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,72.4,debit,Transport,Gas Station
+credit-union-checking.csv,HULU,17.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,AMAZON.COM,134,debit,Shopping,Online Retail
+credit-union-checking.csv,LYFT,11.5,debit,Transport,Rideshare
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,TARGET,57.32,debit,Shopping,Department Store
+credit-union-checking.csv,CHEESECAKE FACTORY,78.9,debit,Dining,Restaurant
+credit-union-checking.csv,COMCAST,109.99,debit,Housing,Internet/Cable
+credit-union-checking.csv,TRADER JOES,55.88,debit,Groceries,Specialty Food
+credit-union-checking.csv,ZELLE PAYMENT TO ALEX,650,debit,Transfer,Transfer
+credit-union-checking.csv,CVS PHARMACY,14.29,debit,Health,Pharmacy
+credit-union-checking.csv,DOORDASH,9.99,debit,Dining,Food Delivery
+credit-union-checking.csv,INTEREST EARNED,3.98,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,79.65,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,68.8,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,29.99,debit,Shopping,Online Retail
+credit-union-checking.csv,UBER EATS,34.2,debit,Dining,Food Delivery
+credit-union-checking.csv,STARBUCKS,7.25,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,COSTCO,187.43,debit,Groceries,Warehouse Club
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,PG&E,138.55,debit,Housing,Utilities
+credit-union-checking.csv,TRADER JOES,68.92,debit,Groceries,Specialty Food
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,APPLE.COM/BILL,2.99,debit,Subscriptions,Software/SaaS
+credit-union-checking.csv,SIDE JOB PAYMENT,850,credit,Income,Side Income
+credit-union-checking.csv,INTEREST EARNED,4.44,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,82.33,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,67.8,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,44.99,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,6.75,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRADER JOES,65.2,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,CHIPOTLE,14.4,debit,Dining,Fast Food
+credit-union-checking.csv,PG&E,82.44,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,WALGREENS,31.47,debit,Health,Pharmacy
+credit-union-checking.csv,LYFT,12.5,debit,Transport,Rideshare
+credit-union-checking.csv,INTEREST EARNED,4.35,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,88.4,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,67.2,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,44.99,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,7.25,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRADER JOES,72.15,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,UBER EATS,32.5,debit,Dining,Food Delivery
+credit-union-checking.csv,PG&E,91.1,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,TARGET,78.44,debit,Shopping,Department Store
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,TRADER JOES,55.3,debit,Groceries,Specialty Food
+credit-union-checking.csv,INTEREST EARNED,4.52,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,90.15,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,73.4,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,38.99,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,6.5,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRADER JOES,68.3,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,SIDE JOB PAYMENT,950,credit,Income,Side Income
+credit-union-checking.csv,CHIPOTLE,15.2,debit,Dining,Fast Food
+credit-union-checking.csv,PG&E,118.43,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,LYFT,16.8,debit,Transport,Rideshare
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,UBER EATS,27.4,debit,Dining,Food Delivery
+credit-union-checking.csv,INTEREST EARNED,4.68,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,95.5,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,75.2,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,89.44,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,7,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRADER JOES,71.88,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,CHIPOTLE,14.85,debit,Dining,Fast Food
+credit-union-checking.csv,PG&E,158.92,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,TARGET,66.33,debit,Shopping,Department Store
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,CVS PHARMACY,22.4,debit,Health,Pharmacy
+credit-union-checking.csv,INTEREST EARNED,4.77,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,88.9,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,71.3,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,145,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,7.25,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRADER JOES,75.44,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,UBER EATS,35.8,debit,Dining,Food Delivery
+credit-union-checking.csv,PG&E,172.3,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,TRADER JOES,62.1,debit,Groceries,Specialty Food
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,STARBUCKS,8.5,debit,Dining,Coffee Shop
+credit-union-checking.csv,INTEREST EARNED,4.93,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,83.2,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,67.8,debit,Transport,Gas Station
+credit-union-checking.csv,SIDE JOB PAYMENT,925,credit,Income,Side Income
+credit-union-checking.csv,AMAZON.COM,34.99,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,7.5,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRADER JOES,58.66,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,CHIPOTLE,15.4,debit,Dining,Fast Food
+credit-union-checking.csv,PG&E,135.75,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,COSTCO WHSE,178.33,debit,Groceries,Warehouse Club
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,CVS PHARMACY,28.5,debit,Health,Pharmacy
+credit-union-checking.csv,INTEREST EARNED,5.1,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,90.45,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,73.9,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,67.44,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,7.75,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRADER JOES,80.22,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,TARGET,88.55,debit,Shopping,Department Store
+credit-union-checking.csv,PG&E,102.18,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,LYFT,19.2,debit,Transport,Rideshare
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,CVS PHARMACY,42.18,debit,Health,Pharmacy
+credit-union-checking.csv,INTEREST EARNED,5.24,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,108.3,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,72.1,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,156.78,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,7.25,debit,Dining,Coffee Shop
+credit-union-checking.csv,TRADER JOES,88.4,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,CHIPOTLE,14.9,debit,Dining,Fast Food
+credit-union-checking.csv,PG&E,121.44,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,TRADER JOES,143.6,debit,Groceries,Specialty Food
+credit-union-checking.csv,TARGET,224.88,debit,Shopping,Department Store
+credit-union-checking.csv,INTEREST EARNED,5.35,credit,Income,Interest
+credit-union-checking.csv,RENT PAYMENT - OAKWOOD APTS,1850,debit,Housing,Rent
+credit-union-checking.csv,PAYROLL DIRECT DEPOSIT ACME CORP,3500,credit,Income,Payroll
+credit-union-checking.csv,WHOLEFDS MARKET,112.5,debit,Groceries,Specialty Food
+credit-union-checking.csv,NETFLIX,15.49,debit,Subscriptions,Streaming
+credit-union-checking.csv,SHELL OIL 57442,70.8,debit,Transport,Gas Station
+credit-union-checking.csv,AMAZON.COM,287.44,debit,Shopping,Online Retail
+credit-union-checking.csv,STARBUCKS,9.5,debit,Dining,Coffee Shop
+credit-union-checking.csv,SIDE JOB PAYMENT,875,credit,Income,Side Income
+credit-union-checking.csv,TRADER JOES,95.2,debit,Groceries,Specialty Food
+credit-union-checking.csv,SPOTIFY,9.99,debit,Subscriptions,Streaming
+credit-union-checking.csv,TRANSFER TO SAVINGS,500,debit,Transfer,Transfer
+credit-union-checking.csv,CHIPOTLE,16.4,debit,Dining,Fast Food
+credit-union-checking.csv,PG&E,145.33,debit,Housing,Utilities
+credit-union-checking.csv,PLANET FITNESS,24.99,debit,Health,Gym
+credit-union-checking.csv,WHOLEFDS MARKET,178.4,debit,Groceries,Specialty Food
+credit-union-checking.csv,AT&T WIRELESS,89,debit,Housing,Phone Bill
+credit-union-checking.csv,TARGET,144.55,debit,Shopping,Department Store
+credit-union-checking.csv,INTEREST EARNED,5.48,credit,Income,Interest
+monzo-uk.csv,Tesco Express,12.45,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,6.8,debit,Dining,Coffee Shop
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Deliveroo,22.9,debit,Dining,Food Delivery
+monzo-uk.csv,Amazon,34.99,debit,Shopping,Online Retail
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Sainsbury's,45.32,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,4.5,debit,Dining,Coffee Shop
+monzo-uk.csv,Shell,58.4,debit,Transport,Gas Station
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,28.75,debit,Groceries,Specialty Food
+monzo-uk.csv,Monzo Flex,250,debit,Transfer,Transfer
+monzo-uk.csv,Tesco Express,14.9,debit,Groceries,Supermarket
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Amazon,67.5,debit,Shopping,Online Retail
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Sainsbury's,52.18,debit,Groceries,Supermarket
+monzo-uk.csv,Deliveroo,19.5,debit,Dining,Food Delivery
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Costa Coffee,4.75,debit,Dining,Coffee Shop
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,M&S Food,31.4,debit,Groceries,Specialty Food
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,Restaurant 1847,88,debit,Dining,Restaurant
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Tesco,61.22,debit,Groceries,Supermarket
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Amazon,22,debit,Shopping,Online Retail
+monzo-uk.csv,Tesco Express,16.4,debit,Groceries,Supermarket
+monzo-uk.csv,Deliveroo,21.8,debit,Dining,Food Delivery
+monzo-uk.csv,Costa Coffee,5.25,debit,Dining,Coffee Shop
+monzo-uk.csv,Sainsbury's,45.2,debit,Groceries,Supermarket
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,14.9,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,6.8,debit,Dining,Coffee Shop
+monzo-uk.csv,Deliveroo,22.5,debit,Dining,Food Delivery
+monzo-uk.csv,Amazon,34.99,debit,Shopping,Online Retail
+monzo-uk.csv,Costa Coffee,4.75,debit,Dining,Coffee Shop
+monzo-uk.csv,Sainsbury's,52.4,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,31.4,debit,Groceries,Specialty Food
+monzo-uk.csv,Tesco,61.22,debit,Groceries,Supermarket
+monzo-uk.csv,Deliveroo,19.5,debit,Dining,Food Delivery
+monzo-uk.csv,Amazon,22,debit,Shopping,Online Retail
+monzo-uk.csv,Uber Eats,18.9,debit,Dining,Food Delivery
+monzo-uk.csv,Costa Coffee,5.25,debit,Dining,Coffee Shop
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,12.45,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,6.5,debit,Dining,Coffee Shop
+monzo-uk.csv,Sainsbury's,48.3,debit,Groceries,Supermarket
+monzo-uk.csv,Amazon,67.5,debit,Shopping,Online Retail
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,4.5,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,28.75,debit,Groceries,Specialty Food
+monzo-uk.csv,Deliveroo,24.8,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,55.3,debit,Groceries,Supermarket
+monzo-uk.csv,Uber Eats,21.5,debit,Dining,Food Delivery
+monzo-uk.csv,Restaurant 1847,88,debit,Dining,Restaurant
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,14.9,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,7.2,debit,Dining,Coffee Shop
+monzo-uk.csv,Amazon,44.99,debit,Shopping,Online Retail
+monzo-uk.csv,Sainsbury's,52.18,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,5,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,33.6,debit,Groceries,Specialty Food
+monzo-uk.csv,Deliveroo,19.5,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,48.2,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,6.8,debit,Dining,Coffee Shop
+monzo-uk.csv,Amazon,29.99,debit,Shopping,Online Retail
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,13.6,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,6.25,debit,Dining,Coffee Shop
+monzo-uk.csv,Sainsbury's,55.4,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,4.75,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,Deliveroo,28.4,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,62.1,debit,Groceries,Supermarket
+monzo-uk.csv,Amazon,34.99,debit,Shopping,Online Retail
+monzo-uk.csv,Restaurant,65,debit,Dining,Restaurant
+monzo-uk.csv,M&S Food,41.8,debit,Groceries,Specialty Food
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,12.45,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,6.8,debit,Dining,Coffee Shop
+monzo-uk.csv,Amazon,89.99,debit,Shopping,Online Retail
+monzo-uk.csv,Sainsbury's,47.3,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,5.25,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,35.6,debit,Groceries,Specialty Food
+monzo-uk.csv,Deliveroo,31.5,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,58.4,debit,Groceries,Supermarket
+monzo-uk.csv,Amazon,22,debit,Shopping,Online Retail
+monzo-uk.csv,Restaurant,78.5,debit,Dining,Restaurant
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,15.4,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,7,debit,Dining,Coffee Shop
+monzo-uk.csv,Amazon,145,debit,Shopping,Online Retail
+monzo-uk.csv,Sainsbury's,61.3,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,4.5,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,38.9,debit,Groceries,Specialty Food
+monzo-uk.csv,Deliveroo,25.8,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,53.2,debit,Groceries,Supermarket
+monzo-uk.csv,Amazon,67.5,debit,Shopping,Online Retail
+monzo-uk.csv,Pret A Manger,6.75,debit,Dining,Coffee Shop
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,13.85,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,6.5,debit,Dining,Coffee Shop
+monzo-uk.csv,Sainsbury's,54.8,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,5,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,Amazon,44.99,debit,Shopping,Online Retail
+monzo-uk.csv,M&S Food,32.4,debit,Groceries,Specialty Food
+monzo-uk.csv,Deliveroo,22.9,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,69.4,debit,Groceries,Supermarket
+monzo-uk.csv,Uber Eats,18.5,debit,Dining,Food Delivery
+monzo-uk.csv,Amazon,38.99,debit,Shopping,Online Retail
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,14.9,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,6.8,debit,Dining,Coffee Shop
+monzo-uk.csv,Amazon,78.99,debit,Shopping,Online Retail
+monzo-uk.csv,Sainsbury's,58.2,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,5.5,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,41.6,debit,Groceries,Specialty Food
+monzo-uk.csv,Deliveroo,33.5,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,71.2,debit,Groceries,Supermarket
+monzo-uk.csv,Amazon,55,debit,Shopping,Online Retail
+monzo-uk.csv,Uber Eats,24.8,debit,Dining,Food Delivery
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,16.4,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,7.5,debit,Dining,Coffee Shop
+monzo-uk.csv,Amazon,245,debit,Shopping,Online Retail
+monzo-uk.csv,Sainsbury's,78.5,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,5.25,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,55.8,debit,Groceries,Specialty Food
+monzo-uk.csv,Deliveroo,38.5,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,91.4,debit,Groceries,Supermarket
+monzo-uk.csv,Amazon,189.99,debit,Shopping,Online Retail
+monzo-uk.csv,Marks & Spencer,120,debit,Shopping,Clothing
+monzo-uk.csv,Pret A Manger,8.25,debit,Dining,Coffee Shop
+monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
+monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
+monzo-uk.csv,Tesco Express,18.4,debit,Groceries,Supermarket
+monzo-uk.csv,Pret A Manger,8.5,debit,Dining,Coffee Shop
+monzo-uk.csv,Amazon,312,debit,Shopping,Online Retail
+monzo-uk.csv,Sainsbury's,102.4,debit,Groceries,Supermarket
+monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
+monzo-uk.csv,Costa Coffee,6,debit,Dining,Coffee Shop
+monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
+monzo-uk.csv,Gym Membership,40,debit,Health,Gym
+monzo-uk.csv,M&S Food,88.5,debit,Groceries,Specialty Food
+monzo-uk.csv,Deliveroo,45.8,debit,Dining,Food Delivery
+monzo-uk.csv,Tesco,125.4,debit,Groceries,Supermarket
+monzo-uk.csv,Amazon,178,debit,Shopping,Online Retail
+monzo-uk.csv,Restaurant,195,debit,Dining,Restaurant
+monzo-uk.csv,Pret A Manger,7.75,debit,Dining,Coffee Shop
