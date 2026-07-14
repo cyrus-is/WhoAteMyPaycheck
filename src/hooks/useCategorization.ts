@@ -33,6 +33,7 @@ export interface CategorizationState {
   abortRef: React.MutableRefObject<AbortController | null>
   handleFiles: (newFiles: File[]) => Promise<void>
   handleRemove: (id: string) => void
+  handleClearAll: () => void
   handleOverride: (id: string, category: string) => void
   handleCategorize: () => Promise<void>
   handleCancel: () => void
@@ -170,6 +171,13 @@ export function useCategorization(apiKey: string): CategorizationState {
     setFiles((prev) => prev.filter((f) => f.id !== id))
   }, [])
 
+  const handleClearAll = useCallback(() => {
+    setFiles([])
+    setOverrides({})
+    setError(null)
+    setLastCategorizedMode(null)
+  }, [])
+
   const handleOverride = useCallback((id: string, category: string) => {
     setOverrides((prev) => ({ ...prev, [id]: category }))
   }, [])
@@ -250,6 +258,7 @@ export function useCategorization(apiKey: string): CategorizationState {
     abortRef,
     handleFiles,
     handleRemove,
+    handleClearAll,
     handleOverride,
     handleCategorize,
     handleCancel,

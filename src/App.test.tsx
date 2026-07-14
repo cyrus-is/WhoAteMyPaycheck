@@ -14,6 +14,7 @@ import { detectTransfers } from './lib/transfers'
 import { classifyByMerchant } from './lib/merchantLookup'
 import { classifyByDictionary, loadMerchantDict } from './lib/merchantDict'
 import { storeApiKey } from './lib/apiKey'
+import { DEMO_SAMPLE_PATH } from './lib/demoData'
 
 // Node's experimental webstorage shadows jsdom's localStorage with a non-functional stub
 // (no --localstorage-file), so install a working in-memory Storage for these tests —
@@ -162,5 +163,151 @@ describe('App — offline-first categorization', () => {
     // Dropping files and rendering offline-only results makes no network calls —
     // categorization only fires on an explicit click of the button above.
     expect(fetchSpy).not.toHaveBeenCalled()
+  })
+})
+
+/**
+ * Component test for demo mode (docs/product-review-fable.md §5 PR-3) — the "Try with
+ * sample data" button must fetch the shipped sample through the same handleFiles pipeline
+ * a real drop uses, not a parallel one.
+ */
+describe('App — demo mode', () => {
+  let fetchSpy: ReturnType<typeof vi.fn>
+  const demoCsv = readFileSync(
+    resolve(__dirname, '../public/samples/sfbay-mid-career-tech-couple/checking.csv'),
+    'utf8',
+  )
+
+  beforeEach(() => {
+    vi.stubGlobal('localStorage', createMemoryStorage())
+    vi.stubGlobal('sessionStorage', createMemoryStorage())
+    localStorage.setItem('whoatemypaycheck:how-it-works-seen', '1')
+    fetchSpy = vi.fn((url: string) => {
+      if (url === DEMO_SAMPLE_PATH) return Promise.resolve(new Response(demoCsv))
+      return Promise.reject(new Error('unexpected network request in test'))
+    })
+    vi.stubGlobal('fetch', fetchSpy)
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it('fresh browser, zero files, zero key: one click populates the Sankey + table, labeled and dismissible', async () => {
+    render(<App />)
+
+    expect(screen.queryByText('Transactions')).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Try with sample data' }))
+
+    await waitFor(() => {
+      expect(fetchSpy).toHaveBeenCalledWith(DEMO_SAMPLE_PATH)
+    })
+
+    await waitFor(() => {
+      expect(document.querySelector('svg')).toBeInTheDocument()
+    })
+    expect(screen.getByText('Transactions')).toBeInTheDocument()
+
+    // Demo state is clearly labeled
+    expect(screen.getByText(/Viewing sample data/)).toBeInTheDocument()
+
+    // Dismiss returns to a clean empty state
+    fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }))
+
+    expect(screen.queryByText(/Viewing sample data/)).not.toBeInTheDocument()
+    expect(screen.queryByText('Transactions')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Try with sample data' })).toBeInTheDocument()
+  })
+
+  it('clears the demo transactions (not just the label) once the user drops their own file', async () => {
+    const { container } = render(<App />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Try with sample data' }))
+    await waitFor(() => {
+      expect(screen.getByText(/Viewing sample data/)).toBeInTheDocument()
+    })
+    expect(screen.getAllByText(/NVIDIA CORPORATION PAYROLL/).length).toBeGreaterThan(0)
+
+    // bofa-credit-card.csv is dated Jan 2024 — fully outside the demo's Jan-Mar 2026 span. If
+    // the demo's stale date range or its transactions survived the drop, the real data would
+    // either be filtered out (empty state) or shown mixed in with the fictional NVIDIA/mortgage
+    // rows instead of replacing them.
+    await dropFile(container, loadSampleFile('bofa-credit-card.csv'))
+
+    await waitFor(() => {
+      expect(screen.queryByText(/Viewing sample data/)).not.toBeInTheDocument()
+    })
+
+    // The fictional demo transactions are gone entirely, not merged in unlabeled
+    expect(screen.queryAllByText(/NVIDIA CORPORATION PAYROLL/)).toHaveLength(0)
+
+    // The dropped file's own data renders — proves the stale date range didn't blank it out
+    await waitFor(() => {
+      expect(container.querySelector('svg')).toBeInTheDocument()
+    })
+    expect(screen.queryByText(/No income or expenses to display/)).not.toBeInTheDocument()
+  })
+
+  it('resets the stale demo date range on explicit Dismiss so a subsequently dropped file renders', async () => {
+    const { container } = render(<App />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Try with sample data' }))
+    await waitFor(() => {
+      expect(screen.getByText(/Viewing sample data/)).toBeInTheDocument()
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }))
+    expect(screen.queryByText(/Viewing sample data/)).not.toBeInTheDocument()
+
+    // Same disjoint-date fixture as above — this is the exact "try demo, dismiss, drop own
+    // CSV" conversion flow the feature exists to drive.
+    await dropFile(container, loadSampleFile('bofa-credit-card.csv'))
+
+    await waitFor(() => {
+      expect(container.querySelector('svg')).toBeInTheDocument()
+    })
+    expect(screen.queryByText(/No income or expenses to display/)).not.toBeInTheDocument()
+  })
+
+  it('hides "Generate Budget" while demo data is active, so a fictional budget can never be saved', async () => {
+    render(<App />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Try with sample data' }))
+    await waitFor(() => {
+      expect(screen.getByText(/Viewing sample data/)).toBeInTheDocument()
+    })
+
+    expect(screen.queryByRole('button', { name: /Generate Budget/ })).not.toBeInTheDocument()
+  })
+
+  it('shows an error and leaves the empty state intact when the fetch fails', async () => {
+    fetchSpy.mockImplementation(() => Promise.reject(new Error('network down')))
+    render(<App />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Try with sample data' }))
+
+    await waitFor(() => {
+      expect(screen.getByText('network down')).toBeInTheDocument()
+    })
+    expect(screen.queryByText(/Viewing sample data/)).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Try with sample data' })).toBeInTheDocument()
+  })
+
+  it('rejects an HTML response (e.g. an SPA-fallback 200) instead of entering demo mode', async () => {
+    fetchSpy.mockImplementation(() =>
+      Promise.resolve(new Response('<!DOCTYPE html><html><body>Not Found</body></html>', {
+        headers: { 'content-type': 'text/html' },
+      })),
+    )
+    render(<App />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Try with sample data' }))
+
+    await waitFor(() => {
+      expect(screen.getByText(/Failed to load sample data/)).toBeInTheDocument()
+    })
+    expect(screen.queryByText(/Viewing sample data/)).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Try with sample data' })).toBeInTheDocument()
   })
 })

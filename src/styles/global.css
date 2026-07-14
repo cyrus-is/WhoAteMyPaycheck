@@ -288,6 +288,70 @@ body {
   max-width: 480px;
 }
 
+/* Demo prompt */
+.demo-prompt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  align-self: flex-start;
+}
+
+.demo-prompt__text {
+  color: #718096;
+  font-size: 0.875rem;
+}
+
+.demo-prompt__btn {
+  background: transparent;
+  color: #90cdf4;
+  border: 1px solid #4a5568;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.demo-prompt__btn:hover:not(:disabled) {
+  background: #1e3a5f;
+  border-color: #63b3ed;
+}
+
+.demo-prompt__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Demo banner */
+.demo-banner {
+  background: #1e3a5f;
+  border: 1px solid #4a90d9;
+  color: #90cdf4;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.demo-banner__dismiss {
+  background: none;
+  border: 1px solid #4a90d9;
+  border-radius: 4px;
+  color: #90cdf4;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.demo-banner__dismiss:hover {
+  background: rgba(74, 144, 217, 0.2);
+}
+
 /* Empty state */
 .empty-state {
   background: #1a202c;

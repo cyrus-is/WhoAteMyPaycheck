@@ -15,6 +15,7 @@ import { ESSENTIALS_BUCKETS } from './lib/lenses/types'
 import { mapToEssentialsBucket } from './lib/lenses/essentials'
 import { exportTaxCSV } from './lib/lenses/export'
 import { getStoredApiKey } from './lib/apiKey'
+import { fetchDemoFile } from './lib/demoData'
 import { buildSankeyData } from './lib/sankey'
 import { useCategorization } from './hooks/useCategorization'
 import { useTaxLens } from './hooks/useTaxLens'
@@ -36,6 +37,8 @@ export function App() {
   const [mergeThreshold, setMergeThreshold] = useState(0.02)
   const [activeLens, setActiveLens] = useState<LensId>('spending')
   const [showHowItWorks, setShowHowItWorks] = useState<boolean>(() => !getHowItWorksSeen())
+  const [isDemoMode, setIsDemoMode] = useState(false)
+  const [demoLoading, setDemoLoading] = useState(false)
   const [hiddenCategories, setHiddenCategories] = useState<Set<string>>(() => {
     try {
       const stored = localStorage.getItem('whoatemypaycheck:hidden-categories')
@@ -120,6 +123,44 @@ export function App() {
   const handleCloseHowItWorks = useCallback(() => {
     setShowHowItWorks(false)
   }, [])
+
+  // Wipes the sample data + everything derived from it (date range, demo flag) so it can
+  // never linger mixed into a subsequent real import — used by both the drop path below and
+  // the explicit "Dismiss" button.
+  const resetDemoState = useCallback(() => {
+    cat.handleClearAll()
+    setIsDemoMode(false)
+    setDateRange({ start: '', end: '' })
+  }, [cat])
+
+  // Routes real drops/browses through the same handleFiles pipeline as the demo button. If a
+  // demo was active, the sample file is cleared first — otherwise it would merge unlabeled
+  // into the user's real data (and could silently lose the real file to the dedupe-by-name
+  // check in handleFiles if it happened to share the sample's filename).
+  const handleDroppedFiles = useCallback((newFiles: File[]) => {
+    if (isDemoMode) resetDemoState()
+    cat.handleFiles(newFiles)
+  }, [cat, isDemoMode, resetDemoState])
+
+  const handleTryDemo = useCallback(async () => {
+    setDemoLoading(true)
+    cat.setError(null)
+    try {
+      const file = await fetchDemoFile()
+      await cat.handleFiles([file])
+      setIsDemoMode(true)
+    } catch (e) {
+      cat.setError(e instanceof Error ? e.message : 'Failed to load sample data')
+    } finally {
+      setDemoLoading(false)
+    }
+  }, [cat])
+
+  const handleDismissDemo = useCallback(() => {
+    cat.handleCancel()
+    resetDemoState()
+    setActiveLens('spending')
+  }, [cat, resetDemoState])
 
   const handleLensChange = useCallback(async (lens: LensId) => {
     setActiveLens(lens)
@@ -236,9 +277,33 @@ export function App() {
         <ApiKeyEntry onKey={handleApiKey} hasKey={!!apiKey} />
 
         <DropZone
-          onFiles={cat.handleFiles}
-          disabled={cat.appState === 'categorizing' || cat.appState === 'loading'}
+          onFiles={handleDroppedFiles}
+          disabled={cat.appState === 'categorizing' || cat.appState === 'loading' || demoLoading}
         />
+
+        {cat.files.length === 0 && cat.appState !== 'loading' && (
+          <div className="demo-prompt">
+            <span className="demo-prompt__text">Don't have a CSV handy?</span>
+            <button
+              className="demo-prompt__btn"
+              onClick={handleTryDemo}
+              disabled={demoLoading}
+            >
+              {demoLoading ? 'Loading sample data…' : 'Try with sample data'}
+            </button>
+          </div>
+        )}
+
+        {isDemoMode && (
+          <div className="demo-banner" role="status" aria-live="polite">
+            <span>
+              Viewing sample data — a fictional household, not your real spending.
+            </span>
+            <button className="demo-banner__dismiss" onClick={handleDismissDemo}>
+              Dismiss
+            </button>
+          </div>
+        )}
 
         {cat.appState === 'loading' && (
           <div className="loading-state">
@@ -471,7 +536,7 @@ export function App() {
           <BudgetPanel
             budget={budget.budget}
             comparison={budget.budgetComparison}
-            canGenerate={cat.hasCategorized}
+            canGenerate={cat.hasCategorized && !isDemoMode}
             hasEnoughHistory={budget.hasEnoughHistory}
             onGenerate={budget.handleGenerateBudget}
             onUpdate={budget.handleUpdateBudget}
