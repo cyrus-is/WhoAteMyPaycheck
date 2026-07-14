@@ -5,6 +5,7 @@ import { readCsvFile } from '../lib/readCsv'
 import { detectFormat, parseTransactions } from '../lib/parser'
 import { detectTransfers } from '../lib/transfers'
 import { classifyByMerchant } from '../lib/merchantLookup'
+import { classifyByBankCategory } from '../lib/bankCategory'
 
 let fileCounter = 0
 
@@ -121,16 +122,23 @@ export function useCategorization(apiKey: string): CategorizationState {
         const allTx = next.flatMap((f) => f.transactions)
         const transferIds = detectTransfers(allTx)
 
-        // Free, key-free offline layers — transfer detection above, and merchant lookup
-        // here — run unconditionally so a Sankey can render before any API key exists
-        // (docs/classification-improvement-fable.md §2.C, docs/product-review-fable.md §5 PR-2).
+        // Free, key-free offline layers — transfer detection, merchant lookup, and bank-
+        // provided category harvesting (docs/classification-improvement-fable.md §2.C/§2.D,
+        // §4 PR-3/PR-5) — run unconditionally so a Sankey can render before any API key
+        // exists. Bank category only applies when the merchant dictionary doesn't already
+        // know the merchant — it's a mid-confidence hint, not truth.
         return next.map((file) => ({
           ...file,
           transactions: file.transactions.map((tx) => {
             if (transferIds.has(tx.id)) return { ...tx, category: 'Transfer' }
             if (tx.category === 'Transfer' || tx.subcategory !== '') return tx
             const match = classifyByMerchant(tx.description, tx.type)
-            return match ? { ...tx, category: match.category, subcategory: match.subcategory } : tx
+            if (match) return { ...tx, category: match.category, subcategory: match.subcategory }
+            const bankMatch = classifyByBankCategory(tx.bankCategory)
+            if (bankMatch) {
+              return { ...tx, category: bankMatch.category, subcategory: bankMatch.subcategory, source: bankMatch.source }
+            }
+            return tx
           }),
         }))
       })

@@ -36,6 +36,18 @@ describe('detectFormat', () => {
     expect(mapping.amount).toBe('Amount')
   })
 
+  it('detects a bank-provided Category column when present', () => {
+    const headers = ['Transaction Date', 'Post Date', 'Description', 'Category', 'Type', 'Amount', 'Memo']
+    const mapping = detectFormat(headers, [])
+    expect(mapping.category).toBe('Category')
+  })
+
+  it('leaves category undefined when no Category-like column exists', () => {
+    const headers = ['Date', 'Description', 'Amount', 'Running Bal.']
+    const mapping = detectFormat(headers, [])
+    expect(mapping.category).toBeUndefined()
+  })
+
   it('throws when no date column found', () => {
     const headers = ['Foo', 'Bar', 'Amount']
     expect(() => detectFormat(headers, [])).toThrow('date column')
@@ -204,5 +216,32 @@ describe('parseTransactions', () => {
     const { transactions: txns } = parseTransactions('test.csv', rows, mapping)
     expect(txns[0].amount).toBe(25)
     expect(txns[0].type).toBe('credit')
+  })
+
+  it('captures a bank-provided category column onto each transaction', () => {
+    const rows = [
+      { 'Transaction Date': '01/15/2024', Description: 'WHOLEFDS #10', Category: 'Food & Drink', Amount: '42.99' },
+    ]
+    const mapping = detectFormat(['Transaction Date', 'Description', 'Category', 'Amount'], rows)
+    const { transactions: txns } = parseTransactions('chase.csv', rows, mapping)
+    expect(txns[0].bankCategory).toBe('Food & Drink')
+  })
+
+  it('omits bankCategory when the CSV has no Category column', () => {
+    const rows = [
+      { Date: '2024-01-01', Description: 'Rent', Amount: '1500.00' },
+    ]
+    const mapping = detectFormat(['Date', 'Description', 'Amount'], rows)
+    const { transactions: txns } = parseTransactions('test.csv', rows, mapping)
+    expect(txns[0].bankCategory).toBeUndefined()
+  })
+
+  it('omits bankCategory when the row leaves it blank', () => {
+    const rows = [
+      { Date: '2024-01-01', Description: 'Rent', Category: '', Amount: '1500.00' },
+    ]
+    const mapping = detectFormat(['Date', 'Description', 'Category', 'Amount'], rows)
+    const { transactions: txns } = parseTransactions('test.csv', rows, mapping)
+    expect(txns[0].bankCategory).toBeUndefined()
   })
 })

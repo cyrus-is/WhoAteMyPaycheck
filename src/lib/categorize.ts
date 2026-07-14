@@ -1,8 +1,8 @@
 import Anthropic from '@anthropic-ai/sdk'
 import type { Transaction } from './types'
-import { CATEGORIES } from './types'
 import { getCached, setCached } from './categorizationCache'
 import { classifyByMerchant } from './merchantLookup'
+import { resolveCategoryAlias } from './categoryAliases'
 
 interface CategorizationResult {
   id: string
@@ -138,73 +138,8 @@ IMPORTANT: Respond ONLY with a valid JSON array. No markdown, no explanation, no
 const BATCH_SIZE = 50
 const CONCURRENCY = 5
 
-const VALID_CATEGORIES = new Set<string>(CATEGORIES)
-
-/** Map fuzzy/variant category names Claude sometimes returns to our canonical set */
-const CATEGORY_ALIASES: Record<string, string> = {
-  // Groceries
-  grocery: 'Groceries', supermarket: 'Groceries', 'grocery store': 'Groceries',
-  'warehouse grocery': 'Groceries', 'grocery delivery': 'Groceries',
-  food: 'Groceries',  // generic "Food" → Groceries as the safer default
-  'food & drink': 'Groceries', 'food and drink': 'Groceries',
-  // Dining
-  dining: 'Dining', restaurant: 'Dining', restaurants: 'Dining',
-  'dining out': 'Dining', 'eating out': 'Dining',
-  'coffee shop': 'Dining', 'coffee shops': 'Dining', coffee: 'Dining',
-  'food delivery': 'Dining', takeout: 'Dining', takeaway: 'Dining',
-  'fast food': 'Dining',
-  // Transport
-  gas: 'Transport', transportation: 'Transport', transit: 'Transport',
-  rideshare: 'Transport', 'car insurance': 'Transport', parking: 'Transport',
-  fuel: 'Transport', 'public transit': 'Transport',
-  // Travel
-  travel: 'Travel', hotel: 'Travel', hotels: 'Travel',
-  airline: 'Travel', airlines: 'Travel', flight: 'Travel', flights: 'Travel',
-  accommodation: 'Travel', lodging: 'Travel', vacation: 'Travel',
-  // Shopping
-  retail: 'Shopping', 'online shopping': 'Shopping', clothing: 'Shopping',
-  electronics: 'Shopping', merchandise: 'Shopping', 'online retail': 'Shopping',
-  // Entertainment
-  entertainment: 'Entertainment', games: 'Entertainment', gaming: 'Entertainment',
-  movies: 'Entertainment', concerts: 'Entertainment', sports: 'Entertainment',
-  streaming: 'Subscriptions', alcohol: 'Entertainment',
-  // Health
-  medical: 'Health', healthcare: 'Health', pharmacy: 'Health',
-  fitness: 'Health', gym: 'Health', dental: 'Health',
-  // Subscriptions
-  subscription: 'Subscriptions', subscriptions: 'Subscriptions',
-  'streaming services': 'Subscriptions', 'recurring services': 'Subscriptions',
-  'ai api service': 'Subscriptions', saas: 'Subscriptions',
-  // Childcare
-  childcare: 'Childcare', daycare: 'Childcare', 'child care': 'Childcare',
-  preschool: 'Childcare', 'pre-school': 'Childcare', 'after school': 'Childcare',
-  'summer camp': 'Childcare', nanny: 'Childcare', babysitter: 'Childcare',
-  'dependent care': 'Childcare',
-  // Education
-  education: 'Education', tuition: 'Education', 'school tuition': 'Education',
-  'student loan': 'Education', 'student loans': 'Education',
-  tutoring: 'Education', 'online course': 'Education', 'online learning': 'Education',
-  'test prep': 'Education', university: 'Education', college: 'Education',
-  // Housing
-  housing: 'Housing', rent: 'Housing', mortgage: 'Housing',
-  utilities: 'Housing', utility: 'Housing', insurance: 'Housing',
-  'phone bill': 'Housing', 'utility bill': 'Housing', 'electric bill': 'Housing',
-  // Income
-  income: 'Income', salary: 'Income', payroll: 'Income',
-  wages: 'Income', deposit: 'Income', 'side job': 'Income',
-  // Transfer
-  transfer: 'Transfer', transfers: 'Transfer',
-  // Other
-  miscellaneous: 'Other', misc: 'Other',
-}
-
 function normalizeCategory(raw: string): string {
-  if (VALID_CATEGORIES.has(raw)) return raw
-  const lower = raw.toLowerCase().trim()
-  if (VALID_CATEGORIES.has(lower.charAt(0).toUpperCase() + lower.slice(1))) {
-    return lower.charAt(0).toUpperCase() + lower.slice(1)
-  }
-  return CATEGORY_ALIASES[lower] ?? 'Other'
+  return resolveCategoryAlias(raw) ?? 'Other'
 }
 
 /** Clamp a Claude-returned subcategory to the taxonomy list for detailed mode.

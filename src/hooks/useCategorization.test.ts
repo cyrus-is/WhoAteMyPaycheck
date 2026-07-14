@@ -63,6 +63,27 @@ describe('useCategorization — offline-first classification', () => {
     expect(after?.subcategory).toBe(before.subcategory)
   })
 
+  it('harvests bank-provided categories for merchants unknown to the dictionary (§4 PR-5)', async () => {
+    const { result } = renderHook(() => useCategorization(''))
+
+    await act(async () => {
+      await result.current.handleFiles([loadSampleFile('monzo-uk.csv')])
+    })
+
+    // Bare "Amazon" (no ".COM"/"MKTP" suffix) doesn't match any merchantLookup rule, but
+    // monzo-uk.csv's own Category column says "Shopping" for it.
+    const amazon = result.current.allTransactions.find((tx) => tx.description === 'Amazon')
+    expect(amazon).toBeDefined()
+    expect(amazon?.category).toBe('Shopping')
+    expect(amazon?.subcategory).toBe('Shopping')
+    expect(amazon?.source).toBe('bank')
+
+    // Known merchants classified by the dictionary must NOT be tagged with a bank source.
+    const tesco = result.current.allTransactions.find((tx) => tx.description.includes('Tesco Express'))
+    expect(tesco?.category).toBe('Groceries')
+    expect(tesco?.source).toBeUndefined()
+  })
+
   it('never touches the network while classifying offline', async () => {
     const fetchSpy = vi.fn(() => Promise.reject(new Error('unexpected network request in test')))
     vi.stubGlobal('fetch', fetchSpy)

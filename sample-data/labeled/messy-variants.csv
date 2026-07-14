@@ -1,321 +1,321 @@
-sourceFile,description,amount,type,category,subcategory
-messy-variants.csv,STARBUCKS #1024,25,debit,Dining,Coffee Shop
-messy-variants.csv,STARBUCKS SAN LUIS OBISPO CA,25,debit,Dining,Coffee Shop
-messy-variants.csv,POS DEBIT SQ *STARBUCKS,25,debit,Dining,Coffee Shop
-messy-variants.csv,SQ *STARBUCKS #1024,25,debit,Dining,Coffee Shop
-messy-variants.csv,BLUE BOTTLE COFFEE #5578,25,debit,Dining,Coffee Shop
-messy-variants.csv,BLUE BOTTLE COFFEE AUSTIN TX,25,debit,Dining,Coffee Shop
-messy-variants.csv,RECURRING PAYMENT TST* BLUE BOTTLE COFFEE,25,debit,Dining,Coffee Shop
-messy-variants.csv,TST* BLUE BOTTLE COFFEE #5578,25,debit,Dining,Coffee Shop
-messy-variants.csv,DUNKIN #219,25,debit,Dining,Coffee Shop
-messy-variants.csv,DUNKIN BROOKLYN NY,25,debit,Dining,Coffee Shop
-messy-variants.csv,CHECKCARD PAYPAL *DUNKIN,25,debit,Dining,Coffee Shop
-messy-variants.csv,PAYPAL *DUNKIN #219,25,debit,Dining,Coffee Shop
-messy-variants.csv,MCDONALDS #8842,25,debit,Dining,Fast Food
-messy-variants.csv,MCDONALDS PORTLAND OR,25,debit,Dining,Fast Food
-messy-variants.csv,DEBIT CARD PURCHASE SP *MCDONALDS,25,debit,Dining,Fast Food
-messy-variants.csv,SP *MCDONALDS #8842,25,debit,Dining,Fast Food
-messy-variants.csv,CHIPOTLE #33,25,debit,Dining,Fast Food
-messy-variants.csv,CHIPOTLE DENVER CO,25,debit,Dining,Fast Food
-messy-variants.csv,POS DEBIT SQ *CHIPOTLE,25,debit,Dining,Fast Food
-messy-variants.csv,SQ *CHIPOTLE #33,25,debit,Dining,Fast Food
-messy-variants.csv,CHICK-FIL-A #7701,25,debit,Dining,Fast Food
-messy-variants.csv,CHICK-FIL-A MIAMI FL,25,debit,Dining,Fast Food
-messy-variants.csv,RECURRING PAYMENT TST* CHICK-FIL-A,25,debit,Dining,Fast Food
-messy-variants.csv,TST* CHICK-FIL-A #7701,25,debit,Dining,Fast Food
-messy-variants.csv,FIVE GUYS #456,25,debit,Dining,Fast Food
-messy-variants.csv,FIVE GUYS SEATTLE WA,25,debit,Dining,Fast Food
-messy-variants.csv,CHECKCARD PAYPAL *FIVE GUYS,25,debit,Dining,Fast Food
-messy-variants.csv,PAYPAL *FIVE GUYS #456,25,debit,Dining,Fast Food
-messy-variants.csv,OLIVE GARDEN #9012,25,debit,Dining,Restaurant
-messy-variants.csv,OLIVE GARDEN CHICAGO IL,25,debit,Dining,Restaurant
-messy-variants.csv,DEBIT CARD PURCHASE SP *OLIVE GARDEN,25,debit,Dining,Restaurant
-messy-variants.csv,SP *OLIVE GARDEN #9012,25,debit,Dining,Restaurant
-messy-variants.csv,DOORDASH #214,25,debit,Dining,Food Delivery
-messy-variants.csv,DOORDASH PHOENIX AZ,25,debit,Dining,Food Delivery
-messy-variants.csv,POS DEBIT SQ *DOORDASH,25,debit,Dining,Food Delivery
-messy-variants.csv,SQ *DOORDASH #214,25,debit,Dining,Food Delivery
-messy-variants.csv,GRUBHUB #6689,25,debit,Dining,Food Delivery
-messy-variants.csv,GRUBHUB BOSTON MA,25,debit,Dining,Food Delivery
-messy-variants.csv,RECURRING PAYMENT TST* GRUBHUB,25,debit,Dining,Food Delivery
-messy-variants.csv,TST* GRUBHUB #6689,25,debit,Dining,Food Delivery
-messy-variants.csv,WHOLE FOODS MARKET #1024,25,debit,Groceries,Specialty Food
-messy-variants.csv,WHOLE FOODS MARKET SAN LUIS OBISPO CA,25,debit,Groceries,Specialty Food
-messy-variants.csv,CHECKCARD PAYPAL *WHOLE FOODS MARKET,25,debit,Groceries,Specialty Food
-messy-variants.csv,PAYPAL *WHOLE FOODS MARKET #1024,25,debit,Groceries,Specialty Food
-messy-variants.csv,TRADER JOES #5578,25,debit,Groceries,Specialty Food
-messy-variants.csv,TRADER JOES AUSTIN TX,25,debit,Groceries,Specialty Food
-messy-variants.csv,DEBIT CARD PURCHASE SP *TRADER JOES,25,debit,Groceries,Specialty Food
-messy-variants.csv,SP *TRADER JOES #5578,25,debit,Groceries,Specialty Food
-messy-variants.csv,KROGER #219,25,debit,Groceries,Supermarket
-messy-variants.csv,KROGER BROOKLYN NY,25,debit,Groceries,Supermarket
-messy-variants.csv,POS DEBIT SQ *KROGER,25,debit,Groceries,Supermarket
-messy-variants.csv,SQ *KROGER #219,25,debit,Groceries,Supermarket
-messy-variants.csv,SAFEWAY #8842,25,debit,Groceries,Supermarket
-messy-variants.csv,SAFEWAY PORTLAND OR,25,debit,Groceries,Supermarket
-messy-variants.csv,RECURRING PAYMENT TST* SAFEWAY,25,debit,Groceries,Supermarket
-messy-variants.csv,TST* SAFEWAY #8842,25,debit,Groceries,Supermarket
-messy-variants.csv,COSTCO WHSE #33,25,debit,Groceries,Warehouse Club
-messy-variants.csv,COSTCO WHSE DENVER CO,25,debit,Groceries,Warehouse Club
-messy-variants.csv,CHECKCARD PAYPAL *COSTCO WHSE,25,debit,Groceries,Warehouse Club
-messy-variants.csv,PAYPAL *COSTCO WHSE #33,25,debit,Groceries,Warehouse Club
-messy-variants.csv,INSTACART #7701,25,debit,Groceries,Grocery Delivery
-messy-variants.csv,INSTACART MIAMI FL,25,debit,Groceries,Grocery Delivery
-messy-variants.csv,DEBIT CARD PURCHASE SP *INSTACART,25,debit,Groceries,Grocery Delivery
-messy-variants.csv,SP *INSTACART #7701,25,debit,Groceries,Grocery Delivery
-messy-variants.csv,TESCO #456,25,debit,Groceries,Supermarket
-messy-variants.csv,TESCO SEATTLE WA,25,debit,Groceries,Supermarket
-messy-variants.csv,POS DEBIT SQ *TESCO,25,debit,Groceries,Supermarket
-messy-variants.csv,SQ *TESCO #456,25,debit,Groceries,Supermarket
-messy-variants.csv,SAINSBURY'S #9012,25,debit,Groceries,Supermarket
-messy-variants.csv,SAINSBURY'S CHICAGO IL,25,debit,Groceries,Supermarket
-messy-variants.csv,RECURRING PAYMENT TST* SAINSBURY'S,25,debit,Groceries,Supermarket
-messy-variants.csv,TST* SAINSBURY'S #9012,25,debit,Groceries,Supermarket
-messy-variants.csv,SHELL OIL #214,25,debit,Transport,Gas Station
-messy-variants.csv,SHELL OIL PHOENIX AZ,25,debit,Transport,Gas Station
-messy-variants.csv,CHECKCARD PAYPAL *SHELL OIL,25,debit,Transport,Gas Station
-messy-variants.csv,PAYPAL *SHELL OIL #214,25,debit,Transport,Gas Station
-messy-variants.csv,CHEVRON #6689,25,debit,Transport,Gas Station
-messy-variants.csv,CHEVRON BOSTON MA,25,debit,Transport,Gas Station
-messy-variants.csv,DEBIT CARD PURCHASE SP *CHEVRON,25,debit,Transport,Gas Station
-messy-variants.csv,SP *CHEVRON #6689,25,debit,Transport,Gas Station
-messy-variants.csv,COSTCO GAS #1024,25,debit,Transport,Gas Station
-messy-variants.csv,COSTCO GAS SAN LUIS OBISPO CA,25,debit,Transport,Gas Station
-messy-variants.csv,POS DEBIT SQ *COSTCO GAS,25,debit,Transport,Gas Station
-messy-variants.csv,SQ *COSTCO GAS #1024,25,debit,Transport,Gas Station
-messy-variants.csv,UBER TRIP #5578,25,debit,Transport,Rideshare
-messy-variants.csv,UBER TRIP AUSTIN TX,25,debit,Transport,Rideshare
-messy-variants.csv,RECURRING PAYMENT TST* UBER TRIP,25,debit,Transport,Rideshare
-messy-variants.csv,TST* UBER TRIP #5578,25,debit,Transport,Rideshare
-messy-variants.csv,LYFT #219,25,debit,Transport,Rideshare
-messy-variants.csv,LYFT BROOKLYN NY,25,debit,Transport,Rideshare
-messy-variants.csv,CHECKCARD PAYPAL *LYFT,25,debit,Transport,Rideshare
-messy-variants.csv,PAYPAL *LYFT #219,25,debit,Transport,Rideshare
-messy-variants.csv,GEICO #8842,25,debit,Transport,Auto Insurance
-messy-variants.csv,GEICO PORTLAND OR,25,debit,Transport,Auto Insurance
-messy-variants.csv,DEBIT CARD PURCHASE SP *GEICO,25,debit,Transport,Auto Insurance
-messy-variants.csv,SP *GEICO #8842,25,debit,Transport,Auto Insurance
-messy-variants.csv,STATE FARM #33,25,debit,Transport,Auto Insurance
-messy-variants.csv,STATE FARM DENVER CO,25,debit,Transport,Auto Insurance
-messy-variants.csv,POS DEBIT SQ *STATE FARM,25,debit,Transport,Auto Insurance
-messy-variants.csv,SQ *STATE FARM #33,25,debit,Transport,Auto Insurance
-messy-variants.csv,TFL TRAVEL #7701,25,debit,Transport,Public Transit
-messy-variants.csv,TFL TRAVEL MIAMI FL,25,debit,Transport,Public Transit
-messy-variants.csv,RECURRING PAYMENT TST* TFL TRAVEL,25,debit,Transport,Public Transit
-messy-variants.csv,TST* TFL TRAVEL #7701,25,debit,Transport,Public Transit
-messy-variants.csv,AMAZON.COM #456,25,debit,Shopping,Online Retail
-messy-variants.csv,AMAZON.COM SEATTLE WA,25,debit,Shopping,Online Retail
-messy-variants.csv,CHECKCARD PAYPAL *AMAZON.COM,25,debit,Shopping,Online Retail
-messy-variants.csv,PAYPAL *AMAZON.COM #456,25,debit,Shopping,Online Retail
-messy-variants.csv,TARGET #9012,25,debit,Shopping,Department Store
-messy-variants.csv,TARGET CHICAGO IL,25,debit,Shopping,Department Store
-messy-variants.csv,DEBIT CARD PURCHASE SP *TARGET,25,debit,Shopping,Department Store
-messy-variants.csv,SP *TARGET #9012,25,debit,Shopping,Department Store
-messy-variants.csv,BEST BUY #214,25,debit,Shopping,Electronics
-messy-variants.csv,BEST BUY PHOENIX AZ,25,debit,Shopping,Electronics
-messy-variants.csv,POS DEBIT SQ *BEST BUY,25,debit,Shopping,Electronics
-messy-variants.csv,SQ *BEST BUY #214,25,debit,Shopping,Electronics
-messy-variants.csv,HOME DEPOT #6689,25,debit,Shopping,Department Store
-messy-variants.csv,HOME DEPOT BOSTON MA,25,debit,Shopping,Department Store
-messy-variants.csv,RECURRING PAYMENT TST* HOME DEPOT,25,debit,Shopping,Department Store
-messy-variants.csv,TST* HOME DEPOT #6689,25,debit,Shopping,Department Store
-messy-variants.csv,MACYS #1024,25,debit,Shopping,Department Store
-messy-variants.csv,MACYS SAN LUIS OBISPO CA,25,debit,Shopping,Department Store
-messy-variants.csv,CHECKCARD PAYPAL *MACYS,25,debit,Shopping,Department Store
-messy-variants.csv,PAYPAL *MACYS #1024,25,debit,Shopping,Department Store
-messy-variants.csv,TJ MAXX #5578,25,debit,Shopping,Clothing
-messy-variants.csv,TJ MAXX AUSTIN TX,25,debit,Shopping,Clothing
-messy-variants.csv,DEBIT CARD PURCHASE SP *TJ MAXX,25,debit,Shopping,Clothing
-messy-variants.csv,SP *TJ MAXX #5578,25,debit,Shopping,Clothing
-messy-variants.csv,NIKE #219,25,debit,Shopping,Clothing
-messy-variants.csv,NIKE BROOKLYN NY,25,debit,Shopping,Clothing
-messy-variants.csv,POS DEBIT SQ *NIKE,25,debit,Shopping,Clothing
-messy-variants.csv,SQ *NIKE #219,25,debit,Shopping,Clothing
-messy-variants.csv,IKEA #8842,25,debit,Shopping,Department Store
-messy-variants.csv,IKEA PORTLAND OR,25,debit,Shopping,Department Store
-messy-variants.csv,RECURRING PAYMENT TST* IKEA,25,debit,Shopping,Department Store
-messy-variants.csv,TST* IKEA #8842,25,debit,Shopping,Department Store
-messy-variants.csv,SEPHORA #33,25,debit,Shopping,Department Store
-messy-variants.csv,SEPHORA DENVER CO,25,debit,Shopping,Department Store
-messy-variants.csv,CHECKCARD PAYPAL *SEPHORA,25,debit,Shopping,Department Store
-messy-variants.csv,PAYPAL *SEPHORA #33,25,debit,Shopping,Department Store
-messy-variants.csv,NETFLIX #7701,25,debit,Subscriptions,Streaming
-messy-variants.csv,NETFLIX MIAMI FL,25,debit,Subscriptions,Streaming
-messy-variants.csv,DEBIT CARD PURCHASE SP *NETFLIX,25,debit,Subscriptions,Streaming
-messy-variants.csv,SP *NETFLIX #7701,25,debit,Subscriptions,Streaming
-messy-variants.csv,SPOTIFY #456,25,debit,Subscriptions,Streaming
-messy-variants.csv,SPOTIFY SEATTLE WA,25,debit,Subscriptions,Streaming
-messy-variants.csv,POS DEBIT SQ *SPOTIFY,25,debit,Subscriptions,Streaming
-messy-variants.csv,SQ *SPOTIFY #456,25,debit,Subscriptions,Streaming
-messy-variants.csv,HULU #9012,25,debit,Subscriptions,Streaming
-messy-variants.csv,HULU CHICAGO IL,25,debit,Subscriptions,Streaming
-messy-variants.csv,RECURRING PAYMENT TST* HULU,25,debit,Subscriptions,Streaming
-messy-variants.csv,TST* HULU #9012,25,debit,Subscriptions,Streaming
-messy-variants.csv,DISNEY PLUS #214,25,debit,Subscriptions,Streaming
-messy-variants.csv,DISNEY PLUS PHOENIX AZ,25,debit,Subscriptions,Streaming
-messy-variants.csv,CHECKCARD PAYPAL *DISNEY PLUS,25,debit,Subscriptions,Streaming
-messy-variants.csv,PAYPAL *DISNEY PLUS #214,25,debit,Subscriptions,Streaming
-messy-variants.csv,ADOBE #6689,25,debit,Subscriptions,Software/SaaS
-messy-variants.csv,ADOBE BOSTON MA,25,debit,Subscriptions,Software/SaaS
-messy-variants.csv,DEBIT CARD PURCHASE SP *ADOBE,25,debit,Subscriptions,Software/SaaS
-messy-variants.csv,SP *ADOBE #6689,25,debit,Subscriptions,Software/SaaS
-messy-variants.csv,GITHUB #1024,25,debit,Subscriptions,Software/SaaS
-messy-variants.csv,GITHUB SAN LUIS OBISPO CA,25,debit,Subscriptions,Software/SaaS
-messy-variants.csv,POS DEBIT SQ *GITHUB,25,debit,Subscriptions,Software/SaaS
-messy-variants.csv,SQ *GITHUB #1024,25,debit,Subscriptions,Software/SaaS
-messy-variants.csv,DROPBOX #5578,25,debit,Subscriptions,Cloud Storage
-messy-variants.csv,DROPBOX AUSTIN TX,25,debit,Subscriptions,Cloud Storage
-messy-variants.csv,RECURRING PAYMENT TST* DROPBOX,25,debit,Subscriptions,Cloud Storage
-messy-variants.csv,TST* DROPBOX #5578,25,debit,Subscriptions,Cloud Storage
-messy-variants.csv,NYTIMES #219,25,debit,Subscriptions,News/Media
-messy-variants.csv,NYTIMES BROOKLYN NY,25,debit,Subscriptions,News/Media
-messy-variants.csv,CHECKCARD PAYPAL *NYTIMES,25,debit,Subscriptions,News/Media
-messy-variants.csv,PAYPAL *NYTIMES #219,25,debit,Subscriptions,News/Media
-messy-variants.csv,AMC THEATRES #8842,25,debit,Entertainment,Movies/Theater
-messy-variants.csv,AMC THEATRES PORTLAND OR,25,debit,Entertainment,Movies/Theater
-messy-variants.csv,DEBIT CARD PURCHASE SP *AMC THEATRES,25,debit,Entertainment,Movies/Theater
-messy-variants.csv,SP *AMC THEATRES #8842,25,debit,Entertainment,Movies/Theater
-messy-variants.csv,TICKETMASTER #33,25,debit,Entertainment,Concert/Event
-messy-variants.csv,TICKETMASTER DENVER CO,25,debit,Entertainment,Concert/Event
-messy-variants.csv,POS DEBIT SQ *TICKETMASTER,25,debit,Entertainment,Concert/Event
-messy-variants.csv,SQ *TICKETMASTER #33,25,debit,Entertainment,Concert/Event
-messy-variants.csv,STEAM PURCHASE #7701,25,debit,Entertainment,Gaming
-messy-variants.csv,STEAM PURCHASE MIAMI FL,25,debit,Entertainment,Gaming
-messy-variants.csv,RECURRING PAYMENT TST* STEAM PURCHASE,25,debit,Entertainment,Gaming
-messy-variants.csv,TST* STEAM PURCHASE #7701,25,debit,Entertainment,Gaming
-messy-variants.csv,PLAYSTATION NETWORK #456,25,debit,Entertainment,Gaming
-messy-variants.csv,PLAYSTATION NETWORK SEATTLE WA,25,debit,Entertainment,Gaming
-messy-variants.csv,CHECKCARD PAYPAL *PLAYSTATION NETWORK,25,debit,Entertainment,Gaming
-messy-variants.csv,PAYPAL *PLAYSTATION NETWORK #456,25,debit,Entertainment,Gaming
-messy-variants.csv,TOTAL WINE #9012,25,debit,Entertainment,Nightlife
-messy-variants.csv,TOTAL WINE CHICAGO IL,25,debit,Entertainment,Nightlife
-messy-variants.csv,DEBIT CARD PURCHASE SP *TOTAL WINE,25,debit,Entertainment,Nightlife
-messy-variants.csv,SP *TOTAL WINE #9012,25,debit,Entertainment,Nightlife
-messy-variants.csv,CVS PHARMACY #214,25,debit,Health,Pharmacy
-messy-variants.csv,CVS PHARMACY PHOENIX AZ,25,debit,Health,Pharmacy
-messy-variants.csv,POS DEBIT SQ *CVS PHARMACY,25,debit,Health,Pharmacy
-messy-variants.csv,SQ *CVS PHARMACY #214,25,debit,Health,Pharmacy
-messy-variants.csv,WALGREENS #6689,25,debit,Health,Pharmacy
-messy-variants.csv,WALGREENS BOSTON MA,25,debit,Health,Pharmacy
-messy-variants.csv,RECURRING PAYMENT TST* WALGREENS,25,debit,Health,Pharmacy
-messy-variants.csv,TST* WALGREENS #6689,25,debit,Health,Pharmacy
-messy-variants.csv,PLANET FITNESS #1024,25,debit,Health,Gym
-messy-variants.csv,PLANET FITNESS SAN LUIS OBISPO CA,25,debit,Health,Gym
-messy-variants.csv,CHECKCARD PAYPAL *PLANET FITNESS,25,debit,Health,Gym
-messy-variants.csv,PAYPAL *PLANET FITNESS #1024,25,debit,Health,Gym
-messy-variants.csv,EQUINOX #5578,25,debit,Health,Gym
-messy-variants.csv,EQUINOX AUSTIN TX,25,debit,Health,Gym
-messy-variants.csv,DEBIT CARD PURCHASE SP *EQUINOX,25,debit,Health,Gym
-messy-variants.csv,SP *EQUINOX #5578,25,debit,Health,Gym
-messy-variants.csv,ASPEN DENTAL #219,25,debit,Health,Dentist
-messy-variants.csv,ASPEN DENTAL BROOKLYN NY,25,debit,Health,Dentist
-messy-variants.csv,POS DEBIT SQ *ASPEN DENTAL,25,debit,Health,Dentist
-messy-variants.csv,SQ *ASPEN DENTAL #219,25,debit,Health,Dentist
-messy-variants.csv,WARBY PARKER #8842,25,debit,Health,Vision
-messy-variants.csv,WARBY PARKER PORTLAND OR,25,debit,Health,Vision
-messy-variants.csv,RECURRING PAYMENT TST* WARBY PARKER,25,debit,Health,Vision
-messy-variants.csv,TST* WARBY PARKER #8842,25,debit,Health,Vision
-messy-variants.csv,DELTA AIR LINES #33,25,debit,Travel,Flight
-messy-variants.csv,DELTA AIR LINES DENVER CO,25,debit,Travel,Flight
-messy-variants.csv,CHECKCARD PAYPAL *DELTA AIR LINES,25,debit,Travel,Flight
-messy-variants.csv,PAYPAL *DELTA AIR LINES #33,25,debit,Travel,Flight
-messy-variants.csv,UNITED AIRLINES #7701,25,debit,Travel,Flight
-messy-variants.csv,UNITED AIRLINES MIAMI FL,25,debit,Travel,Flight
-messy-variants.csv,DEBIT CARD PURCHASE SP *UNITED AIRLINES,25,debit,Travel,Flight
-messy-variants.csv,SP *UNITED AIRLINES #7701,25,debit,Travel,Flight
-messy-variants.csv,MARRIOTT #456,25,debit,Travel,Hotel
-messy-variants.csv,MARRIOTT SEATTLE WA,25,debit,Travel,Hotel
-messy-variants.csv,POS DEBIT SQ *MARRIOTT,25,debit,Travel,Hotel
-messy-variants.csv,SQ *MARRIOTT #456,25,debit,Travel,Hotel
-messy-variants.csv,HILTON #9012,25,debit,Travel,Hotel
-messy-variants.csv,HILTON CHICAGO IL,25,debit,Travel,Hotel
-messy-variants.csv,RECURRING PAYMENT TST* HILTON,25,debit,Travel,Hotel
-messy-variants.csv,TST* HILTON #9012,25,debit,Travel,Hotel
-messy-variants.csv,AIRBNB #214,25,debit,Travel,Vacation Rental
-messy-variants.csv,AIRBNB PHOENIX AZ,25,debit,Travel,Vacation Rental
-messy-variants.csv,CHECKCARD PAYPAL *AIRBNB,25,debit,Travel,Vacation Rental
-messy-variants.csv,PAYPAL *AIRBNB #214,25,debit,Travel,Vacation Rental
-messy-variants.csv,HERTZ RENT A CAR #6689,25,debit,Travel,Car Rental
-messy-variants.csv,HERTZ RENT A CAR BOSTON MA,25,debit,Travel,Car Rental
-messy-variants.csv,DEBIT CARD PURCHASE SP *HERTZ RENT A CAR,25,debit,Travel,Car Rental
-messy-variants.csv,SP *HERTZ RENT A CAR #6689,25,debit,Travel,Car Rental
-messy-variants.csv,PG&E ELECTRIC #1024,25,debit,Housing,Utilities
-messy-variants.csv,PG&E ELECTRIC SAN LUIS OBISPO CA,25,debit,Housing,Utilities
-messy-variants.csv,POS DEBIT SQ *PG&E ELECTRIC,25,debit,Housing,Utilities
-messy-variants.csv,SQ *PG&E ELECTRIC #1024,25,debit,Housing,Utilities
-messy-variants.csv,COMCAST XFINITY #5578,25,debit,Housing,Internet/Cable
-messy-variants.csv,COMCAST XFINITY AUSTIN TX,25,debit,Housing,Internet/Cable
-messy-variants.csv,RECURRING PAYMENT TST* COMCAST XFINITY,25,debit,Housing,Internet/Cable
-messy-variants.csv,TST* COMCAST XFINITY #5578,25,debit,Housing,Internet/Cable
-messy-variants.csv,AT&T WIRELESS #219,25,debit,Housing,Phone Bill
-messy-variants.csv,AT&T WIRELESS BROOKLYN NY,25,debit,Housing,Phone Bill
-messy-variants.csv,CHECKCARD PAYPAL *AT&T WIRELESS,25,debit,Housing,Phone Bill
-messy-variants.csv,PAYPAL *AT&T WIRELESS #219,25,debit,Housing,Phone Bill
-messy-variants.csv,VERIZON WIRELESS #8842,25,debit,Housing,Phone Bill
-messy-variants.csv,VERIZON WIRELESS PORTLAND OR,25,debit,Housing,Phone Bill
-messy-variants.csv,DEBIT CARD PURCHASE SP *VERIZON WIRELESS,25,debit,Housing,Phone Bill
-messy-variants.csv,SP *VERIZON WIRELESS #8842,25,debit,Housing,Phone Bill
-messy-variants.csv,BRIGHT HORIZONS #33,25,debit,Childcare,Daycare
-messy-variants.csv,BRIGHT HORIZONS DENVER CO,25,debit,Childcare,Daycare
-messy-variants.csv,POS DEBIT SQ *BRIGHT HORIZONS,25,debit,Childcare,Daycare
-messy-variants.csv,SQ *BRIGHT HORIZONS #33,25,debit,Childcare,Daycare
-messy-variants.csv,KINDERCARE #7701,25,debit,Childcare,Daycare
-messy-variants.csv,KINDERCARE MIAMI FL,25,debit,Childcare,Daycare
-messy-variants.csv,RECURRING PAYMENT TST* KINDERCARE,25,debit,Childcare,Daycare
-messy-variants.csv,TST* KINDERCARE #7701,25,debit,Childcare,Daycare
-messy-variants.csv,MONTESSORI ACADEMY #456,25,debit,Childcare,Preschool
-messy-variants.csv,MONTESSORI ACADEMY SEATTLE WA,25,debit,Childcare,Preschool
-messy-variants.csv,CHECKCARD PAYPAL *MONTESSORI ACADEMY,25,debit,Childcare,Preschool
-messy-variants.csv,PAYPAL *MONTESSORI ACADEMY #456,25,debit,Childcare,Preschool
-messy-variants.csv,NAVIENT STUDENT LOAN #9012,25,debit,Education,Student Loan
-messy-variants.csv,NAVIENT STUDENT LOAN CHICAGO IL,25,debit,Education,Student Loan
-messy-variants.csv,DEBIT CARD PURCHASE SP *NAVIENT STUDENT LOAN,25,debit,Education,Student Loan
-messy-variants.csv,SP *NAVIENT STUDENT LOAN #9012,25,debit,Education,Student Loan
-messy-variants.csv,KUMON MATH CENTER #214,25,debit,Education,Tutoring
-messy-variants.csv,KUMON MATH CENTER PHOENIX AZ,25,debit,Education,Tutoring
-messy-variants.csv,POS DEBIT SQ *KUMON MATH CENTER,25,debit,Education,Tutoring
-messy-variants.csv,SQ *KUMON MATH CENTER #214,25,debit,Education,Tutoring
-messy-variants.csv,COURSERA #6689,25,debit,Education,Online Course
-messy-variants.csv,COURSERA BOSTON MA,25,debit,Education,Online Course
-messy-variants.csv,RECURRING PAYMENT TST* COURSERA,25,debit,Education,Online Course
-messy-variants.csv,TST* COURSERA #6689,25,debit,Education,Online Course
-messy-variants.csv,VENMO #1024,25,debit,Transfer,Transfer
-messy-variants.csv,VENMO SAN LUIS OBISPO CA,25,debit,Transfer,Transfer
-messy-variants.csv,CHECKCARD PAYPAL *VENMO,25,debit,Transfer,Transfer
-messy-variants.csv,PAYPAL *VENMO #1024,25,debit,Transfer,Transfer
-messy-variants.csv,ZELLE #5578,25,debit,Transfer,Transfer
-messy-variants.csv,ZELLE AUSTIN TX,25,debit,Transfer,Transfer
-messy-variants.csv,DEBIT CARD PURCHASE SP *ZELLE,25,debit,Transfer,Transfer
-messy-variants.csv,SP *ZELLE #5578,25,debit,Transfer,Transfer
-messy-variants.csv,DIRECT DEPOSIT PAYROLL #219,25,credit,Income,Payroll
-messy-variants.csv,DIRECT DEPOSIT PAYROLL BROOKLYN NY,25,credit,Income,Payroll
-messy-variants.csv,POS DEBIT SQ *DIRECT DEPOSIT PAYROLL,25,credit,Income,Payroll
-messy-variants.csv,SQ *DIRECT DEPOSIT PAYROLL #219,25,credit,Income,Payroll
-messy-variants.csv,ADP PAYROLL #8842,25,credit,Income,Payroll
-messy-variants.csv,ADP PAYROLL PORTLAND OR,25,credit,Income,Payroll
-messy-variants.csv,RECURRING PAYMENT TST* ADP PAYROLL,25,credit,Income,Payroll
-messy-variants.csv,TST* ADP PAYROLL #8842,25,credit,Income,Payroll
-messy-variants.csv,INTEREST PAYMENT #33,25,credit,Income,Interest
-messy-variants.csv,INTEREST PAYMENT DENVER CO,25,credit,Income,Interest
-messy-variants.csv,CHECKCARD PAYPAL *INTEREST PAYMENT,25,credit,Income,Interest
-messy-variants.csv,PAYPAL *INTEREST PAYMENT #33,25,credit,Income,Interest
-messy-variants.csv,OAKWOOD APTS RENT #7701,25,debit,Housing,Rent
-messy-variants.csv,OAKWOOD APTS RENT MIAMI FL,25,debit,Housing,Rent
-messy-variants.csv,DEBIT CARD PURCHASE SP *OAKWOOD APTS RENT,25,debit,Housing,Rent
-messy-variants.csv,SP *OAKWOOD APTS RENT #7701,25,debit,Housing,Rent
-messy-variants.csv,GOLDEN GYM FITNESS #456,25,debit,Health,Gym
-messy-variants.csv,GOLDEN GYM FITNESS SEATTLE WA,25,debit,Health,Gym
-messy-variants.csv,POS DEBIT SQ *GOLDEN GYM FITNESS,25,debit,Health,Gym
-messy-variants.csv,SQ *GOLDEN GYM FITNESS #456,25,debit,Health,Gym
-messy-variants.csv,RIVERVIEW MEDICAL CLINIC #9012,25,debit,Health,Doctor/Medical
-messy-variants.csv,RIVERVIEW MEDICAL CLINIC CHICAGO IL,25,debit,Health,Doctor/Medical
-messy-variants.csv,RECURRING PAYMENT TST* RIVERVIEW MEDICAL CLINIC,25,debit,Health,Doctor/Medical
-messy-variants.csv,TST* RIVERVIEW MEDICAL CLINIC #9012,25,debit,Health,Doctor/Medical
-messy-variants.csv,HOPE CHARITY DONATION #214,25,debit,Other,Donation
-messy-variants.csv,HOPE CHARITY DONATION PHOENIX AZ,25,debit,Other,Donation
-messy-variants.csv,CHECKCARD PAYPAL *HOPE CHARITY DONATION,25,debit,Other,Donation
-messy-variants.csv,PAYPAL *HOPE CHARITY DONATION #214,25,debit,Other,Donation
-messy-variants.csv,MAPLEWOOD PROPERTY MANAGEMENT #6689,25,debit,Housing,Rent
-messy-variants.csv,MAPLEWOOD PROPERTY MANAGEMENT BOSTON MA,25,debit,Housing,Rent
-messy-variants.csv,DEBIT CARD PURCHASE SP *MAPLEWOOD PROPERTY MANAGEMENT,25,debit,Housing,Rent
-messy-variants.csv,SP *MAPLEWOOD PROPERTY MANAGEMENT #6689,25,debit,Housing,Rent
+sourceFile,description,amount,type,category,subcategory,bankCategory
+messy-variants.csv,STARBUCKS #1024,25,debit,Dining,Coffee Shop,
+messy-variants.csv,STARBUCKS SAN LUIS OBISPO CA,25,debit,Dining,Coffee Shop,
+messy-variants.csv,POS DEBIT SQ *STARBUCKS,25,debit,Dining,Coffee Shop,
+messy-variants.csv,SQ *STARBUCKS #1024,25,debit,Dining,Coffee Shop,
+messy-variants.csv,BLUE BOTTLE COFFEE #5578,25,debit,Dining,Coffee Shop,
+messy-variants.csv,BLUE BOTTLE COFFEE AUSTIN TX,25,debit,Dining,Coffee Shop,
+messy-variants.csv,RECURRING PAYMENT TST* BLUE BOTTLE COFFEE,25,debit,Dining,Coffee Shop,
+messy-variants.csv,TST* BLUE BOTTLE COFFEE #5578,25,debit,Dining,Coffee Shop,
+messy-variants.csv,DUNKIN #219,25,debit,Dining,Coffee Shop,
+messy-variants.csv,DUNKIN BROOKLYN NY,25,debit,Dining,Coffee Shop,
+messy-variants.csv,CHECKCARD PAYPAL *DUNKIN,25,debit,Dining,Coffee Shop,
+messy-variants.csv,PAYPAL *DUNKIN #219,25,debit,Dining,Coffee Shop,
+messy-variants.csv,MCDONALDS #8842,25,debit,Dining,Fast Food,
+messy-variants.csv,MCDONALDS PORTLAND OR,25,debit,Dining,Fast Food,
+messy-variants.csv,DEBIT CARD PURCHASE SP *MCDONALDS,25,debit,Dining,Fast Food,
+messy-variants.csv,SP *MCDONALDS #8842,25,debit,Dining,Fast Food,
+messy-variants.csv,CHIPOTLE #33,25,debit,Dining,Fast Food,
+messy-variants.csv,CHIPOTLE DENVER CO,25,debit,Dining,Fast Food,
+messy-variants.csv,POS DEBIT SQ *CHIPOTLE,25,debit,Dining,Fast Food,
+messy-variants.csv,SQ *CHIPOTLE #33,25,debit,Dining,Fast Food,
+messy-variants.csv,CHICK-FIL-A #7701,25,debit,Dining,Fast Food,
+messy-variants.csv,CHICK-FIL-A MIAMI FL,25,debit,Dining,Fast Food,
+messy-variants.csv,RECURRING PAYMENT TST* CHICK-FIL-A,25,debit,Dining,Fast Food,
+messy-variants.csv,TST* CHICK-FIL-A #7701,25,debit,Dining,Fast Food,
+messy-variants.csv,FIVE GUYS #456,25,debit,Dining,Fast Food,
+messy-variants.csv,FIVE GUYS SEATTLE WA,25,debit,Dining,Fast Food,
+messy-variants.csv,CHECKCARD PAYPAL *FIVE GUYS,25,debit,Dining,Fast Food,
+messy-variants.csv,PAYPAL *FIVE GUYS #456,25,debit,Dining,Fast Food,
+messy-variants.csv,OLIVE GARDEN #9012,25,debit,Dining,Restaurant,
+messy-variants.csv,OLIVE GARDEN CHICAGO IL,25,debit,Dining,Restaurant,
+messy-variants.csv,DEBIT CARD PURCHASE SP *OLIVE GARDEN,25,debit,Dining,Restaurant,
+messy-variants.csv,SP *OLIVE GARDEN #9012,25,debit,Dining,Restaurant,
+messy-variants.csv,DOORDASH #214,25,debit,Dining,Food Delivery,
+messy-variants.csv,DOORDASH PHOENIX AZ,25,debit,Dining,Food Delivery,
+messy-variants.csv,POS DEBIT SQ *DOORDASH,25,debit,Dining,Food Delivery,
+messy-variants.csv,SQ *DOORDASH #214,25,debit,Dining,Food Delivery,
+messy-variants.csv,GRUBHUB #6689,25,debit,Dining,Food Delivery,
+messy-variants.csv,GRUBHUB BOSTON MA,25,debit,Dining,Food Delivery,
+messy-variants.csv,RECURRING PAYMENT TST* GRUBHUB,25,debit,Dining,Food Delivery,
+messy-variants.csv,TST* GRUBHUB #6689,25,debit,Dining,Food Delivery,
+messy-variants.csv,WHOLE FOODS MARKET #1024,25,debit,Groceries,Specialty Food,
+messy-variants.csv,WHOLE FOODS MARKET SAN LUIS OBISPO CA,25,debit,Groceries,Specialty Food,
+messy-variants.csv,CHECKCARD PAYPAL *WHOLE FOODS MARKET,25,debit,Groceries,Specialty Food,
+messy-variants.csv,PAYPAL *WHOLE FOODS MARKET #1024,25,debit,Groceries,Specialty Food,
+messy-variants.csv,TRADER JOES #5578,25,debit,Groceries,Specialty Food,
+messy-variants.csv,TRADER JOES AUSTIN TX,25,debit,Groceries,Specialty Food,
+messy-variants.csv,DEBIT CARD PURCHASE SP *TRADER JOES,25,debit,Groceries,Specialty Food,
+messy-variants.csv,SP *TRADER JOES #5578,25,debit,Groceries,Specialty Food,
+messy-variants.csv,KROGER #219,25,debit,Groceries,Supermarket,
+messy-variants.csv,KROGER BROOKLYN NY,25,debit,Groceries,Supermarket,
+messy-variants.csv,POS DEBIT SQ *KROGER,25,debit,Groceries,Supermarket,
+messy-variants.csv,SQ *KROGER #219,25,debit,Groceries,Supermarket,
+messy-variants.csv,SAFEWAY #8842,25,debit,Groceries,Supermarket,
+messy-variants.csv,SAFEWAY PORTLAND OR,25,debit,Groceries,Supermarket,
+messy-variants.csv,RECURRING PAYMENT TST* SAFEWAY,25,debit,Groceries,Supermarket,
+messy-variants.csv,TST* SAFEWAY #8842,25,debit,Groceries,Supermarket,
+messy-variants.csv,COSTCO WHSE #33,25,debit,Groceries,Warehouse Club,
+messy-variants.csv,COSTCO WHSE DENVER CO,25,debit,Groceries,Warehouse Club,
+messy-variants.csv,CHECKCARD PAYPAL *COSTCO WHSE,25,debit,Groceries,Warehouse Club,
+messy-variants.csv,PAYPAL *COSTCO WHSE #33,25,debit,Groceries,Warehouse Club,
+messy-variants.csv,INSTACART #7701,25,debit,Groceries,Grocery Delivery,
+messy-variants.csv,INSTACART MIAMI FL,25,debit,Groceries,Grocery Delivery,
+messy-variants.csv,DEBIT CARD PURCHASE SP *INSTACART,25,debit,Groceries,Grocery Delivery,
+messy-variants.csv,SP *INSTACART #7701,25,debit,Groceries,Grocery Delivery,
+messy-variants.csv,TESCO #456,25,debit,Groceries,Supermarket,
+messy-variants.csv,TESCO SEATTLE WA,25,debit,Groceries,Supermarket,
+messy-variants.csv,POS DEBIT SQ *TESCO,25,debit,Groceries,Supermarket,
+messy-variants.csv,SQ *TESCO #456,25,debit,Groceries,Supermarket,
+messy-variants.csv,SAINSBURY'S #9012,25,debit,Groceries,Supermarket,
+messy-variants.csv,SAINSBURY'S CHICAGO IL,25,debit,Groceries,Supermarket,
+messy-variants.csv,RECURRING PAYMENT TST* SAINSBURY'S,25,debit,Groceries,Supermarket,
+messy-variants.csv,TST* SAINSBURY'S #9012,25,debit,Groceries,Supermarket,
+messy-variants.csv,SHELL OIL #214,25,debit,Transport,Gas Station,
+messy-variants.csv,SHELL OIL PHOENIX AZ,25,debit,Transport,Gas Station,
+messy-variants.csv,CHECKCARD PAYPAL *SHELL OIL,25,debit,Transport,Gas Station,
+messy-variants.csv,PAYPAL *SHELL OIL #214,25,debit,Transport,Gas Station,
+messy-variants.csv,CHEVRON #6689,25,debit,Transport,Gas Station,
+messy-variants.csv,CHEVRON BOSTON MA,25,debit,Transport,Gas Station,
+messy-variants.csv,DEBIT CARD PURCHASE SP *CHEVRON,25,debit,Transport,Gas Station,
+messy-variants.csv,SP *CHEVRON #6689,25,debit,Transport,Gas Station,
+messy-variants.csv,COSTCO GAS #1024,25,debit,Transport,Gas Station,
+messy-variants.csv,COSTCO GAS SAN LUIS OBISPO CA,25,debit,Transport,Gas Station,
+messy-variants.csv,POS DEBIT SQ *COSTCO GAS,25,debit,Transport,Gas Station,
+messy-variants.csv,SQ *COSTCO GAS #1024,25,debit,Transport,Gas Station,
+messy-variants.csv,UBER TRIP #5578,25,debit,Transport,Rideshare,
+messy-variants.csv,UBER TRIP AUSTIN TX,25,debit,Transport,Rideshare,
+messy-variants.csv,RECURRING PAYMENT TST* UBER TRIP,25,debit,Transport,Rideshare,
+messy-variants.csv,TST* UBER TRIP #5578,25,debit,Transport,Rideshare,
+messy-variants.csv,LYFT #219,25,debit,Transport,Rideshare,
+messy-variants.csv,LYFT BROOKLYN NY,25,debit,Transport,Rideshare,
+messy-variants.csv,CHECKCARD PAYPAL *LYFT,25,debit,Transport,Rideshare,
+messy-variants.csv,PAYPAL *LYFT #219,25,debit,Transport,Rideshare,
+messy-variants.csv,GEICO #8842,25,debit,Transport,Auto Insurance,
+messy-variants.csv,GEICO PORTLAND OR,25,debit,Transport,Auto Insurance,
+messy-variants.csv,DEBIT CARD PURCHASE SP *GEICO,25,debit,Transport,Auto Insurance,
+messy-variants.csv,SP *GEICO #8842,25,debit,Transport,Auto Insurance,
+messy-variants.csv,STATE FARM #33,25,debit,Transport,Auto Insurance,
+messy-variants.csv,STATE FARM DENVER CO,25,debit,Transport,Auto Insurance,
+messy-variants.csv,POS DEBIT SQ *STATE FARM,25,debit,Transport,Auto Insurance,
+messy-variants.csv,SQ *STATE FARM #33,25,debit,Transport,Auto Insurance,
+messy-variants.csv,TFL TRAVEL #7701,25,debit,Transport,Public Transit,
+messy-variants.csv,TFL TRAVEL MIAMI FL,25,debit,Transport,Public Transit,
+messy-variants.csv,RECURRING PAYMENT TST* TFL TRAVEL,25,debit,Transport,Public Transit,
+messy-variants.csv,TST* TFL TRAVEL #7701,25,debit,Transport,Public Transit,
+messy-variants.csv,AMAZON.COM #456,25,debit,Shopping,Online Retail,
+messy-variants.csv,AMAZON.COM SEATTLE WA,25,debit,Shopping,Online Retail,
+messy-variants.csv,CHECKCARD PAYPAL *AMAZON.COM,25,debit,Shopping,Online Retail,
+messy-variants.csv,PAYPAL *AMAZON.COM #456,25,debit,Shopping,Online Retail,
+messy-variants.csv,TARGET #9012,25,debit,Shopping,Department Store,
+messy-variants.csv,TARGET CHICAGO IL,25,debit,Shopping,Department Store,
+messy-variants.csv,DEBIT CARD PURCHASE SP *TARGET,25,debit,Shopping,Department Store,
+messy-variants.csv,SP *TARGET #9012,25,debit,Shopping,Department Store,
+messy-variants.csv,BEST BUY #214,25,debit,Shopping,Electronics,
+messy-variants.csv,BEST BUY PHOENIX AZ,25,debit,Shopping,Electronics,
+messy-variants.csv,POS DEBIT SQ *BEST BUY,25,debit,Shopping,Electronics,
+messy-variants.csv,SQ *BEST BUY #214,25,debit,Shopping,Electronics,
+messy-variants.csv,HOME DEPOT #6689,25,debit,Shopping,Department Store,
+messy-variants.csv,HOME DEPOT BOSTON MA,25,debit,Shopping,Department Store,
+messy-variants.csv,RECURRING PAYMENT TST* HOME DEPOT,25,debit,Shopping,Department Store,
+messy-variants.csv,TST* HOME DEPOT #6689,25,debit,Shopping,Department Store,
+messy-variants.csv,MACYS #1024,25,debit,Shopping,Department Store,
+messy-variants.csv,MACYS SAN LUIS OBISPO CA,25,debit,Shopping,Department Store,
+messy-variants.csv,CHECKCARD PAYPAL *MACYS,25,debit,Shopping,Department Store,
+messy-variants.csv,PAYPAL *MACYS #1024,25,debit,Shopping,Department Store,
+messy-variants.csv,TJ MAXX #5578,25,debit,Shopping,Clothing,
+messy-variants.csv,TJ MAXX AUSTIN TX,25,debit,Shopping,Clothing,
+messy-variants.csv,DEBIT CARD PURCHASE SP *TJ MAXX,25,debit,Shopping,Clothing,
+messy-variants.csv,SP *TJ MAXX #5578,25,debit,Shopping,Clothing,
+messy-variants.csv,NIKE #219,25,debit,Shopping,Clothing,
+messy-variants.csv,NIKE BROOKLYN NY,25,debit,Shopping,Clothing,
+messy-variants.csv,POS DEBIT SQ *NIKE,25,debit,Shopping,Clothing,
+messy-variants.csv,SQ *NIKE #219,25,debit,Shopping,Clothing,
+messy-variants.csv,IKEA #8842,25,debit,Shopping,Department Store,
+messy-variants.csv,IKEA PORTLAND OR,25,debit,Shopping,Department Store,
+messy-variants.csv,RECURRING PAYMENT TST* IKEA,25,debit,Shopping,Department Store,
+messy-variants.csv,TST* IKEA #8842,25,debit,Shopping,Department Store,
+messy-variants.csv,SEPHORA #33,25,debit,Shopping,Department Store,
+messy-variants.csv,SEPHORA DENVER CO,25,debit,Shopping,Department Store,
+messy-variants.csv,CHECKCARD PAYPAL *SEPHORA,25,debit,Shopping,Department Store,
+messy-variants.csv,PAYPAL *SEPHORA #33,25,debit,Shopping,Department Store,
+messy-variants.csv,NETFLIX #7701,25,debit,Subscriptions,Streaming,
+messy-variants.csv,NETFLIX MIAMI FL,25,debit,Subscriptions,Streaming,
+messy-variants.csv,DEBIT CARD PURCHASE SP *NETFLIX,25,debit,Subscriptions,Streaming,
+messy-variants.csv,SP *NETFLIX #7701,25,debit,Subscriptions,Streaming,
+messy-variants.csv,SPOTIFY #456,25,debit,Subscriptions,Streaming,
+messy-variants.csv,SPOTIFY SEATTLE WA,25,debit,Subscriptions,Streaming,
+messy-variants.csv,POS DEBIT SQ *SPOTIFY,25,debit,Subscriptions,Streaming,
+messy-variants.csv,SQ *SPOTIFY #456,25,debit,Subscriptions,Streaming,
+messy-variants.csv,HULU #9012,25,debit,Subscriptions,Streaming,
+messy-variants.csv,HULU CHICAGO IL,25,debit,Subscriptions,Streaming,
+messy-variants.csv,RECURRING PAYMENT TST* HULU,25,debit,Subscriptions,Streaming,
+messy-variants.csv,TST* HULU #9012,25,debit,Subscriptions,Streaming,
+messy-variants.csv,DISNEY PLUS #214,25,debit,Subscriptions,Streaming,
+messy-variants.csv,DISNEY PLUS PHOENIX AZ,25,debit,Subscriptions,Streaming,
+messy-variants.csv,CHECKCARD PAYPAL *DISNEY PLUS,25,debit,Subscriptions,Streaming,
+messy-variants.csv,PAYPAL *DISNEY PLUS #214,25,debit,Subscriptions,Streaming,
+messy-variants.csv,ADOBE #6689,25,debit,Subscriptions,Software/SaaS,
+messy-variants.csv,ADOBE BOSTON MA,25,debit,Subscriptions,Software/SaaS,
+messy-variants.csv,DEBIT CARD PURCHASE SP *ADOBE,25,debit,Subscriptions,Software/SaaS,
+messy-variants.csv,SP *ADOBE #6689,25,debit,Subscriptions,Software/SaaS,
+messy-variants.csv,GITHUB #1024,25,debit,Subscriptions,Software/SaaS,
+messy-variants.csv,GITHUB SAN LUIS OBISPO CA,25,debit,Subscriptions,Software/SaaS,
+messy-variants.csv,POS DEBIT SQ *GITHUB,25,debit,Subscriptions,Software/SaaS,
+messy-variants.csv,SQ *GITHUB #1024,25,debit,Subscriptions,Software/SaaS,
+messy-variants.csv,DROPBOX #5578,25,debit,Subscriptions,Cloud Storage,
+messy-variants.csv,DROPBOX AUSTIN TX,25,debit,Subscriptions,Cloud Storage,
+messy-variants.csv,RECURRING PAYMENT TST* DROPBOX,25,debit,Subscriptions,Cloud Storage,
+messy-variants.csv,TST* DROPBOX #5578,25,debit,Subscriptions,Cloud Storage,
+messy-variants.csv,NYTIMES #219,25,debit,Subscriptions,News/Media,
+messy-variants.csv,NYTIMES BROOKLYN NY,25,debit,Subscriptions,News/Media,
+messy-variants.csv,CHECKCARD PAYPAL *NYTIMES,25,debit,Subscriptions,News/Media,
+messy-variants.csv,PAYPAL *NYTIMES #219,25,debit,Subscriptions,News/Media,
+messy-variants.csv,AMC THEATRES #8842,25,debit,Entertainment,Movies/Theater,
+messy-variants.csv,AMC THEATRES PORTLAND OR,25,debit,Entertainment,Movies/Theater,
+messy-variants.csv,DEBIT CARD PURCHASE SP *AMC THEATRES,25,debit,Entertainment,Movies/Theater,
+messy-variants.csv,SP *AMC THEATRES #8842,25,debit,Entertainment,Movies/Theater,
+messy-variants.csv,TICKETMASTER #33,25,debit,Entertainment,Concert/Event,
+messy-variants.csv,TICKETMASTER DENVER CO,25,debit,Entertainment,Concert/Event,
+messy-variants.csv,POS DEBIT SQ *TICKETMASTER,25,debit,Entertainment,Concert/Event,
+messy-variants.csv,SQ *TICKETMASTER #33,25,debit,Entertainment,Concert/Event,
+messy-variants.csv,STEAM PURCHASE #7701,25,debit,Entertainment,Gaming,
+messy-variants.csv,STEAM PURCHASE MIAMI FL,25,debit,Entertainment,Gaming,
+messy-variants.csv,RECURRING PAYMENT TST* STEAM PURCHASE,25,debit,Entertainment,Gaming,
+messy-variants.csv,TST* STEAM PURCHASE #7701,25,debit,Entertainment,Gaming,
+messy-variants.csv,PLAYSTATION NETWORK #456,25,debit,Entertainment,Gaming,
+messy-variants.csv,PLAYSTATION NETWORK SEATTLE WA,25,debit,Entertainment,Gaming,
+messy-variants.csv,CHECKCARD PAYPAL *PLAYSTATION NETWORK,25,debit,Entertainment,Gaming,
+messy-variants.csv,PAYPAL *PLAYSTATION NETWORK #456,25,debit,Entertainment,Gaming,
+messy-variants.csv,TOTAL WINE #9012,25,debit,Entertainment,Nightlife,
+messy-variants.csv,TOTAL WINE CHICAGO IL,25,debit,Entertainment,Nightlife,
+messy-variants.csv,DEBIT CARD PURCHASE SP *TOTAL WINE,25,debit,Entertainment,Nightlife,
+messy-variants.csv,SP *TOTAL WINE #9012,25,debit,Entertainment,Nightlife,
+messy-variants.csv,CVS PHARMACY #214,25,debit,Health,Pharmacy,
+messy-variants.csv,CVS PHARMACY PHOENIX AZ,25,debit,Health,Pharmacy,
+messy-variants.csv,POS DEBIT SQ *CVS PHARMACY,25,debit,Health,Pharmacy,
+messy-variants.csv,SQ *CVS PHARMACY #214,25,debit,Health,Pharmacy,
+messy-variants.csv,WALGREENS #6689,25,debit,Health,Pharmacy,
+messy-variants.csv,WALGREENS BOSTON MA,25,debit,Health,Pharmacy,
+messy-variants.csv,RECURRING PAYMENT TST* WALGREENS,25,debit,Health,Pharmacy,
+messy-variants.csv,TST* WALGREENS #6689,25,debit,Health,Pharmacy,
+messy-variants.csv,PLANET FITNESS #1024,25,debit,Health,Gym,
+messy-variants.csv,PLANET FITNESS SAN LUIS OBISPO CA,25,debit,Health,Gym,
+messy-variants.csv,CHECKCARD PAYPAL *PLANET FITNESS,25,debit,Health,Gym,
+messy-variants.csv,PAYPAL *PLANET FITNESS #1024,25,debit,Health,Gym,
+messy-variants.csv,EQUINOX #5578,25,debit,Health,Gym,
+messy-variants.csv,EQUINOX AUSTIN TX,25,debit,Health,Gym,
+messy-variants.csv,DEBIT CARD PURCHASE SP *EQUINOX,25,debit,Health,Gym,
+messy-variants.csv,SP *EQUINOX #5578,25,debit,Health,Gym,
+messy-variants.csv,ASPEN DENTAL #219,25,debit,Health,Dentist,
+messy-variants.csv,ASPEN DENTAL BROOKLYN NY,25,debit,Health,Dentist,
+messy-variants.csv,POS DEBIT SQ *ASPEN DENTAL,25,debit,Health,Dentist,
+messy-variants.csv,SQ *ASPEN DENTAL #219,25,debit,Health,Dentist,
+messy-variants.csv,WARBY PARKER #8842,25,debit,Health,Vision,
+messy-variants.csv,WARBY PARKER PORTLAND OR,25,debit,Health,Vision,
+messy-variants.csv,RECURRING PAYMENT TST* WARBY PARKER,25,debit,Health,Vision,
+messy-variants.csv,TST* WARBY PARKER #8842,25,debit,Health,Vision,
+messy-variants.csv,DELTA AIR LINES #33,25,debit,Travel,Flight,
+messy-variants.csv,DELTA AIR LINES DENVER CO,25,debit,Travel,Flight,
+messy-variants.csv,CHECKCARD PAYPAL *DELTA AIR LINES,25,debit,Travel,Flight,
+messy-variants.csv,PAYPAL *DELTA AIR LINES #33,25,debit,Travel,Flight,
+messy-variants.csv,UNITED AIRLINES #7701,25,debit,Travel,Flight,
+messy-variants.csv,UNITED AIRLINES MIAMI FL,25,debit,Travel,Flight,
+messy-variants.csv,DEBIT CARD PURCHASE SP *UNITED AIRLINES,25,debit,Travel,Flight,
+messy-variants.csv,SP *UNITED AIRLINES #7701,25,debit,Travel,Flight,
+messy-variants.csv,MARRIOTT #456,25,debit,Travel,Hotel,
+messy-variants.csv,MARRIOTT SEATTLE WA,25,debit,Travel,Hotel,
+messy-variants.csv,POS DEBIT SQ *MARRIOTT,25,debit,Travel,Hotel,
+messy-variants.csv,SQ *MARRIOTT #456,25,debit,Travel,Hotel,
+messy-variants.csv,HILTON #9012,25,debit,Travel,Hotel,
+messy-variants.csv,HILTON CHICAGO IL,25,debit,Travel,Hotel,
+messy-variants.csv,RECURRING PAYMENT TST* HILTON,25,debit,Travel,Hotel,
+messy-variants.csv,TST* HILTON #9012,25,debit,Travel,Hotel,
+messy-variants.csv,AIRBNB #214,25,debit,Travel,Vacation Rental,
+messy-variants.csv,AIRBNB PHOENIX AZ,25,debit,Travel,Vacation Rental,
+messy-variants.csv,CHECKCARD PAYPAL *AIRBNB,25,debit,Travel,Vacation Rental,
+messy-variants.csv,PAYPAL *AIRBNB #214,25,debit,Travel,Vacation Rental,
+messy-variants.csv,HERTZ RENT A CAR #6689,25,debit,Travel,Car Rental,
+messy-variants.csv,HERTZ RENT A CAR BOSTON MA,25,debit,Travel,Car Rental,
+messy-variants.csv,DEBIT CARD PURCHASE SP *HERTZ RENT A CAR,25,debit,Travel,Car Rental,
+messy-variants.csv,SP *HERTZ RENT A CAR #6689,25,debit,Travel,Car Rental,
+messy-variants.csv,PG&E ELECTRIC #1024,25,debit,Housing,Utilities,
+messy-variants.csv,PG&E ELECTRIC SAN LUIS OBISPO CA,25,debit,Housing,Utilities,
+messy-variants.csv,POS DEBIT SQ *PG&E ELECTRIC,25,debit,Housing,Utilities,
+messy-variants.csv,SQ *PG&E ELECTRIC #1024,25,debit,Housing,Utilities,
+messy-variants.csv,COMCAST XFINITY #5578,25,debit,Housing,Internet/Cable,
+messy-variants.csv,COMCAST XFINITY AUSTIN TX,25,debit,Housing,Internet/Cable,
+messy-variants.csv,RECURRING PAYMENT TST* COMCAST XFINITY,25,debit,Housing,Internet/Cable,
+messy-variants.csv,TST* COMCAST XFINITY #5578,25,debit,Housing,Internet/Cable,
+messy-variants.csv,AT&T WIRELESS #219,25,debit,Housing,Phone Bill,
+messy-variants.csv,AT&T WIRELESS BROOKLYN NY,25,debit,Housing,Phone Bill,
+messy-variants.csv,CHECKCARD PAYPAL *AT&T WIRELESS,25,debit,Housing,Phone Bill,
+messy-variants.csv,PAYPAL *AT&T WIRELESS #219,25,debit,Housing,Phone Bill,
+messy-variants.csv,VERIZON WIRELESS #8842,25,debit,Housing,Phone Bill,
+messy-variants.csv,VERIZON WIRELESS PORTLAND OR,25,debit,Housing,Phone Bill,
+messy-variants.csv,DEBIT CARD PURCHASE SP *VERIZON WIRELESS,25,debit,Housing,Phone Bill,
+messy-variants.csv,SP *VERIZON WIRELESS #8842,25,debit,Housing,Phone Bill,
+messy-variants.csv,BRIGHT HORIZONS #33,25,debit,Childcare,Daycare,
+messy-variants.csv,BRIGHT HORIZONS DENVER CO,25,debit,Childcare,Daycare,
+messy-variants.csv,POS DEBIT SQ *BRIGHT HORIZONS,25,debit,Childcare,Daycare,
+messy-variants.csv,SQ *BRIGHT HORIZONS #33,25,debit,Childcare,Daycare,
+messy-variants.csv,KINDERCARE #7701,25,debit,Childcare,Daycare,
+messy-variants.csv,KINDERCARE MIAMI FL,25,debit,Childcare,Daycare,
+messy-variants.csv,RECURRING PAYMENT TST* KINDERCARE,25,debit,Childcare,Daycare,
+messy-variants.csv,TST* KINDERCARE #7701,25,debit,Childcare,Daycare,
+messy-variants.csv,MONTESSORI ACADEMY #456,25,debit,Childcare,Preschool,
+messy-variants.csv,MONTESSORI ACADEMY SEATTLE WA,25,debit,Childcare,Preschool,
+messy-variants.csv,CHECKCARD PAYPAL *MONTESSORI ACADEMY,25,debit,Childcare,Preschool,
+messy-variants.csv,PAYPAL *MONTESSORI ACADEMY #456,25,debit,Childcare,Preschool,
+messy-variants.csv,NAVIENT STUDENT LOAN #9012,25,debit,Education,Student Loan,
+messy-variants.csv,NAVIENT STUDENT LOAN CHICAGO IL,25,debit,Education,Student Loan,
+messy-variants.csv,DEBIT CARD PURCHASE SP *NAVIENT STUDENT LOAN,25,debit,Education,Student Loan,
+messy-variants.csv,SP *NAVIENT STUDENT LOAN #9012,25,debit,Education,Student Loan,
+messy-variants.csv,KUMON MATH CENTER #214,25,debit,Education,Tutoring,
+messy-variants.csv,KUMON MATH CENTER PHOENIX AZ,25,debit,Education,Tutoring,
+messy-variants.csv,POS DEBIT SQ *KUMON MATH CENTER,25,debit,Education,Tutoring,
+messy-variants.csv,SQ *KUMON MATH CENTER #214,25,debit,Education,Tutoring,
+messy-variants.csv,COURSERA #6689,25,debit,Education,Online Course,
+messy-variants.csv,COURSERA BOSTON MA,25,debit,Education,Online Course,
+messy-variants.csv,RECURRING PAYMENT TST* COURSERA,25,debit,Education,Online Course,
+messy-variants.csv,TST* COURSERA #6689,25,debit,Education,Online Course,
+messy-variants.csv,VENMO #1024,25,debit,Transfer,Transfer,
+messy-variants.csv,VENMO SAN LUIS OBISPO CA,25,debit,Transfer,Transfer,
+messy-variants.csv,CHECKCARD PAYPAL *VENMO,25,debit,Transfer,Transfer,
+messy-variants.csv,PAYPAL *VENMO #1024,25,debit,Transfer,Transfer,
+messy-variants.csv,ZELLE #5578,25,debit,Transfer,Transfer,
+messy-variants.csv,ZELLE AUSTIN TX,25,debit,Transfer,Transfer,
+messy-variants.csv,DEBIT CARD PURCHASE SP *ZELLE,25,debit,Transfer,Transfer,
+messy-variants.csv,SP *ZELLE #5578,25,debit,Transfer,Transfer,
+messy-variants.csv,DIRECT DEPOSIT PAYROLL #219,25,credit,Income,Payroll,
+messy-variants.csv,DIRECT DEPOSIT PAYROLL BROOKLYN NY,25,credit,Income,Payroll,
+messy-variants.csv,POS DEBIT SQ *DIRECT DEPOSIT PAYROLL,25,credit,Income,Payroll,
+messy-variants.csv,SQ *DIRECT DEPOSIT PAYROLL #219,25,credit,Income,Payroll,
+messy-variants.csv,ADP PAYROLL #8842,25,credit,Income,Payroll,
+messy-variants.csv,ADP PAYROLL PORTLAND OR,25,credit,Income,Payroll,
+messy-variants.csv,RECURRING PAYMENT TST* ADP PAYROLL,25,credit,Income,Payroll,
+messy-variants.csv,TST* ADP PAYROLL #8842,25,credit,Income,Payroll,
+messy-variants.csv,INTEREST PAYMENT #33,25,credit,Income,Interest,
+messy-variants.csv,INTEREST PAYMENT DENVER CO,25,credit,Income,Interest,
+messy-variants.csv,CHECKCARD PAYPAL *INTEREST PAYMENT,25,credit,Income,Interest,
+messy-variants.csv,PAYPAL *INTEREST PAYMENT #33,25,credit,Income,Interest,
+messy-variants.csv,OAKWOOD APTS RENT #7701,25,debit,Housing,Rent,
+messy-variants.csv,OAKWOOD APTS RENT MIAMI FL,25,debit,Housing,Rent,
+messy-variants.csv,DEBIT CARD PURCHASE SP *OAKWOOD APTS RENT,25,debit,Housing,Rent,
+messy-variants.csv,SP *OAKWOOD APTS RENT #7701,25,debit,Housing,Rent,
+messy-variants.csv,GOLDEN GYM FITNESS #456,25,debit,Health,Gym,
+messy-variants.csv,GOLDEN GYM FITNESS SEATTLE WA,25,debit,Health,Gym,
+messy-variants.csv,POS DEBIT SQ *GOLDEN GYM FITNESS,25,debit,Health,Gym,
+messy-variants.csv,SQ *GOLDEN GYM FITNESS #456,25,debit,Health,Gym,
+messy-variants.csv,RIVERVIEW MEDICAL CLINIC #9012,25,debit,Health,Doctor/Medical,
+messy-variants.csv,RIVERVIEW MEDICAL CLINIC CHICAGO IL,25,debit,Health,Doctor/Medical,
+messy-variants.csv,RECURRING PAYMENT TST* RIVERVIEW MEDICAL CLINIC,25,debit,Health,Doctor/Medical,
+messy-variants.csv,TST* RIVERVIEW MEDICAL CLINIC #9012,25,debit,Health,Doctor/Medical,
+messy-variants.csv,HOPE CHARITY DONATION #214,25,debit,Other,Donation,
+messy-variants.csv,HOPE CHARITY DONATION PHOENIX AZ,25,debit,Other,Donation,
+messy-variants.csv,CHECKCARD PAYPAL *HOPE CHARITY DONATION,25,debit,Other,Donation,
+messy-variants.csv,PAYPAL *HOPE CHARITY DONATION #214,25,debit,Other,Donation,
+messy-variants.csv,MAPLEWOOD PROPERTY MANAGEMENT #6689,25,debit,Housing,Rent,
+messy-variants.csv,MAPLEWOOD PROPERTY MANAGEMENT BOSTON MA,25,debit,Housing,Rent,
+messy-variants.csv,DEBIT CARD PURCHASE SP *MAPLEWOOD PROPERTY MANAGEMENT,25,debit,Housing,Rent,
+messy-variants.csv,SP *MAPLEWOOD PROPERTY MANAGEMENT #6689,25,debit,Housing,Rent,

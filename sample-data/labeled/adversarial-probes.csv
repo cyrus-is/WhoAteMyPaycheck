@@ -1,11 +1,11 @@
-sourceFile,description,amount,type,category,subcategory
-adversarial-probes.csv,SHELL BEACH CAFE SAN LUIS OBISPO,25,debit,Dining,Restaurant
-adversarial-probes.csv,O2 ARENA LONDON EVENT,25,debit,Entertainment,Concert/Event
-adversarial-probes.csv,PANDORA JEWELRY #442,25,debit,Shopping,Department Store
-adversarial-probes.csv,STEAM ROOM DAY SPA,25,debit,Health,Doctor/Medical
-adversarial-probes.csv,GAP INSURANCE PREMIUM AUTO,25,debit,Transport,Auto Insurance
-adversarial-probes.csv,RIVERSIDE ELECTRIC CO-OP,25,debit,Housing,Utilities
-adversarial-probes.csv,BOOTS AND SADDLES WESTERN WEAR,25,debit,Shopping,Clothing
-adversarial-probes.csv,MARATHON SPORTS RUNNING SHOES,25,debit,Shopping,Clothing
-adversarial-probes.csv,USAA TRANSFER TO CHECKING,25,debit,Transfer,Transfer
-adversarial-probes.csv,ACH CREDIT ACME CORP,25,credit,Income,Payroll
+sourceFile,description,amount,type,category,subcategory,bankCategory
+adversarial-probes.csv,SHELL BEACH CAFE SAN LUIS OBISPO,25,debit,Dining,Restaurant,
+adversarial-probes.csv,O2 ARENA LONDON EVENT,25,debit,Entertainment,Concert/Event,
+adversarial-probes.csv,PANDORA JEWELRY #442,25,debit,Shopping,Department Store,
+adversarial-probes.csv,STEAM ROOM DAY SPA,25,debit,Health,Doctor/Medical,
+adversarial-probes.csv,GAP INSURANCE PREMIUM AUTO,25,debit,Transport,Auto Insurance,
+adversarial-probes.csv,RIVERSIDE ELECTRIC CO-OP,25,debit,Housing,Utilities,
+adversarial-probes.csv,BOOTS AND SADDLES WESTERN WEAR,25,debit,Shopping,Clothing,
+adversarial-probes.csv,MARATHON SPORTS RUNNING SHOES,25,debit,Shopping,Clothing,
+adversarial-probes.csv,USAA TRANSFER TO CHECKING,25,debit,Transfer,Transfer,
+adversarial-probes.csv,ACH CREDIT ACME CORP,25,credit,Income,Payroll,
