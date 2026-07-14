@@ -22,9 +22,11 @@ import {
   merchantLookupClassifier,
   transferKeywordClassifier,
   bankCategoryClassifier,
+  dictionaryClassifier,
   combinedOfflineClassifier,
   type GoldTransaction,
 } from './evaluate'
+import { loadMerchantDict } from './merchantDict'
 
 const VALID_TYPES = new Set(['debit', 'credit'])
 const VALID_CATEGORIES = new Set<string>(CATEGORIES)
@@ -55,13 +57,24 @@ describe('offline classification eval harness', () => {
   let fixtureRows: GoldTransaction[]
   let adversarialRows: GoldTransaction[]
   let messyVariantRows: GoldTransaction[]
+  let dictShadowRows: GoldTransaction[]
+  let unseenMerchantRows: GoldTransaction[]
   let allRows: GoldTransaction[]
 
-  beforeAll(() => {
+  beforeAll(async () => {
     fixtureRows = loadGoldCsv('fixtures-gold.csv')
     adversarialRows = loadGoldCsv('adversarial-probes.csv')
     messyVariantRows = loadGoldCsv('messy-variants.csv')
+    // Not folded into allRows / the recorded floor constants below — these are dedicated
+    // regression slices with their own tests (see "dictionary no longer shadows..." and
+    // "dictionary honestly under-covers..." below), so adding rows to them never requires
+    // hand-recomputing the unrelated aggregate floors.
+    dictShadowRows = loadGoldCsv('dict-shadow-probes.csv')
+    unseenMerchantRows = loadGoldCsv('unseen-merchants.csv')
     allRows = [...fixtureRows, ...adversarialRows, ...messyVariantRows]
+    // dictionaryClassifier / combinedOfflineClassifier return null unconditionally until
+    // the generated chunk has loaded (docs/classification-improvement-fable.md §4 PR-7).
+    await loadMerchantDict()
   })
 
   it('golden corpus is the expected size and shape', () => {
@@ -132,6 +145,12 @@ describe('offline classification eval harness', () => {
     // merchant dictionary, but carry a resolvable bank Category column) that Layer 0/1 alone
     // both missed. The Layer 0/1-only floors are untouched — this layer is a fallback that
     // only ever adds coverage on top of them, never competes with them.
+    // Raised again by PR-7 (shipped merchant dictionary, §4 PR-7): the FIXTURE_/
+    // CORPUS_COMBINED_* floors below now also include Layer 1 (dictionaryClassifier),
+    // inserted ahead of the merchant regex table — see combinedOfflineClassifier. The
+    // Layer 1 (regex)-only floors are untouched; the dictionary is a pure coverage add, not
+    // a replacement (see the "dictionary-hit accuracy" test below for the dictionary's own
+    // measured numbers).
     const FIXTURE_COVERAGE_FLOOR = 0.920 // measured 923/1003 = 92.02%
     const FIXTURE_ACCURACY_FLOOR = 0.996 // measured 920/923 = 99.67% (of covered fixture rows)
 
@@ -143,18 +162,18 @@ describe('offline classification eval harness', () => {
 
     // "Combined fixture coverage ... ≥ 93%" (§4 PR-5 acceptance) — measured on the 1003
     // existing-fixture rows alone (no synthetic adversarial/messy-variant rows).
-    const FIXTURE_COMBINED_COVERAGE_FLOOR = 0.977 // measured 981/1003 = 97.81%
-    const FIXTURE_COMBINED_ACCURACY_FLOOR = 0.996 // measured 978/981 = 99.69%
+    const FIXTURE_COMBINED_COVERAGE_FLOOR = 0.997 // measured 1001/1003 = 99.80%
+    const FIXTURE_COMBINED_ACCURACY_FLOOR = 0.997 // measured 999/1001 = 99.80%
 
-    const CORPUS_COMBINED_COVERAGE_FLOOR = 0.982 // measured 1311/1333 = 98.35%
-    const CORPUS_COMBINED_ACCURACY_FLOOR = 0.997 // measured 1308/1311 = 99.77%
+    const CORPUS_COMBINED_COVERAGE_FLOOR = 0.997 // measured 1331/1333 = 99.85%
+    const CORPUS_COMBINED_ACCURACY_FLOOR = 0.997 // measured 1329/1331 = 99.85%
 
     const fixtureLayer1 = evaluateLayer('Layer 1 — merchantLookup (existing fixtures only)', fixtureRows, merchantLookupClassifier)
-    const fixtureCombined = evaluateLayer('Combined — Layer 0+1+4 (existing fixtures only)', fixtureRows, combinedOfflineClassifier)
+    const fixtureCombined = evaluateLayer('Combined — Layer 0+dict+regex+4 (existing fixtures only)', fixtureRows, combinedOfflineClassifier)
     const corpusLayer0 = evaluateLayer('Layer 0 — transfer keywords (full corpus)', allRows, transferKeywordClassifier)
     const corpusLayer1 = evaluateLayer('Layer 1 — merchantLookup (full corpus)', allRows, merchantLookupClassifier)
     const corpusLayer4 = evaluateLayer('Layer 4 — bank category (full corpus)', allRows, bankCategoryClassifier)
-    const corpusCombined = evaluateLayer('Combined — Layer 0+1+4 (full corpus)', allRows, combinedOfflineClassifier)
+    const corpusCombined = evaluateLayer('Combined — Layer 0+dict+regex+4 (full corpus)', allRows, combinedOfflineClassifier)
 
     const reportTable = formatLayerReportTable([
       fixtureLayer1, fixtureCombined, corpusLayer0, corpusLayer1, corpusLayer4, corpusCombined,
@@ -213,6 +232,69 @@ describe('offline classification eval harness', () => {
     const report = evaluateLayer('adversarial probes', adversarialRows, merchantLookupClassifier)
     expect(report.coverage).toBe(1)
     expect(report.correct).toBe(10)
+  })
+
+  it('shipped merchant dictionary meets its PR-7 acceptance floors', () => {
+    // §4 PR-7 acceptance: "Real-world-style eval slice (the labeled messy corpus from PR-1)
+    // coverage ≥ 85%" — messy-variants.csv is exactly that slice (stacked processor
+    // prefixes, store numbers, city suffixes over a base merchant list). Measured 300/320 =
+    // 93.75%; the only misses are the 5 base merchants the corpus deliberately keeps
+    // unknown to any literal merchant table (§4 PR-1's "no rule exists yet" comment in
+    // scripts/generate-golden-corpus.ts) to isolate the generic-keyword layer's contribution.
+    const MESSY_COVERAGE_FLOOR = 0.85
+    const messy = evaluateLayer('dictionary on messy-variants.csv', messyVariantRows, dictionaryClassifier)
+    expect(messy.coverage).toBeGreaterThanOrEqual(MESSY_COVERAGE_FLOOR)
+
+    // §4 PR-7 acceptance: "Dictionary-hit accuracy ≥ 95% on gold" — measured on every row
+    // the dictionary is willing to classify across the full corpus (fixtures + adversarial
+    // probes + messy variants): 1129/1129 = 100%.
+    const DICTIONARY_ACCURACY_FLOOR = 0.95
+    const dictOnAll = evaluateLayer('dictionary on full corpus', allRows, dictionaryClassifier)
+    expect(dictOnAll.covered).toBeGreaterThan(0)
+    expect(dictOnAll.accuracy).toBeGreaterThanOrEqual(DICTIONARY_ACCURACY_FLOOR)
+
+    console.log(`\nDictionary layer — messy-variants.csv: ${(messy.coverage * 100).toFixed(1)}% coverage; full corpus: ${(dictOnAll.accuracy * 100).toFixed(1)}% accuracy on ${dictOnAll.covered} hits\n`)
+  })
+
+  it('dictionary no longer shadows more-specific regex rules with coarse fallback entries (regression test — PR-7 review finding #1)', () => {
+    // dict-shadow-probes.csv: bare "AMAZON"/"AMZN"/"COSTCO WHSE" dictionary fallbacks used
+    // to steal descriptors that merchantLookup.ts classifies more specifically (Amazon
+    // Prime -> Subscriptions, Amazon Fresh -> Groceries, AWS -> Subscriptions/Cloud
+    // Storage, Costco gas pumps -> Transport), regressing behavior vs. the pre-PR-7 regex
+    // table. Fixed by adding the longer override phrases to MERCHANT_SOURCES (see
+    // build-merchant-dict.ts) — this must stay at 100%, not just meet a floor.
+    const report = evaluateLayer('dict-shadow-probes.csv', dictShadowRows, dictionaryClassifier)
+    expect(report.coverage).toBe(1)
+    expect(report.correct).toBe(report.total)
+  })
+
+  it('dictionary honestly under-covers merchants absent from its own source list (contrast with the messy-variants floor above — PR-7 review finding #5)', () => {
+    // messy-variants.csv is generated from the same fixture-merchant universe that
+    // MERCHANT_SOURCES was hand-curated from, so its coverage above measures list overlap
+    // with the dictionary's own source, not generalization to merchants it has never seen.
+    // unseen-merchants.csv is a small hand-picked slice of real US/UK grocery, dining, and
+    // gas-station chains absent from MERCHANT_SOURCES (a few happen to be covered by the
+    // much larger merchantLookup.ts regex table already) — this is what the dictionary's
+    // real-world coverage looks like against the long tail it doesn't know about: close to
+    // nothing. That's expected, not a regression; it's the honest number the messy-variants
+    // ≥85% floor should not be mistaken for.
+    const dict = evaluateLayer('dictionary on unseen-merchants.csv', unseenMerchantRows, dictionaryClassifier)
+    const combined = evaluateLayer('combined offline layers on unseen-merchants.csv', unseenMerchantRows, combinedOfflineClassifier)
+
+    console.log(`\nUnseen-merchant slice (${unseenMerchantRows.length} rows) — dictionary: ${(dict.coverage * 100).toFixed(1)}% coverage; combined offline layers: ${(combined.coverage * 100).toFixed(1)}% coverage\n`)
+
+    // Sanity check on the fixture itself: if this ever climbs, either MERCHANT_SOURCES grew
+    // to include one of these merchants (regenerate this slice with fresh unseen ones so the
+    // contrast with messy-variants stays meaningful) or something is matching by accident.
+    expect(dict.coverage).toBeLessThanOrEqual(0.1)
+  })
+
+  it('shipped merchant dictionary never fires on the §1.4a adversarial probes', () => {
+    // The dictionary deliberately excludes bare "Shell"/"Gap"/"Boots"/"Marathon"/"Pandora"/
+    // "Steam"/"O2"/"Co-op"/"USAA" (see scripts/build-merchant-dict.ts's docstring) — a
+    // regression here means MERCHANT_SOURCES reintroduced one of them.
+    const report = evaluateLayer('dictionary on adversarial probes', adversarialRows, dictionaryClassifier)
+    expect(report.covered).toBe(0)
   })
 
   it('confusion matrix accounts for every row exactly once', () => {

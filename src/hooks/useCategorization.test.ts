@@ -13,6 +13,18 @@ function loadSampleFile(filename: string): File {
   return new File([content], filename, { type: 'text/csv' })
 }
 
+// A Chase-format row for a fictional merchant unknown to both the shipped dictionary and
+// the merchantLookup regex table, but carrying a bank Category column the harvester can
+// resolve — isolates these tests from sample-data/*.csv, whose real merchants increasingly
+// get intercepted upstream as the dictionary/regex tables grow (§4 PR-5/PR-7).
+function bankCategoryOnlyFile(): File {
+  const content = [
+    'Transaction Date,Post Date,Description,Category,Type,Amount,Memo',
+    '01/01/2024,01/02/2024,GADGET NOOK LLC,Electronics,Sale,45.00,',
+  ].join('\n')
+  return new File([content], 'bank-category-only.csv', { type: 'text/csv' })
+}
+
 describe('useCategorization — offline-first classification', () => {
   it('classifies known merchants via classifyByMerchant in handleFiles with no API key', async () => {
     const { result } = renderHook(() => useCategorization(''))
@@ -63,20 +75,20 @@ describe('useCategorization — offline-first classification', () => {
     expect(after?.subcategory).toBe(before.subcategory)
   })
 
-  it('harvests bank-provided categories for merchants unknown to the dictionary (§4 PR-5)', async () => {
+  it('harvests bank-provided categories for merchants unknown to the dictionary and regex table (§4 PR-5)', async () => {
     const { result } = renderHook(() => useCategorization(''))
 
     await act(async () => {
-      await result.current.handleFiles([loadSampleFile('monzo-uk.csv')])
+      await result.current.handleFiles([loadSampleFile('monzo-uk.csv'), bankCategoryOnlyFile()])
     })
 
-    // Bare "Amazon" (no ".COM"/"MKTP" suffix) doesn't match any merchantLookup rule, but
-    // monzo-uk.csv's own Category column says "Shopping" for it.
-    const amazon = result.current.allTransactions.find((tx) => tx.description === 'Amazon')
-    expect(amazon).toBeDefined()
-    expect(amazon?.category).toBe('Shopping')
-    expect(amazon?.subcategory).toBe('Shopping')
-    expect(amazon?.source).toBe('bank')
+    // "GADGET NOOK LLC" doesn't match any merchantLookup rule or shipped dictionary entry,
+    // but its bank Category column says "Electronics".
+    const gadgetNook = result.current.allTransactions.find((tx) => tx.description === 'GADGET NOOK LLC')
+    expect(gadgetNook).toBeDefined()
+    expect(gadgetNook?.category).toBe('Shopping')
+    expect(gadgetNook?.subcategory).toBe('Electronics')
+    expect(gadgetNook?.source).toBe('bank')
 
     // Known merchants classified by the dictionary must NOT be tagged with a bank source.
     const tesco = result.current.allTransactions.find((tx) => tx.description.includes('Tesco Express'))
@@ -108,26 +120,27 @@ describe('useCategorization — offline-first classification', () => {
     try {
       const { result } = renderHook(() => useCategorization('sk-ant-test-key'))
 
-      // monzo-uk.csv alone is fully covered by the offline layers (dictionary + bank
-      // harvesting), so it never reaches Claude on its own. bofa-credit-card.csv has a
-      // genuine offline miss (see the "gates the Claude button" test above), which forces
-      // the first handleCategorize call to actually run and record lastCategorizedMode —
-      // required for a later mode switch to be recognized as a mode-change re-run.
+      // monzo-uk.csv + bankCategoryOnlyFile() alone are fully covered by the offline layers
+      // (dictionary + bank harvesting), so they never reach Claude on their own.
+      // bofa-credit-card.csv has a genuine offline miss (see the "gates the Claude button"
+      // test above), which forces the first handleCategorize call to actually run and
+      // record lastCategorizedMode — required for a later mode switch to be recognized as
+      // a mode-change re-run.
       await act(async () => {
-        await result.current.handleFiles([loadSampleFile('monzo-uk.csv'), loadSampleFile('bofa-credit-card.csv')])
+        await result.current.handleFiles([loadSampleFile('monzo-uk.csv'), bankCategoryOnlyFile(), loadSampleFile('bofa-credit-card.csv')])
       })
 
-      const amazon = result.current.allTransactions.find((tx) => tx.description === 'Amazon')
-      expect(amazon?.source).toBe('bank')
+      const gadgetNook = result.current.allTransactions.find((tx) => tx.description === 'GADGET NOOK LLC')
+      expect(gadgetNook?.source).toBe('bank')
 
       await act(async () => {
         await result.current.handleCategorize()
       })
       expect(result.current.lastCategorizedMode).toBe('simple')
-      expect(result.current.allTransactions.find((tx) => tx.description === 'Amazon')?.source).toBe('bank')
+      expect(result.current.allTransactions.find((tx) => tx.description === 'GADGET NOOK LLC')?.source).toBe('bank')
 
       // Now switch modes and re-run — a mode-change run resends ALL non-Transfer
-      // transactions to Claude, including the already bank-categorized Amazon row.
+      // transactions to Claude, including the already bank-categorized GADGET NOOK row.
       act(() => {
         result.current.setCategorizationMode('detailed')
       })
@@ -136,7 +149,7 @@ describe('useCategorization — offline-first classification', () => {
         await result.current.handleCategorize()
       })
 
-      const reCategorized = result.current.allTransactions.find((tx) => tx.description === 'Amazon')
+      const reCategorized = result.current.allTransactions.find((tx) => tx.description === 'GADGET NOOK LLC')
       expect(reCategorized?.category).toBe('Shopping')
       expect(reCategorized?.subcategory).toBe('Online shopping')
       expect(reCategorized?.source).toBeUndefined()

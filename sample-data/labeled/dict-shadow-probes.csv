@@ -1,0 +1,7 @@
+sourceFile,description,amount,type,category,subcategory,bankCategory
+dict-shadow-probes.csv,AMAZON PRIME MEMBERSHIP,25,debit,Subscriptions,Streaming,
+dict-shadow-probes.csv,AMZN PRIME*R12AB3CD4,25,debit,Subscriptions,Streaming,
+dict-shadow-probes.csv,AMAZON WEB SERVICES AWS.AMAZON.COM,25,debit,Subscriptions,Cloud Storage,
+dict-shadow-probes.csv,AMAZON FRESH #0221,25,debit,Groceries,Grocery Delivery,
+dict-shadow-probes.csv,AMZN FRESH*2K7LM9,25,debit,Groceries,Grocery Delivery,
+dict-shadow-probes.csv,COSTCO WHSE GAS #0552,25,debit,Transport,Gas Station,

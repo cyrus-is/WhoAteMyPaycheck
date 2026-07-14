@@ -6,6 +6,7 @@ import { detectFormat, parseTransactions } from '../lib/parser'
 import { detectTransfers } from '../lib/transfers'
 import { classifyByMerchant } from '../lib/merchantLookup'
 import { classifyByBankCategory } from '../lib/bankCategory'
+import { classifyByDictionary, loadMerchantDict } from '../lib/merchantDict'
 
 let fileCounter = 0
 
@@ -114,6 +115,18 @@ export function useCategorization(apiKey: string): CategorizationState {
           }
         }),
       )
+      // Loads the shipped merchant dictionary's lazy chunk (docs/classification-improvement-
+      // fable.md §4 PR-7) once before classifying — a no-op after the first file drop.
+      // Best-effort: a failed fetch (offline after page load, stale-deploy hashed-chunk 404)
+      // must not fail the whole drop — classifyByDictionary just returns null unconditionally
+      // and the regex/bank-category layers below still run.
+      try {
+        await loadMerchantDict()
+      } catch {
+        // degrade to the regex/bank-category layers; loadMerchantDict() resets its cached
+        // promise on rejection so the next file drop retries the fetch.
+      }
+
       setFiles((prev) => {
         const existingNames = new Set(prev.map((f) => f.name))
         const fresh = loaded.filter((f) => !existingNames.has(f.name))
@@ -122,16 +135,20 @@ export function useCategorization(apiKey: string): CategorizationState {
         const allTx = next.flatMap((f) => f.transactions)
         const transferIds = detectTransfers(allTx)
 
-        // Free, key-free offline layers — transfer detection, merchant lookup, and bank-
-        // provided category harvesting (docs/classification-improvement-fable.md §2.C/§2.D,
-        // §4 PR-3/PR-5) — run unconditionally so a Sankey can render before any API key
-        // exists. Bank category only applies when the merchant dictionary doesn't already
-        // know the merchant — it's a mid-confidence hint, not truth.
+        // Free, key-free offline layers — transfer detection, the shipped merchant
+        // dictionary, the merchant regex table, and bank-provided category harvesting
+        // (docs/classification-improvement-fable.md §2.C/§2.D/§2.F, §4 PR-3/PR-5/PR-7) —
+        // run unconditionally so a Sankey can render before any API key exists. The
+        // dictionary runs first (§3's layer ranking: shipped dictionary before the regex
+        // table's generic keyword rules); bank category only applies when neither
+        // classifies the merchant — it's a mid-confidence hint, not truth.
         return next.map((file) => ({
           ...file,
           transactions: file.transactions.map((tx) => {
             if (transferIds.has(tx.id)) return { ...tx, category: 'Transfer' }
             if (tx.category === 'Transfer' || tx.subcategory !== '') return tx
+            const dictMatch = classifyByDictionary(tx.description, tx.type)
+            if (dictMatch) return { ...tx, category: dictMatch.category, subcategory: dictMatch.subcategory }
             const match = classifyByMerchant(tx.description, tx.type)
             if (match) return { ...tx, category: match.category, subcategory: match.subcategory }
             const bankMatch = classifyByBankCategory(tx.bankCategory, tx.type)
