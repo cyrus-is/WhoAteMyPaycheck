@@ -124,12 +124,23 @@ export function App() {
     setShowHowItWorks(false)
   }, [])
 
-  // Routes real drops/browses through the same handleFiles pipeline as the demo button —
-  // it just also clears the demo label, since the data is no longer purely the sample set.
-  const handleDroppedFiles = useCallback((newFiles: File[]) => {
+  // Wipes the sample data + everything derived from it (date range, demo flag) so it can
+  // never linger mixed into a subsequent real import — used by both the drop path below and
+  // the explicit "Dismiss" button.
+  const resetDemoState = useCallback(() => {
+    cat.handleClearAll()
     setIsDemoMode(false)
-    cat.handleFiles(newFiles)
+    setDateRange({ start: '', end: '' })
   }, [cat])
+
+  // Routes real drops/browses through the same handleFiles pipeline as the demo button. If a
+  // demo was active, the sample file is cleared first — otherwise it would merge unlabeled
+  // into the user's real data (and could silently lose the real file to the dedupe-by-name
+  // check in handleFiles if it happened to share the sample's filename).
+  const handleDroppedFiles = useCallback((newFiles: File[]) => {
+    if (isDemoMode) resetDemoState()
+    cat.handleFiles(newFiles)
+  }, [cat, isDemoMode, resetDemoState])
 
   const handleTryDemo = useCallback(async () => {
     setDemoLoading(true)
@@ -146,9 +157,10 @@ export function App() {
   }, [cat])
 
   const handleDismissDemo = useCallback(() => {
-    cat.handleClearAll()
-    setIsDemoMode(false)
-  }, [cat])
+    cat.handleCancel()
+    resetDemoState()
+    setActiveLens('spending')
+  }, [cat, resetDemoState])
 
   const handleLensChange = useCallback(async (lens: LensId) => {
     setActiveLens(lens)
@@ -283,7 +295,7 @@ export function App() {
         )}
 
         {isDemoMode && (
-          <div className="demo-banner">
+          <div className="demo-banner" role="status" aria-live="polite">
             <span>
               Viewing sample data — a fictional household, not your real spending.
             </span>
@@ -524,7 +536,7 @@ export function App() {
           <BudgetPanel
             budget={budget.budget}
             comparison={budget.budgetComparison}
-            canGenerate={cat.hasCategorized}
+            canGenerate={cat.hasCategorized && !isDemoMode}
             hasEnoughHistory={budget.hasEnoughHistory}
             onGenerate={budget.handleGenerateBudget}
             onUpdate={budget.handleUpdateBudget}

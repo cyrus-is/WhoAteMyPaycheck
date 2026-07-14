@@ -14,7 +14,10 @@ describe('fetchDemoFile', () => {
     const file = await fetchDemoFile()
 
     expect(fetchSpy).toHaveBeenCalledWith(DEMO_SAMPLE_PATH)
-    expect(file.name).toBe('checking.csv')
+    // Deliberately not "checking.csv" — that's a common real export name, and handleFiles
+    // dedupes dropped files by name, so a same-named demo file could silently swallow a
+    // real drop.
+    expect(file.name).not.toBe('checking.csv')
     expect(file.type).toBe('text/csv')
 
     const text = await new Promise<string>((resolve, reject) => {
@@ -36,5 +39,20 @@ describe('fetchDemoFile', () => {
     vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new Error('offline'))))
 
     await expect(fetchDemoFile()).rejects.toThrow('offline')
+  })
+
+  it('rejects an HTML response (e.g. an SPA-fallback 200) instead of returning it as a CSV', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(
+      '<!DOCTYPE html><html><body>Not Found</body></html>',
+      { headers: { 'content-type': 'text/html' } },
+    ))))
+
+    await expect(fetchDemoFile()).rejects.toThrow('unexpected response')
+  })
+
+  it('rejects a body that looks like HTML even without a content-type header', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response('<html><body>fallback</body></html>'))))
+
+    await expect(fetchDemoFile()).rejects.toThrow('unexpected response')
   })
 })
