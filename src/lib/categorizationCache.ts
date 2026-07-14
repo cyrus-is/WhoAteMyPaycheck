@@ -1,3 +1,5 @@
+import { normalizeMerchant } from './merchant'
+
 const CACHE_KEY = 'whoatemypaycheck:cat-cache'
 
 interface CacheEntry {
@@ -7,9 +9,13 @@ interface CacheEntry {
 
 type CacheStore = Record<string, CacheEntry>
 
-function hashTx(description: string, amount: number, type: string, mode: string): string {
-  // Simple deterministic key — no crypto needed, just collision-resistant enough for this use case
-  return `${mode}|${type}|${amount.toFixed(2)}|${description}`
+/** Cache key excludes amount — the same merchant classified once at $12 shouldn't need a
+ *  fresh API call at $18 (docs/classification-improvement-fable.md §1.2/§2.A). Keyed on the
+ *  normalized merchant identity so descriptor variants (store numbers, city suffixes,
+ *  stacked processor prefixes) of the same merchant also share one entry. */
+function hashTx(description: string, type: string, mode: string): string {
+  const { canonical } = normalizeMerchant(description)
+  return `${mode}|${type}|${canonical}`
 }
 
 function loadStore(): CacheStore {
@@ -31,23 +37,21 @@ function saveStore(store: CacheStore): void {
 
 export function getCached(
   description: string,
-  amount: number,
   type: string,
   mode: string,
 ): CacheEntry | null {
   const store = loadStore()
-  return store[hashTx(description, amount, type, mode)] ?? null
+  return store[hashTx(description, type, mode)] ?? null
 }
 
 export function setCached(
   description: string,
-  amount: number,
   type: string,
   mode: string,
   entry: CacheEntry,
 ): void {
   const store = loadStore()
-  store[hashTx(description, amount, type, mode)] = entry
+  store[hashTx(description, type, mode)] = entry
   saveStore(store)
 }
 

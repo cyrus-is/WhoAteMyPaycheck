@@ -1,9 +1,10 @@
 /**
  * Static merchant pre-classification lookup table.
  *
- * Matches ~50-60% of common US (and some UK) transactions without an API call.
- * Each entry has a regex pattern tested against the raw bank-statement description,
- * plus the canonical category / subcategory from our taxonomy.
+ * Matches ~90% of the project's own golden-corpus fixtures without an API call (see
+ * docs/classification-improvement-fable.md §4 PR-2). Each entry has a regex pattern
+ * tested against the normalized merchant string (merchant.ts:normalizeMerchant), plus
+ * the canonical category / subcategory from our taxonomy.
  *
  * Usage:
  *   import { classifyByMerchant } from './merchantLookup'
@@ -12,6 +13,11 @@
  */
 
 import type { Category } from './types'
+import { normalizeMerchant, PROCESSOR_PREFIXES, stripProcessorPrefix } from './merchant'
+
+// Re-exported for callers/tests that used to import processor-prefix handling from here —
+// the canonical implementation now lives in merchant.ts alongside the rest of normalization.
+export { PROCESSOR_PREFIXES, stripProcessorPrefix }
 
 // ---------------------------------------------------------------------------
 // Types
@@ -20,7 +26,7 @@ import type { Category } from './types'
 export interface MerchantRule {
   /** Human-readable merchant / pattern name */
   name: string
-  /** Regex tested against UPPERCASED description (case-insensitive flag also set) */
+  /** Regex tested against the normalized (uppercased, cleaned) merchant string */
   pattern: RegExp
   category: Category
   subcategory: string
@@ -30,52 +36,6 @@ export interface ClassificationResult {
   category: Category
   subcategory: string
   merchant: string
-}
-
-// ---------------------------------------------------------------------------
-// Payment-processor prefixes
-// ---------------------------------------------------------------------------
-
-/** Known payment-processor prefixes that appear before the real merchant name.
- *  We strip these before merchant matching so "SQ *BLUE BOTTLE" matches "BLUE BOTTLE". */
-export const PROCESSOR_PREFIXES: { pattern: RegExp; processor: string }[] = [
-  { pattern: /^SQ \*\s*/i,                    processor: 'Square' },
-  { pattern: /^SQC\*\s*/i,                    processor: 'Square Capital' },
-  { pattern: /^TST\*\s*/i,                    processor: 'Toast' },
-  { pattern: /^TST \*\s*/i,                   processor: 'Toast' },
-  { pattern: /^TOAST?\s*\*?\s*/i,             processor: 'Toast' },
-  { pattern: /^PAYPAL \*/i,                   processor: 'PayPal' },
-  { pattern: /^PP\*/i,                        processor: 'PayPal' },
-  { pattern: /^CLOVER\*\s*/i,                 processor: 'Clover' },
-  { pattern: /^CLV\*\s*/i,                    processor: 'Clover' },
-  { pattern: /^STRIPE\s*\*?\s*/i,             processor: 'Stripe' },
-  { pattern: /^SP \*\s*/i,                    processor: 'Shopify' },
-  { pattern: /^SHOPPAY \*/i,                  processor: 'Shop Pay' },
-  { pattern: /^APL\*\s*/i,                    processor: 'Apple' },
-  { pattern: /^APPLE\.COM\/BILL/i,            processor: 'Apple' },
-  { pattern: /^GOOGLE \*/i,                   processor: 'Google' },
-  { pattern: /^GOOG\*\s*/i,                   processor: 'Google' },
-  { pattern: /^DD \*/i,                       processor: 'DoorDash' },
-  { pattern: /^DD\*/i,                        processor: 'DoorDash' },
-  { pattern: /^GITHUB\s*/i,                   processor: 'GitHub' },
-  { pattern: /^GODADDY\s*/i,                  processor: 'GoDaddy' },
-  { pattern: /^WPY\*\s*/i,                    processor: 'WorldPay' },
-  { pattern: /^CKE\*\s*/i,                    processor: 'Cake (POS)' },
-  { pattern: /^POS DEBIT\s*/i,                processor: 'POS' },
-  { pattern: /^POS PURCHASE\s*/i,             processor: 'POS' },
-  { pattern: /^DEBIT CARD PURCHASE\s*/i,      processor: 'Debit Card' },
-  { pattern: /^RECURRING PAYMENT\s*/i,        processor: 'Recurring' },
-  { pattern: /^CHECKCARD\s*/i,                processor: 'Check Card' },
-]
-
-/** Strip a known processor prefix from a description. Returns the cleaned string. */
-export function stripProcessorPrefix(desc: string): string {
-  for (const { pattern } of PROCESSOR_PREFIXES) {
-    if (pattern.test(desc)) {
-      return desc.replace(pattern, '').trim()
-    }
-  }
-  return desc
 }
 
 // ---------------------------------------------------------------------------
@@ -142,7 +102,10 @@ const GROCERIES: MerchantRule[] = [
   { name: 'Waitrose',             pattern: /\bWAITROSE\b/i,                                 category: 'Groceries', subcategory: 'Specialty Food' },
   { name: 'Marks & Spencer Food', pattern: /M\s*&\s*S\s*(?:FOOD|SIMPLY)|MARKS\s*(?:&|AND)\s*SPENCER/i, category: 'Groceries', subcategory: 'Specialty Food' },
   { name: 'Morrisons',            pattern: /\bMORRISONS?\b/i,                               category: 'Groceries', subcategory: 'Supermarket' },
-  { name: 'Co-op Food',           pattern: /\bCO[\s-]*OP\b/i,                               category: 'Groceries', subcategory: 'Supermarket' },
+  // Negative guard: "RIVERSIDE ELECTRIC CO-OP" is a utility, not a grocer (§1.4a). The
+  // excluded words can precede "CO-OP" in the description, so the guard must be anchored
+  // at the start of the string (a lookahead only sees text *after* its own position).
+  { name: 'Co-op Food',           pattern: /^(?!.*\b(?:ELECTRIC|UTILITY|POWER|ENERGY)\b).*\bCO[\s-]*OP\b/i, category: 'Groceries', subcategory: 'Supermarket' },
   { name: 'Ocado',                pattern: /\bOCADO\b/i,                                    category: 'Groceries', subcategory: 'Grocery Delivery' },
   { name: 'Iceland',              pattern: /\bICELAND\b.*(?:FOOD|STORE)?/i,                 category: 'Groceries', subcategory: 'Supermarket' },
 ]
@@ -224,18 +187,23 @@ const DINING: MerchantRule[] = [
   { name: 'Deliveroo',            pattern: /\bDELIVEROO\b/i,                               category: 'Dining', subcategory: 'Food Delivery' },
   { name: 'Just Eat',             pattern: /JUST\s*EAT/i,                                  category: 'Dining', subcategory: 'Food Delivery' },
   { name: 'Caviar',               pattern: /\bCAVIAR\b/i,                                  category: 'Dining', subcategory: 'Food Delivery' },
+
+  // --- Generic keyword rule (PR-2 §2.A) — unknown/local restaurants ---
+  { name: 'Restaurant',           pattern: /\bRESTAURANT\b|\bCAFE\b|\bBISTRO\b|\bDINER\b|\bEATERY\b|\bRISTORANTE\b/i, category: 'Dining', subcategory: 'Restaurant' },
 ]
 
 const TRANSPORT: MerchantRule[] = [
   // --- Gas Stations ---
-  { name: 'Shell',                pattern: /\bSHELL\b.*(?:OIL|SVC|SERVICE)?/i,              category: 'Transport', subcategory: 'Gas Station' },
+  // Negative guard: "SHELL BEACH CAFE" is dining, not the gas station chain (§1.4a).
+  { name: 'Shell',                pattern: /\bSHELL\b(?!.*\b(?:BEACH|CAFE)\b)/i,            category: 'Transport', subcategory: 'Gas Station' },
   { name: 'Chevron',              pattern: /\bCHEVRON\b/i,                                  category: 'Transport', subcategory: 'Gas Station' },
   { name: 'ExxonMobil',           pattern: /\bEXXON\b|\bMOBIL\b/i,                         category: 'Transport', subcategory: 'Gas Station' },
   { name: 'BP',                   pattern: /\bBP\b.*(?:AMOCO|PROD|#)?/i,                    category: 'Transport', subcategory: 'Gas Station' },
   { name: 'Costco Gas',           pattern: /COSTCO\s*(?:GAS|FUEL|WHSE\s*GAS)/i,             category: 'Transport', subcategory: 'Gas Station' },
   { name: 'Sam\'s Club Gas',      pattern: /SAM'?S\s*(?:CLUB)?\s*(?:GAS|FUEL)/i,            category: 'Transport', subcategory: 'Gas Station' },
   { name: 'Sunoco',               pattern: /\bSUNOCO\b/i,                                   category: 'Transport', subcategory: 'Gas Station' },
-  { name: 'Marathon',             pattern: /\bMARATHON\b.*(?:PETRO)?/i,                     category: 'Transport', subcategory: 'Gas Station' },
+  // Negative guard: "MARATHON SPORTS RUNNING SHOES" is apparel, not the gas station chain (§1.4a).
+  { name: 'Marathon',             pattern: /\bMARATHON\b(?!.*\b(?:SPORTS|SHOES|RUNNING)\b)/i, category: 'Transport', subcategory: 'Gas Station' },
   { name: 'Citgo',                pattern: /\bCITGO\b/i,                                    category: 'Transport', subcategory: 'Gas Station' },
   { name: 'Valero',               pattern: /\bVALERO\b/i,                                   category: 'Transport', subcategory: 'Gas Station' },
   { name: 'Phillips 66',          pattern: /PHILLIPS\s*66/i,                                 category: 'Transport', subcategory: 'Gas Station' },
@@ -278,7 +246,9 @@ const TRANSPORT: MerchantRule[] = [
   { name: 'Progressive',          pattern: /\bPROGRESSIVE\b.*(?:INS)?/i,                    category: 'Transport', subcategory: 'Auto Insurance' },
   { name: 'State Farm',           pattern: /STATE\s*FARM/i,                                 category: 'Transport', subcategory: 'Auto Insurance' },
   { name: 'Allstate',             pattern: /\bALLSTATE\b/i,                                 category: 'Transport', subcategory: 'Auto Insurance' },
-  { name: 'USAA Insurance',       pattern: /\bUSAA\b/i,                                     category: 'Transport', subcategory: 'Auto Insurance' },
+  // Negative guard: "USAA TRANSFER TO CHECKING" is a transfer, not an insurance premium (§1.4a).
+  { name: 'USAA Insurance',       pattern: /\bUSAA\b(?!.*\bTRANSFER\b)/i,                   category: 'Transport', subcategory: 'Auto Insurance' },
+  { name: 'Gap Insurance',        pattern: /\bGAP\s*INSURANCE\b/i,                          category: 'Transport', subcategory: 'Auto Insurance' },
   { name: 'Liberty Mutual',       pattern: /LIBERTY\s*MUTUAL/i,                             category: 'Transport', subcategory: 'Auto Insurance' },
   { name: 'Nationwide',           pattern: /\bNATIONWIDE\b.*(?:INS)?/i,                     category: 'Transport', subcategory: 'Auto Insurance' },
   { name: 'Farmers Insurance',    pattern: /\bFARMERS\b.*INS/i,                             category: 'Transport', subcategory: 'Auto Insurance' },
@@ -327,7 +297,8 @@ const SHOPPING: MerchantRule[] = [
   { name: 'H&M',                  pattern: /\bH\s*&\s*M\b|H\s*AND\s*M\b/i,                 category: 'Shopping', subcategory: 'Clothing' },
   { name: 'Zara',                 pattern: /\bZARA\b/i,                                     category: 'Shopping', subcategory: 'Clothing' },
   { name: 'Uniqlo',               pattern: /\bUNIQLO\b/i,                                   category: 'Shopping', subcategory: 'Clothing' },
-  { name: 'Gap',                  pattern: /\bGAP\b.*(?:STORE|#)?/i,                        category: 'Shopping', subcategory: 'Clothing' },
+  // Mandatory qualifier: "GAP INSURANCE PREMIUM AUTO" is not the clothing chain (§1.4a).
+  { name: 'Gap',                  pattern: /\bGAP\b\s*(?:STORE|OUTLET|FACTORY|KIDS|BODY|#)/i, category: 'Shopping', subcategory: 'Clothing' },
   { name: 'Old Navy',             pattern: /OLD\s*NAVY/i,                                   category: 'Shopping', subcategory: 'Clothing' },
   { name: 'Nike',                 pattern: /\bNIKE\b/i,                                     category: 'Shopping', subcategory: 'Clothing' },
   { name: 'Adidas',               pattern: /\bADIDAS\b/i,                                   category: 'Shopping', subcategory: 'Clothing' },
@@ -374,7 +345,8 @@ const SHOPPING: MerchantRule[] = [
   // --- UK Retail ---
   { name: 'John Lewis',           pattern: /JOHN\s*LEWIS/i,                                 category: 'Shopping', subcategory: 'Department Store' },
   { name: 'Argos',                pattern: /\bARGOS\b/i,                                    category: 'Shopping', subcategory: 'Department Store' },
-  { name: 'Boots',                pattern: /\bBOOTS\b/i,                                    category: 'Health', subcategory: 'Pharmacy' },
+  // Negative guard: "BOOTS AND SADDLES WESTERN WEAR" is apparel, not the UK pharmacy (§1.4a).
+  { name: 'Boots',                pattern: /\bBOOTS\b(?!.*\b(?:SADDLE|WESTERN|WEAR)\b)/i,    category: 'Health', subcategory: 'Pharmacy' },
   { name: 'Currys',               pattern: /\bCURRYS\b/i,                                   category: 'Shopping', subcategory: 'Electronics' },
   { name: 'Debenhams',            pattern: /DEBENHAMS/i,                                     category: 'Shopping', subcategory: 'Department Store' },
   { name: 'Next',                 pattern: /\bNEXT\b.*(?:PLC|RETAIL)/i,                     category: 'Shopping', subcategory: 'Clothing' },
@@ -391,6 +363,10 @@ const SHOPPING: MerchantRule[] = [
   { name: 'Sephora',              pattern: /\bSEPHORA\b/i,                                  category: 'Shopping', subcategory: 'Department Store' },
   { name: 'Ulta Beauty',          pattern: /\bULTA\b/i,                                     category: 'Shopping', subcategory: 'Department Store' },
   { name: 'Bath & Body Works',    pattern: /BATH\s*(?:&|AND)?\s*BODY/i,                     category: 'Shopping', subcategory: 'Department Store' },
+
+  // --- Generic keyword rules (PR-2 §2.A) ---
+  { name: 'Jewelry Store',        pattern: /\bJEWEL(?:RY|ER|ERS)\b/i,                       category: 'Shopping', subcategory: 'Department Store' },
+  { name: 'Apparel',              pattern: /\bWESTERN\s*WEAR\b|\bSPORTING\s*GOODS\b|\bRUNNING\s*SHOES\b/i, category: 'Shopping', subcategory: 'Clothing' },
 ]
 
 const SUBSCRIPTIONS: MerchantRule[] = [
@@ -409,7 +385,8 @@ const SUBSCRIPTIONS: MerchantRule[] = [
   { name: 'Crunchyroll',          pattern: /CRUNCHYROLL/i,                                  category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'Audible',              pattern: /\bAUDIBLE\b/i,                                  category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'SiriusXM',             pattern: /SIRIUS\s*XM|SIRIUSXM/i,                        category: 'Subscriptions', subcategory: 'Streaming' },
-  { name: 'Pandora',              pattern: /\bPANDORA\b/i,                                  category: 'Subscriptions', subcategory: 'Streaming' },
+  // Mandatory qualifier: "PANDORA JEWELRY #442" is a store, not the music service (§1.4a).
+  { name: 'Pandora',              pattern: /\bPANDORA\b\s*(?:RADIO|MUSIC|\.COM)/i,          category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'Tidal',                pattern: /\bTIDAL\b/i,                                    category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'Apple Music',          pattern: /APPLE\s*MUSIC/i,                                category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'Deezer',               pattern: /\bDEEZER\b/i,                                   category: 'Subscriptions', subcategory: 'Streaming' },
@@ -492,7 +469,8 @@ const ENTERTAINMENT: MerchantRule[] = [
   { name: 'Live Nation',          pattern: /LIVE\s*NATION/i,                                 category: 'Entertainment', subcategory: 'Concert/Event' },
 
   // --- Gaming ---
-  { name: 'Steam',                pattern: /\bSTEAM\b.*(?:GAMES|PURCHASE)?|STEAMPOWERED/i,  category: 'Entertainment', subcategory: 'Gaming' },
+  // Mandatory qualifier: "STEAM ROOM DAY SPA" is a spa, not the gaming platform (§1.4a).
+  { name: 'Steam',                pattern: /\bSTEAM\b\s*(?:GAMES?|PURCHASE)\b|STEAMPOWERED/i, category: 'Entertainment', subcategory: 'Gaming' },
   { name: 'PlayStation',          pattern: /PLAYSTATION|SONY\s*NETWORK|PSN\b/i,             category: 'Entertainment', subcategory: 'Gaming' },
   { name: 'Xbox / Microsoft',     pattern: /\bXBOX\b|MICROSOFT\s*XBOX/i,                    category: 'Entertainment', subcategory: 'Gaming' },
   { name: 'Nintendo',             pattern: /\bNINTENDO\b/i,                                 category: 'Entertainment', subcategory: 'Gaming' },
@@ -504,11 +482,14 @@ const ENTERTAINMENT: MerchantRule[] = [
   { name: 'BevMo',                pattern: /\bBEVMO\b/i,                                    category: 'Entertainment', subcategory: 'Nightlife' },
   { name: 'Drizly',               pattern: /\bDRIZLY\b/i,                                   category: 'Entertainment', subcategory: 'Nightlife' },
   { name: 'Gopuff Alcohol',       pattern: /GOPUFF.*(?:ALCOHOL|WINE|BEER)/i,                category: 'Entertainment', subcategory: 'Nightlife' },
+
+  // --- Generic keyword rule (PR-2 §2.A) ---
+  { name: 'Concert Venue',        pattern: /\bARENA\b|\bSTADIUM\b/i,                        category: 'Entertainment', subcategory: 'Concert/Event' },
 ]
 
 const HEALTH: MerchantRule[] = [
   // --- Pharmacies ---
-  { name: 'CVS',                  pattern: /\bCVS\b/i,                                      category: 'Health', subcategory: 'Pharmacy' },
+  { name: 'CVS Pharmacy',         pattern: /\bCVS\b/i,                                      category: 'Health', subcategory: 'Pharmacy' },
   { name: 'Walgreens',            pattern: /WALGREEN/i,                                      category: 'Health', subcategory: 'Pharmacy' },
   { name: 'Rite Aid',             pattern: /RITE\s*AID/i,                                   category: 'Health', subcategory: 'Pharmacy' },
   { name: 'Duane Reade',          pattern: /DUANE\s*READE/i,                                category: 'Health', subcategory: 'Pharmacy' },
@@ -556,6 +537,11 @@ const HEALTH: MerchantRule[] = [
   { name: 'Aspen Dental',         pattern: /ASPEN\s*DENTAL/i,                               category: 'Health', subcategory: 'Dentist' },
   { name: 'SmileDirectClub',      pattern: /SMILE\s*DIRECT/i,                               category: 'Health', subcategory: 'Dentist' },
   { name: 'Invisalign',           pattern: /INVISALIGN/i,                                    category: 'Health', subcategory: 'Dentist' },
+
+  // --- Generic keyword rules (PR-2 §2.A) ---
+  { name: 'Medical Clinic',       pattern: /\bMEDICAL\b|\bCLINIC\b/i,                       category: 'Health', subcategory: 'Doctor/Medical' },
+  { name: 'Spa',                  pattern: /\bSPA\b/i,                                      category: 'Health', subcategory: 'Doctor/Medical' },
+  { name: 'Gym',                  pattern: /\bGYM\b|\bFITNESS\b/i,                          category: 'Health', subcategory: 'Gym' },
 ]
 
 const TRAVEL: MerchantRule[] = [
@@ -629,6 +615,9 @@ const HOUSING: MerchantRule[] = [
   { name: 'Octopus Energy',       pattern: /OCTOPUS\s*ENERGY/i,                             category: 'Housing', subcategory: 'Utilities' },
   { name: 'Thames Water',         pattern: /THAMES\s*WATER/i,                               category: 'Housing', subcategory: 'Utilities' },
   { name: 'Water Bill (generic)', pattern: /WATER\s*(?:BILL|DEPT|UTIL|AUTHORITY|DISTRICT)/i, category: 'Housing', subcategory: 'Utilities' },
+  // Rural electric co-op (§1.4a): the Groceries "Co-op Food" rule excludes this context,
+  // so it needs its own home rather than falling through to a null miss.
+  { name: 'Electric Co-op',       pattern: /\bELECTRIC\b.*\bCO[\s-]*OP\b|\bELECTRIC\s*COOPERATIVE\b/i, category: 'Housing', subcategory: 'Utilities' },
   { name: 'Sewer Bill (generic)', pattern: /SEWER\s*(?:BILL|DEPT|UTIL|AUTHORITY)/i,          category: 'Housing', subcategory: 'Utilities' },
 
   // --- Internet / Cable ---
@@ -659,7 +648,8 @@ const HOUSING: MerchantRule[] = [
   { name: 'Cricket Wireless',     pattern: /CRICKET\s*WIRELESS/i,                           category: 'Housing', subcategory: 'Phone Bill' },
   { name: 'Boost Mobile',         pattern: /BOOST\s*MOBILE/i,                               category: 'Housing', subcategory: 'Phone Bill' },
   { name: 'Metro by T-Mobile',    pattern: /METRO\s*(?:PCS|BY\s*T)/i,                       category: 'Housing', subcategory: 'Phone Bill' },
-  { name: 'O2',                   pattern: /\bO2\b/i,                                       category: 'Housing', subcategory: 'Phone Bill' },
+  // Negative guard: "O2 ARENA LONDON EVENT" is the concert venue, not the phone carrier (§1.4a).
+  { name: 'O2',                   pattern: /\bO2\b(?!\s*(?:ARENA|ACADEMY))/i,               category: 'Housing', subcategory: 'Phone Bill' },
   { name: 'EE',                   pattern: /\bEE\b.*(?:LTD|LIMITED)/i,                      category: 'Housing', subcategory: 'Phone Bill' },
   { name: 'Three (UK)',           pattern: /\bTHREE\b.*(?:UK|MOBILE)/i,                     category: 'Housing', subcategory: 'Phone Bill' },
   { name: 'Vodafone',             pattern: /\bVODAFONE\b/i,                                 category: 'Housing', subcategory: 'Phone Bill' },
@@ -669,6 +659,10 @@ const HOUSING: MerchantRule[] = [
   { name: 'Lemonade',             pattern: /\bLEMONADE\b.*(?:INS)?/i,                       category: 'Housing', subcategory: 'Insurance' },
   { name: 'Renters Insurance',    pattern: /RENTERS?\s*INS/i,                               category: 'Housing', subcategory: 'Insurance' },
   { name: 'Home Insurance',       pattern: /HOME\s*(?:OWNERS?)?\s*INS/i,                    category: 'Housing', subcategory: 'Insurance' },
+
+  // --- Generic keyword rule (PR-2 §2.A) — rent/lease is the single largest line item
+  // in most budgets and previously had no generic fallback rule at all. ---
+  { name: 'Rent',                 pattern: /\bRENT\b(?!\s*A\s*CAR)|\bLEASE\b|\bLANDLORD\b|\bAPTS?\b|\bAPARTMENTS?\b|\bPROPERTY\s*MANAGEMENT\b/i, category: 'Housing', subcategory: 'Rent' },
 ]
 
 const TRANSFER: MerchantRule[] = [
@@ -678,7 +672,12 @@ const TRANSFER: MerchantRule[] = [
   { name: 'PayPal Transfer',      pattern: /PAYPAL\s*(?:TRANSFER|INST\s*XFER)/i,            category: 'Transfer', subcategory: 'Transfer' },
   { name: 'Wise (TransferWise)',  pattern: /\bWISE\b.*(?:TRANSFER|PAYMENT)|TRANSFERWISE/i,  category: 'Transfer', subcategory: 'Transfer' },
   { name: 'Wire Transfer',        pattern: /WIRE\s*(?:TRANSFER|TRF|PAYMENT)/i,              category: 'Transfer', subcategory: 'Transfer' },
-  { name: 'ACH Transfer',         pattern: /ACH\s*(?:TRANSFER|CREDIT|DEBIT|PMT)/i,          category: 'Transfer', subcategory: 'Transfer' },
+  // "CREDIT" dropped from this alternation: ACH credits are frequently payroll/freelance
+  // income lacking the word "PAYROLL" and were being swallowed here with full confidence
+  // (§1.4a #10) — demoted to the narrower Income rules below (processed first anyway).
+  { name: 'ACH Transfer',         pattern: /ACH\s*(?:TRANSFER|DEBIT|PMT)/i,                 category: 'Transfer', subcategory: 'Transfer' },
+  // --- Generic keyword rule (PR-2 §2.A) ---
+  { name: 'Account Transfer',     pattern: /\bTRANSFER\s*(?:TO|FROM)\s*(?:CHECKING|SAVINGS?|SAV|ACCT|ACCOUNT)\b/i, category: 'Transfer', subcategory: 'Transfer' },
 ]
 
 const INCOME: MerchantRule[] = [
@@ -690,6 +689,15 @@ const INCOME: MerchantRule[] = [
   { name: 'Interest Payment',     pattern: /INTEREST\s*(?:PAYMENT|EARNED|PAID|CREDIT)/i,    category: 'Income', subcategory: 'Interest' },
   { name: 'Tax Refund (IRS)',     pattern: /IRS\s*TREAS|TAX\s*REF/i,                        category: 'Income', subcategory: 'Tax Refund' },
   { name: 'HMRC',                 pattern: /\bHMRC\b/i,                                     category: 'Income', subcategory: 'Tax Refund' },
+
+  // --- Generic keyword rules (PR-2 §2.A) ---
+  { name: 'Bonus/Commission',     pattern: /\bBONUS\b|\bCOMMISSION\b/i,                     category: 'Income', subcategory: 'Bonus' },
+  { name: 'Freelance Income',     pattern: /\bFREELANCE\b/i,                                category: 'Income', subcategory: 'Freelance' },
+  // ACH credits lacking "PAYROLL" (§1.4a #10) — client/freelance language wins over the
+  // generic payroll fallback below; both are processed ahead of the TRANSFER "ACH" rule
+  // since INCOME is first in ALL_RULES.
+  { name: 'ACH Credit (client)',  pattern: /ACH\s*CREDIT\b.*\b(?:CLIENT|FREELANCE|CONTRACTOR|INVOICE)\b/i, category: 'Income', subcategory: 'Freelance' },
+  { name: 'ACH Credit (payroll)', pattern: /ACH\s*CREDIT\b/i,                               category: 'Income', subcategory: 'Payroll' },
 ]
 
 const CHILDCARE: MerchantRule[] = [
@@ -762,6 +770,14 @@ const EDUCATION: MerchantRule[] = [
   { name: 'Tuition (generic)',    pattern: /\bTUITION\b/i,                                    category: 'Education', subcategory: 'Tuition' },
 ]
 
+// Catch-all keyword rules that don't have a dedicated category taxonomy home yet
+// (docs/classification-improvement-fable.md §1.4d / §5 flags Donations and Taxes as
+// follow-up taxonomy work) — mapped onto the existing 'Other' category for now.
+const OTHER: MerchantRule[] = [
+  { name: 'Donation',              pattern: /\bDONATION\b|\bCHARITY\b|\bRED\s*CROSS\b/i,       category: 'Other', subcategory: 'Donation' },
+  { name: 'Property Tax',          pattern: /\bPROPERTY\s*TAX\b/i,                             category: 'Other', subcategory: 'Property Tax' },
+]
+
 // ---------------------------------------------------------------------------
 // Consolidated rule list — ORDER MATTERS (first match wins)
 // ---------------------------------------------------------------------------
@@ -796,6 +812,8 @@ export const ALL_RULES: MerchantRule[] = [
   ...TRAVEL,
   // Housing — most generic patterns last
   ...HOUSING,
+  // Other — lowest-priority catch-all keyword rules
+  ...OTHER,
 ]
 
 // ---------------------------------------------------------------------------
@@ -809,30 +827,15 @@ export const ALL_RULES: MerchantRule[] = [
  * @param rawDescription - The raw description from the bank CSV
  */
 export function classifyByMerchant(rawDescription: string): ClassificationResult | null {
-  const desc = rawDescription.trim().toUpperCase()
-  if (!desc) return null
+  const { canonical } = normalizeMerchant(rawDescription)
+  if (!canonical) return null
 
-  // Try matching against raw description first
   for (const rule of ALL_RULES) {
-    if (rule.pattern.test(desc)) {
+    if (rule.pattern.test(canonical)) {
       return {
         category: rule.category,
         subcategory: rule.subcategory,
         merchant: rule.name,
-      }
-    }
-  }
-
-  // If no match, try stripping processor prefix and re-matching
-  const stripped = stripProcessorPrefix(desc)
-  if (stripped !== desc) {
-    for (const rule of ALL_RULES) {
-      if (rule.pattern.test(stripped)) {
-        return {
-          category: rule.category,
-          subcategory: rule.subcategory,
-          merchant: rule.name,
-        }
       }
     }
   }

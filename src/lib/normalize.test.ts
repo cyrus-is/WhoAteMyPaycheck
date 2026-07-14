@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { normalizeVendorName, normalizeSource } from './normalize'
+import { classifyByMerchant } from './merchantLookup'
 
 describe('normalizeVendorName', () => {
   it('maps known merchants to canonical names', () => {
@@ -39,6 +40,38 @@ describe('normalizeVendorName', () => {
   it('collapses multiple spaces', () => {
     const result = normalizeVendorName('STORE   NAME')
     expect(result).toBe('STORE NAME')
+  })
+})
+
+describe('normalizeVendorName agrees with classifyByMerchant on merchant identity', () => {
+  // The two used to be backed by independent merchant knowledge bases (normalize.ts's own
+  // 44-entry map vs. merchantLookup.ts's rule table) that could drift — e.g. classification
+  // saying "Costco Gas" while the Sankey tooltip grouped it under a separate "Costco" bucket.
+  // normalizeVendorName is now built directly on classifyByMerchant, so for any description
+  // classifyByMerchant resolves, the display name must be that same rule's name (modulo a
+  // "(...)" disambiguator meant only for developers, e.g. "Uber (ride)" -> "Uber").
+  const descriptions = [
+    'NETFLIX.COM',
+    'STARBUCKS #12345',
+    'WHOLEFDS MKT',
+    "TRADER JOE'S #100 SF CA",
+    'AMAZON.COM*2K7LQ',
+    'UBER * TRIP',
+    'UBER EATS',
+    'SPOTIFY USA',
+    'DOORDASH*ORDER',
+    'PG&E ELECTRIC',
+    'CVS PHARMACY #00412',
+    'RENT PAYMENT - OAKWOOD APTS',
+    'GYM MEMBERSHIP',
+    'RIVERVIEW MEDICAL CLINIC #9012',
+  ]
+
+  it.each(descriptions)('"%s"', (description) => {
+    const match = classifyByMerchant(description)
+    expect(match).not.toBeNull()
+    const cleanedRuleName = match!.merchant.replace(/\s*\([^)]*\)\s*$/, '')
+    expect(normalizeVendorName(description)).toBe(cleanedRuleName)
   })
 })
 

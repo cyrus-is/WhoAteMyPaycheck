@@ -335,7 +335,7 @@ export async function categorizeTransactions(
   // Layer 2: Resolve cache hits — only send remaining misses to Claude
   const cacheMisses: Transaction[] = []
   for (const tx of afterMerchantLookup) {
-    const cached = getCached(tx.description, tx.amount, tx.type, mode)
+    const cached = getCached(tx.description, tx.type, mode)
     if (cached) {
       allResults.push({ id: tx.id, ...cached })
       done++
@@ -373,7 +373,7 @@ export async function categorizeTransactions(
         const txMap = new Map(batch.map((tx) => [tx.id, tx]))
         for (const r of results) {
           const tx = txMap.get(r.id)
-          if (tx) setCached(tx.description, tx.amount, tx.type, mode, { category: r.category, subcategory: r.subcategory })
+          if (tx) setCached(tx.description, tx.type, mode, { category: r.category, subcategory: r.subcategory })
         }
         return results
       } catch (err) {

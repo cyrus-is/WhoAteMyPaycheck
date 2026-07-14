@@ -83,7 +83,7 @@ describe('categorizeTransactions', () => {
 
   it('skips API for cache hits and only calls for misses', async () => {
     // Use unknown merchants so they bypass the merchant pre-classifier
-    setCached('OBSCURE CAFE 1234', 50, 'debit', 'simple', { category: 'Dining', subcategory: 'Coffee Shop' })
+    setCached('OBSCURE VENDOR 1234', 'debit', 'simple', { category: 'Dining', subcategory: 'Coffee Shop' })
 
     const mockCreate = await getMockCreate()
     mockCreate.mockResolvedValue(mockResponse([
@@ -91,7 +91,7 @@ describe('categorizeTransactions', () => {
     ]))
 
     const txns = [
-      makeTx({ id: 'tx-1', description: 'OBSCURE CAFE 1234' }),
+      makeTx({ id: 'tx-1', description: 'OBSCURE VENDOR 1234' }),
       makeTx({ id: 'tx-2', description: 'BOBS FARM STAND' }),
     ]
     const results = await categorizeTransactions(txns, 'test-key')
@@ -104,7 +104,7 @@ describe('categorizeTransactions', () => {
   })
 
   it('makes zero API calls when all transactions are cache hits', async () => {
-    setCached('STARBUCKS', 50, 'debit', 'simple', { category: 'Dining', subcategory: 'Coffee Shop' })
+    setCached('STARBUCKS', 'debit', 'simple', { category: 'Dining', subcategory: 'Coffee Shop' })
 
     const mockCreate = await getMockCreate()
     const txns = [makeTx({ id: 'tx-1', description: 'STARBUCKS' })]
@@ -196,7 +196,7 @@ describe('categorizeTransactions', () => {
       { id: 'tx-1', category: 'Dining', subcategory: 'Coffee Shop' },
     ]))
 
-    const txns = [makeTx({ id: 'tx-1', description: 'OBSCURE CAFE 1234', amount: 5 })]
+    const txns = [makeTx({ id: 'tx-1', description: 'OBSCURE VENDOR 1234', amount: 5 })]
 
     const simpleResults = await categorizeTransactions(txns, 'test-key', undefined, undefined, 'simple')
     const detailedResults = await categorizeTransactions(txns, 'test-key', undefined, undefined, 'detailed')
@@ -250,7 +250,7 @@ describe('categorizeTransactions — detailed mode subcategory enforcement', () 
       { id: 'tx-1', category: 'Dining', subcategory: 'Sushi Place' }, // not in taxonomy
     ]))
 
-    const txns = [makeTx({ id: 'tx-1', description: 'NOBU RESTAURANT', amount: 120 })]
+    const txns = [makeTx({ id: 'tx-1', description: 'OBSCURE VENDOR 9012', amount: 120 })]
     const results = await categorizeTransactions(txns, 'test-key', undefined, undefined, 'detailed')
     // Falls back to category name
     expect(results[0].subcategory).toBe('Dining')
@@ -262,7 +262,7 @@ describe('categorizeTransactions — detailed mode subcategory enforcement', () 
       { id: 'tx-1', category: 'Dining', subcategory: 'Restaurant' },
     ]))
 
-    const txns = [makeTx({ id: 'tx-1', description: 'NOBU RESTAURANT', amount: 120 })]
+    const txns = [makeTx({ id: 'tx-1', description: 'OBSCURE VENDOR 9012', amount: 120 })]
     const results = await categorizeTransactions(txns, 'test-key', undefined, undefined, 'detailed')
     expect(results[0].subcategory).toBe('Restaurant')
   })
@@ -273,7 +273,7 @@ describe('categorizeTransactions — detailed mode subcategory enforcement', () 
       { id: 'tx-1', category: 'Dining', subcategory: 'Sushi Place' }, // unusual but OK in simple
     ]))
 
-    const txns = [makeTx({ id: 'tx-1', description: 'NOBU RESTAURANT', amount: 120 })]
+    const txns = [makeTx({ id: 'tx-1', description: 'OBSCURE VENDOR 9012', amount: 120 })]
     const results = await categorizeTransactions(txns, 'test-key', undefined, undefined, 'simple')
     expect(results[0].subcategory).toBe('Sushi Place')
   })
@@ -284,7 +284,7 @@ describe('categorizeTransactions — detailed mode subcategory enforcement', () 
       { id: 'tx-1', category: 'Dining', subcategory: 'Restaurant' },
     ]))
 
-    const txns = [makeTx({ id: 'tx-1', description: 'NOBU RESTAURANT', amount: 120 })]
+    const txns = [makeTx({ id: 'tx-1', description: 'OBSCURE VENDOR 5678', amount: 120 })]
     await categorizeTransactions(txns, 'test-key', undefined, undefined, 'detailed')
 
     const callArgs = mockCreate.mock.calls[0][0] as { system: string }
@@ -299,7 +299,7 @@ describe('categorizeTransactions — detailed mode subcategory enforcement', () 
       { id: 'tx-1', category: 'Dining', subcategory: 'Coffee Shop' },
     ]))
 
-    const txns = [makeTx({ id: 'tx-1', description: 'OBSCURE CAFE 1234', amount: 5 })]
+    const txns = [makeTx({ id: 'tx-1', description: 'OBSCURE VENDOR 1234', amount: 5 })]
     await categorizeTransactions(txns, 'test-key', undefined, undefined, 'simple')
 
     const callArgs = mockCreate.mock.calls[0][0] as { system: string }

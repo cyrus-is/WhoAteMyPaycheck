@@ -4,66 +4,29 @@
  * (recurring detection and budget generation).
  */
 
-const MERCHANT_MAP: [RegExp, string][] = [
-  [/wholefds|whole\s*foods/i, 'Whole Foods'],
-  [/trader\s*joe/i, "Trader Joe's"],
-  [/starbucks/i, 'Starbucks'],
-  [/amazon(?!\.com\s*refund)/i, 'Amazon'],
-  [/shell\s*oil|shell\s*service/i, 'Shell'],
-  [/costco\s*gas/i, 'Costco Gas'],
-  [/costco\s*whse|costco(?!\s*gas)/i, 'Costco'],
-  [/netflix/i, 'Netflix'],
-  [/spotify/i, 'Spotify'],
-  [/target/i, 'Target'],
-  [/cvs\s*pharmacy/i, 'CVS Pharmacy'],
-  [/walgreens/i, 'Walgreens'],
-  [/uber\s*eats/i, 'Uber Eats'],
-  [/uber\s*\*?\s*trip|uber\*?\s*pending/i, 'Uber'],
-  [/lyft/i, 'Lyft'],
-  [/grubhub/i, 'GrubHub'],
-  [/doordash/i, 'DoorDash'],
-  [/instacart/i, 'Instacart'],
-  [/chipotle/i, 'Chipotle'],
-  [/sweetgreen/i, 'Sweetgreen'],
-  [/equinox/i, 'Equinox'],
-  [/planet\s*fitness/i, 'Planet Fitness'],
-  [/delta\s*air/i, 'Delta Air Lines'],
-  [/marriott/i, 'Marriott'],
-  [/hilton/i, 'Hilton'],
-  [/airbnb/i, 'Airbnb'],
-  [/apple\s*store/i, 'Apple Store'],
-  [/apple\.com/i, 'Apple.com'],
-  [/at&t|att\*/i, 'AT&T'],
-  [/pg&e/i, 'PG&E'],
-  [/comcast/i, 'Comcast'],
-  [/tesco/i, 'Tesco'],
-  [/sainsbury/i, "Sainsbury's"],
-  [/marks\s*&\s*spencer|marks\s*and\s*spencer|\bm&s\b/i, 'Marks & Spencer'],
-  [/waitrose/i, 'Waitrose'],
-  [/asda/i, 'ASDA'],
-  [/ocado/i, 'Ocado'],
-  [/deliveroo/i, 'Deliveroo'],
-  [/pret\s*a\s*manger/i, 'Pret A Manger'],
-  [/costa\s*coffee/i, 'Costa Coffee'],
-  [/notion/i, 'Notion'],
-  [/zoom/i, 'Zoom'],
-  [/anthropic/i, 'Anthropic API'],
-]
+import { classifyByMerchant } from './merchantLookup'
+import { normalizeMerchant } from './merchant'
 
-/** Normalize a vendor description to a clean, groupable name. */
+/** Strip a disambiguating "(...)" suffix from a merchant rule name, e.g.
+ *  "Uber (ride)" -> "Uber", "AT&T (generic)" -> "AT&T". Those suffixes exist to keep
+ *  merchantLookup.ts's rules readable for developers; they're not meant for display. */
+function cleanDisplayName(name: string): string {
+  return name.replace(/\s*\([^)]*\)\s*$/, '')
+}
+
+/**
+ * Normalize a vendor description to a clean, groupable name.
+ * Built on the same merchant identity used for classification (merchantLookup.ts /
+ * merchant.ts) so a Sankey tooltip and a categorized transaction never disagree about
+ * what merchant a description refers to (docs/classification-improvement-fable.md §1.2/§2.A).
+ */
 export function normalizeVendorName(description: string): string {
-  const s = description
-    .replace(/\*[A-Z0-9]+$/i, '')   // strip trailing order IDs like *8N3LQ7PK5
-    .replace(/#\d+/g, '')           // strip store numbers like #123
-    .replace(/\s{2,}/g, ' ')
-    .trim()
+  const match = classifyByMerchant(description)
+  if (match) return cleanDisplayName(match.merchant)
 
-  for (const [pattern, name] of MERCHANT_MAP) {
-    if (pattern.test(s)) return name
-  }
-
-  // Trim long descriptions
-  return s.length > 28 ? s.substring(0, 28) + '…' : s
+  const { canonical } = normalizeMerchant(description)
+  if (!canonical) return description.trim()
+  return canonical.length > 28 ? canonical.substring(0, 28) + '…' : canonical
 }
 
 /**
@@ -72,7 +35,8 @@ export function normalizeVendorName(description: string): string {
  * banks may label as a non-expense category when the real category is a purchase reversal.
  */
 
-// Patterns beyond MERCHANT_MAP — generic vendor-type words that can't be income.
+// Patterns beyond classifyByMerchant — generic vendor-type words (or bank-shorthand brand
+// abbreviations too ambiguous to classify, e.g. bare "M&S") that can't be income.
 const VENDOR_INDICATOR_PATTERNS: RegExp[] = [
   /\brestaurant\b/i,
   /\bcafe\b|\bcoffee\s*shop\b|\bcoffee\s*house\b/i,
@@ -83,10 +47,15 @@ const VENDOR_INDICATOR_PATTERNS: RegExp[] = [
   /\bdeli\b|\bbakery\b|\bbutcher\b/i,
   /\bdaycare\b|\bchildcare\b|\bchild\s*care\b|\bpreschool\b/i,
   /\btuition\b|\bstudent\s*loan\b/i,
+  /\bm&s\b/i,
 ]
 
 export function isMerchantCredit(description: string): boolean {
-  if (MERCHANT_MAP.some(([pattern]) => pattern.test(description))) return true
+  // A classified merchant is only a "credit that isn't income" if the merchant itself is
+  // a spending category (Amazon, Tesco…) — classifyByMerchant also resolves real income
+  // (payroll, freelance, bonuses…), which must NOT be excluded here.
+  const match = classifyByMerchant(description)
+  if (match && match.category !== 'Income') return true
   return VENDOR_INDICATOR_PATTERNS.some((pattern) => pattern.test(description))
 }
 
