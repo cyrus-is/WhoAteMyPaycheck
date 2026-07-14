@@ -2,9 +2,10 @@ import { describe, it, expect } from 'vitest'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import Papa from 'papaparse'
-import { detectRecurring } from './recurring'
+import { detectRecurring, monthlyEquivalent, driftFraction, DRIFT_THRESHOLD } from './recurring'
 import { detectFormat, parseTransactions } from './parser'
 import type { Transaction } from './types'
+import type { RecurringMerchant } from './budget-types'
 
 function loadSampleTransactions(filename: string): Transaction[] {
   const csv = readFileSync(resolve(__dirname, '../../sample-data', filename), 'utf8')
@@ -183,5 +184,63 @@ describe('detectRecurring', () => {
     expect(results[0].lastAmount).toBe(17.99)
     // A 12.5% price increase bumps CV above the fixed threshold → variable-predictable
     expect(results[0].type).toBe('variable-predictable')
+  })
+})
+
+function makeMerchant(overrides: Partial<RecurringMerchant> = {}): RecurringMerchant {
+  return {
+    merchant: 'Netflix',
+    category: 'Subscriptions',
+    cadence: 'monthly',
+    type: 'fixed',
+    averageAmount: 15.49,
+    lastAmount: 15.49,
+    transactionCount: 6,
+    ...overrides,
+  }
+}
+
+describe('monthlyEquivalent', () => {
+  it('passes monthly amounts through unchanged', () => {
+    const m = makeMerchant({ cadence: 'monthly', averageAmount: 15.49 })
+    expect(monthlyEquivalent(m)).toBe(15.49)
+  })
+
+  it('normalizes weekly amounts by 4.33', () => {
+    const m = makeMerchant({ cadence: 'weekly', averageAmount: 10 })
+    expect(monthlyEquivalent(m)).toBeCloseTo(43.3, 5)
+  })
+
+  it('normalizes quarterly amounts by dividing by 3', () => {
+    const m = makeMerchant({ cadence: 'quarterly', averageAmount: 30 })
+    expect(monthlyEquivalent(m)).toBe(10)
+  })
+})
+
+describe('driftFraction', () => {
+  it('is zero when last amount equals average', () => {
+    const m = makeMerchant({ averageAmount: 15.49, lastAmount: 15.49 })
+    expect(driftFraction(m)).toBe(0)
+  })
+
+  it('is positive when last amount is higher than average', () => {
+    const m = makeMerchant({ averageAmount: 15.49, lastAmount: 17.99 })
+    expect(driftFraction(m)).toBeCloseTo(0.1614, 3)
+  })
+
+  it('is zero when average amount is zero, avoiding division by zero', () => {
+    const m = makeMerchant({ averageAmount: 0, lastAmount: 5 })
+    expect(driftFraction(m)).toBe(0)
+  })
+
+  it('sits exactly at the drift threshold boundary (not flagged — strictly greater-than)', () => {
+    const m = makeMerchant({ averageAmount: 100, lastAmount: 105 })
+    expect(driftFraction(m)).toBeCloseTo(DRIFT_THRESHOLD, 10)
+    expect(Math.abs(driftFraction(m)) > DRIFT_THRESHOLD).toBe(false)
+  })
+
+  it('flags just above the drift threshold boundary', () => {
+    const m = makeMerchant({ averageAmount: 100, lastAmount: 105.01 })
+    expect(Math.abs(driftFraction(m)) > DRIFT_THRESHOLD).toBe(true)
   })
 })

@@ -461,6 +461,8 @@ export function App() {
 
         <AnomalyInsights anomalies={anomalies} />
 
+        {/* Deliberately lens-independent, like BudgetPanel below — subscriptions don't change
+            meaning across spending/essentials/tax views, so the panel stays visible on all three. */}
         <ErrorBoundary>
           <RecurringPanel merchants={recurringMerchants} />
         </ErrorBoundary>

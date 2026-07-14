@@ -43,6 +43,14 @@ describe('RecurringPanel', () => {
     expect(screen.getByText('$25.49')).toBeInTheDocument()
   })
 
+  it('normalizes weekly cadence into the monthly total', () => {
+    render(<RecurringPanel merchants={[
+      // Weekly $20 -> $20 * 4.33 = $86.60/mo
+      makeMerchant({ merchant: 'Coffee Club', cadence: 'weekly', averageAmount: 20, lastAmount: 20 }),
+    ]} />)
+    expect(screen.getByText('$86.60')).toBeInTheDocument()
+  })
+
   it('flags drift greater than 5% between average and last amount', () => {
     render(<RecurringPanel merchants={[
       makeMerchant({ merchant: 'Netflix', averageAmount: 15.49, lastAmount: 17.99 }),

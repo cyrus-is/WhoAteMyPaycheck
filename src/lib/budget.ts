@@ -6,7 +6,7 @@ import type {
   BudgetComparison,
   BudgetComparisonResult,
 } from './budget-types'
-import { detectRecurring } from './recurring'
+import { detectRecurring, monthlyEquivalent } from './recurring'
 import { normalizeVendorName, normalizeSource, isMerchantCredit } from './normalize'
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -134,10 +134,7 @@ export function generateBudget(
   const expenseLines: BudgetLine[] = []
 
   for (const recurring of recurringMerchants) {
-    const monthlyAmount =
-      recurring.cadence === 'weekly'    ? recurring.averageAmount * 4.33 :
-      recurring.cadence === 'quarterly' ? recurring.averageAmount / 3    :
-      recurring.averageAmount  // monthly
+    const monthlyAmount = monthlyEquivalent(recurring)
 
     expenseLines.push({
       category: recurring.category,

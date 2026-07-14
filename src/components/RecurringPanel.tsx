@@ -1,4 +1,5 @@
 import type { RecurringMerchant } from '../lib/budget-types'
+import { monthlyEquivalent, DRIFT_THRESHOLD, driftFraction } from '../lib/recurring'
 
 interface RecurringPanelProps {
   merchants: RecurringMerchant[]
@@ -10,18 +11,6 @@ const CADENCE_LABELS: Record<RecurringMerchant['cadence'], string> = {
   quarterly: 'Quarterly',
 }
 
-/** Amount a merchant would cost per month if its cadence were normalized to monthly */
-function monthlyEquivalent(merchant: RecurringMerchant): number {
-  return (
-    merchant.cadence === 'weekly'    ? merchant.averageAmount * 4.33 :
-    merchant.cadence === 'quarterly' ? merchant.averageAmount / 3    :
-    merchant.averageAmount  // monthly
-  )
-}
-
-/** Drift threshold above which the last payment is visually flagged vs. the average */
-const DRIFT_THRESHOLD = 0.05
-
 function formatCurrency(amount: number): string {
   return `$${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
@@ -29,6 +18,9 @@ function formatCurrency(amount: number): string {
 export function RecurringPanel({ merchants }: RecurringPanelProps) {
   if (merchants.length === 0) return null
 
+  // Total is built from averageAmount (not lastAmount) even for fixed merchants — intentionally
+  // smooths one-off blips rather than jumping on a single payment; the per-row drift flag below
+  // is what surfaces a sustained price change to the user.
   const monthlyTotal = merchants.reduce((sum, m) => sum + monthlyEquivalent(m), 0)
   const sorted = [...merchants].sort((a, b) => monthlyEquivalent(b) - monthlyEquivalent(a))
 
@@ -53,7 +45,7 @@ export function RecurringPanel({ merchants }: RecurringPanelProps) {
         </thead>
         <tbody>
           {sorted.map((m) => {
-            const drift = m.averageAmount > 0 ? (m.lastAmount - m.averageAmount) / m.averageAmount : 0
+            const drift = driftFraction(m)
             const drifted = Math.abs(drift) > DRIFT_THRESHOLD
             return (
               <tr key={m.merchant} className={`recurring-row${drifted ? ' recurring-row--drift' : ''}`}>
