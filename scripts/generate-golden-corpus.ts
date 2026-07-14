@@ -36,6 +36,8 @@ interface GoldCsvRow {
   type: 'debit' | 'credit'
   category: Category
   subcategory: string
+  /** Raw bank-provided category column, when the fixture carries one (§4 PR-5) */
+  bankCategory?: string
 }
 
 const SAMPLE_DIR = resolve(__dirname, '../sample-data')
@@ -264,6 +266,7 @@ function buildFixtureRows(): GoldCsvRow[] {
         type: tx.type,
         category: label.category,
         subcategory: label.subcategory,
+        ...(tx.bankCategory ? { bankCategory: tx.bankCategory } : {}),
       })
     }
   }
@@ -454,7 +457,7 @@ function buildMessyVariantRows(): GoldCsvRow[] {
 // ---------------------------------------------------------------------------
 
 function writeCsv(filename: string, rows: GoldCsvRow[]): void {
-  const csv = Papa.unparse(rows, { columns: ['sourceFile', 'description', 'amount', 'type', 'category', 'subcategory'] })
+  const csv = Papa.unparse(rows, { columns: ['sourceFile', 'description', 'amount', 'type', 'category', 'subcategory', 'bankCategory'] })
   writeFileSync(resolve(OUT_DIR, filename), csv + '\n', 'utf8')
   console.log(`Wrote ${rows.length} rows to sample-data/labeled/${filename}`)
 }

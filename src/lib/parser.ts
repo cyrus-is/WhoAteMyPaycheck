@@ -12,6 +12,8 @@ export interface ColumnMapping {
   credit?: string
   /** Optional transaction type column */
   type?: string
+  /** Optional bank-provided category column (e.g. Chase's or Monzo's "Category") */
+  category?: string
   /** If true, positive in `amount` means credit (income). Default: false (positive = debit) */
   positiveIsCredit?: boolean
   /** Detected slash-date order for this file. 'dmy' = DD/MM/YYYY, 'mdy' = MM/DD/YYYY (default) */
@@ -38,6 +40,9 @@ const DEBIT_PATTERNS = [
 const CREDIT_PATTERNS = [
   /^credit$/i, /^deposit$/i, /^credit.?amount$/i, /^deposits?$/i,
   /^money.?in$/i, /paid\s*in/i,
+]
+const CATEGORY_PATTERNS = [
+  /^category$/i, /^transaction.?category$/i, /^spending.?category$/i,
 ]
 
 function matchesAny(col: string, patterns: RegExp[]): boolean {
@@ -74,6 +79,7 @@ export function detectFormat(
   const amountCol = headers.find((h) => matchesAny(h, AMOUNT_PATTERNS))
   const debitCol = headers.find((h) => matchesAny(h, DEBIT_PATTERNS))
   const creditCol = headers.find((h) => matchesAny(h, CREDIT_PATTERNS))
+  const categoryCol = headers.find((h) => matchesAny(h, CATEGORY_PATTERNS))
 
   if (!dateCol) throw new Error(`Could not detect date column. Headers: ${headers.join(', ')}`)
   if (!descCol) throw new Error(`Could not detect description column. Headers: ${headers.join(', ')}`)
@@ -117,6 +123,7 @@ export function detectFormat(
   const dateOrder = detectDateOrder(sampleDates)
 
   const mapping: ColumnMapping = { date: dateCol, description: descCol, dateOrder }
+  if (categoryCol) mapping.category = categoryCol
   // Prefer explicit debit/credit split over a single signed amount column —
   // the split is unambiguous and avoids sign-convention guessing.
   if (debitCol || creditCol) {
@@ -241,6 +248,8 @@ export function parseTransactions(
       continue
     }
 
+    const bankCategory = mapping.category ? (row[mapping.category] ?? '').trim() : ''
+
     transactions.push({
       id: `tx-${++txCounter}`,
       date,
@@ -250,6 +259,7 @@ export function parseTransactions(
       category: type === 'credit' ? 'Income' : 'Other',
       subcategory: '',
       sourceFile,
+      ...(bankCategory ? { bankCategory } : {}),
     })
   }
 

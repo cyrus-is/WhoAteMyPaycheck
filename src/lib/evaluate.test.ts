@@ -21,6 +21,7 @@ import {
   formatConfusionMatrix,
   merchantLookupClassifier,
   transferKeywordClassifier,
+  bankCategoryClassifier,
   combinedOfflineClassifier,
   type GoldTransaction,
 } from './evaluate'
@@ -45,6 +46,7 @@ function loadGoldCsv(filename: string): GoldTransaction[] {
       type: row.type as 'debit' | 'credit',
       category: row.category as Category,
       subcategory: row.subcategory,
+      ...(row.bankCategory ? { bankCategory: row.bankCategory } : {}),
     }
   })
 }
@@ -124,6 +126,12 @@ describe('offline classification eval harness', () => {
     // store-number/prefix rules, Shell/beach-city guard narrowed, ACH-credit/transfer guard) —
     // see sample-data/labeled/layer1-correct-baseline.json + the test below for the per-row
     // regression net this aggregate floor alone couldn't provide.
+    // Raised again by PR-5 (bank-provided category harvesting, §4 PR-5): the FIXTURE_/
+    // CORPUS_COMBINED_* floors below now include Layer 4 (bankCategoryClassifier), which
+    // recovers 34 rows (monzo-uk.csv's "EMPLOYER SALARY" and bare "Amazon" — unknown to the
+    // merchant dictionary, but carry a resolvable bank Category column) that Layer 0/1 alone
+    // both missed. The Layer 0/1-only floors are untouched — this layer is a fallback that
+    // only ever adds coverage on top of them, never competes with them.
     const FIXTURE_COVERAGE_FLOOR = 0.920 // measured 923/1003 = 92.02%
     const FIXTURE_ACCURACY_FLOOR = 0.996 // measured 920/923 = 99.67% (of covered fixture rows)
 
@@ -133,15 +141,24 @@ describe('offline classification eval harness', () => {
     const CORPUS_LAYER0_COVERAGE_FLOOR = 0.044 // measured 59/1333 = 4.43%
     const CORPUS_LAYER0_ACCURACY_FLOOR = 1.0 // measured 59/59 = 100%
 
-    const CORPUS_COMBINED_COVERAGE_FLOOR = 0.957 // measured 1277/1333 = 95.80%
-    const CORPUS_COMBINED_ACCURACY_FLOOR = 0.997 // measured 1274/1277 = 99.77%
+    // "Combined fixture coverage ... ≥ 93%" (§4 PR-5 acceptance) — measured on the 1003
+    // existing-fixture rows alone (no synthetic adversarial/messy-variant rows).
+    const FIXTURE_COMBINED_COVERAGE_FLOOR = 0.977 // measured 981/1003 = 97.81%
+    const FIXTURE_COMBINED_ACCURACY_FLOOR = 0.996 // measured 978/981 = 99.69%
+
+    const CORPUS_COMBINED_COVERAGE_FLOOR = 0.982 // measured 1311/1333 = 98.35%
+    const CORPUS_COMBINED_ACCURACY_FLOOR = 0.997 // measured 1308/1311 = 99.77%
 
     const fixtureLayer1 = evaluateLayer('Layer 1 — merchantLookup (existing fixtures only)', fixtureRows, merchantLookupClassifier)
+    const fixtureCombined = evaluateLayer('Combined — Layer 0+1+4 (existing fixtures only)', fixtureRows, combinedOfflineClassifier)
     const corpusLayer0 = evaluateLayer('Layer 0 — transfer keywords (full corpus)', allRows, transferKeywordClassifier)
     const corpusLayer1 = evaluateLayer('Layer 1 — merchantLookup (full corpus)', allRows, merchantLookupClassifier)
-    const corpusCombined = evaluateLayer('Combined — Layer 0 then Layer 1 (full corpus)', allRows, combinedOfflineClassifier)
+    const corpusLayer4 = evaluateLayer('Layer 4 — bank category (full corpus)', allRows, bankCategoryClassifier)
+    const corpusCombined = evaluateLayer('Combined — Layer 0+1+4 (full corpus)', allRows, combinedOfflineClassifier)
 
-    const reportTable = formatLayerReportTable([fixtureLayer1, corpusLayer0, corpusLayer1, corpusCombined])
+    const reportTable = formatLayerReportTable([
+      fixtureLayer1, fixtureCombined, corpusLayer0, corpusLayer1, corpusLayer4, corpusCombined,
+    ])
     const confusionMatrix = formatConfusionMatrix(buildConfusionMatrix(allRows, merchantLookupClassifier))
 
     console.log(`\nOffline classification baseline (sample-data/labeled/, ${allRows.length} rows):\n\n${reportTable}`)
@@ -149,6 +166,9 @@ describe('offline classification eval harness', () => {
 
     expect(fixtureLayer1.coverage).toBeGreaterThanOrEqual(FIXTURE_COVERAGE_FLOOR)
     expect(fixtureLayer1.accuracy).toBeGreaterThanOrEqual(FIXTURE_ACCURACY_FLOOR)
+
+    expect(fixtureCombined.coverage).toBeGreaterThanOrEqual(FIXTURE_COMBINED_COVERAGE_FLOOR)
+    expect(fixtureCombined.accuracy).toBeGreaterThanOrEqual(FIXTURE_COMBINED_ACCURACY_FLOOR)
 
     expect(corpusLayer1.coverage).toBeGreaterThanOrEqual(CORPUS_LAYER1_COVERAGE_FLOOR)
     expect(corpusLayer1.accuracy).toBeGreaterThanOrEqual(CORPUS_LAYER1_ACCURACY_FLOOR)

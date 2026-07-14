@@ -8,6 +8,14 @@ export interface Transaction {
   category: string
   subcategory: string
   sourceFile: string
+  /** Bank-provided category label, when the source CSV carries one (e.g. Chase's or
+   *  Monzo's "Category" column) — raw bank vocabulary, not yet mapped to our taxonomy.
+   *  See lib/bankCategory.ts. */
+  bankCategory?: string
+  /** Set when this transaction's category/subcategory was assigned by the bank-category
+   *  harvester (lib/bankCategory.ts) rather than the merchant dictionary, cache, or
+   *  Claude — those layers don't tag a source yet. */
+  source?: 'bank'
 }
 
 /** A CSV file that has been loaded and parsed into raw rows */

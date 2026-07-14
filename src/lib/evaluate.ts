@@ -10,6 +10,7 @@
  */
 import type { Category } from './types'
 import { classifyByMerchant } from './merchantLookup'
+import { classifyByBankCategory } from './bankCategory'
 import { detectTransfers } from './transfers'
 
 /** A single golden-corpus row: a transaction description with its correct category. */
@@ -20,6 +21,9 @@ export interface GoldTransaction {
   type: 'debit' | 'credit'
   category: Category
   subcategory: string
+  /** Raw bank-provided category column, when the source fixture carries one (currently
+   *  only chase-checking.csv and monzo-uk.csv — see lib/bankCategory.ts, §4 PR-5). */
+  bankCategory?: string
 }
 
 /** A classification layer under test: predicts a category from a gold row, or null (miss). */
@@ -84,9 +88,22 @@ export const transferKeywordClassifier: OfflineClassifier = (row) => {
   return transferIds.size > 0 ? 'Transfer' : null
 }
 
-/** Both zero-network layers, transfer detection first (matches the real pipeline order). */
+/**
+ * Layer 4 — bank-provided category harvesting (bankCategory.ts:classifyByBankCategory),
+ * evaluated standalone over the full corpus — including rows Layer 1 (merchant
+ * dictionary) would have intercepted in the real pipeline. Its printed accuracy is
+ * therefore raw bank-column agreement with gold, not the pipeline's actual Layer-4
+ * accuracy; only combinedOfflineClassifier reflects real pipeline behavior (transfers,
+ * then merchant dictionary, then bank category, same order as
+ * useCategorization.ts:handleFiles).
+ */
+export const bankCategoryClassifier: OfflineClassifier = (row) =>
+  classifyByBankCategory(row.bankCategory, row.type)?.category ?? null
+
+/** All zero-network layers, in real-pipeline order: transfers, then merchant dictionary,
+ *  then bank-provided category. */
 export const combinedOfflineClassifier: OfflineClassifier = (row) =>
-  transferKeywordClassifier(row) ?? merchantLookupClassifier(row)
+  transferKeywordClassifier(row) ?? merchantLookupClassifier(row) ?? bankCategoryClassifier(row)
 
 /** predicted category, or 'MISS' for an uncovered row */
 type PredictedKey = Category | 'MISS'
