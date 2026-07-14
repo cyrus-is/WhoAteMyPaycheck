@@ -12,6 +12,7 @@ import { App } from './App'
 import { detectFormat, parseTransactions } from './lib/parser'
 import { detectTransfers } from './lib/transfers'
 import { classifyByMerchant } from './lib/merchantLookup'
+import { classifyByDictionary, loadMerchantDict } from './lib/merchantDict'
 import { storeApiKey } from './lib/apiKey'
 
 // Node's experimental webstorage shadows jsdom's localStorage with a non-functional stub
@@ -42,9 +43,13 @@ function loadSampleFile(filename: string): File {
   return new File([content], filename, { type: 'text/csv' })
 }
 
-/** Mirrors useCategorization's handleFiles offline pipeline to compute an independent
- *  expected on-device coverage percentage for the fixture, without touching the DOM. */
-function expectedOfflineCoveragePercent(filename: string): number {
+/** Mirrors useCategorization's handleFiles offline pipeline (transfers, then the shipped
+ *  dictionary, then the merchant regex table — docs/classification-improvement-fable.md
+ *  §4 PR-7) to compute an independent expected on-device coverage percentage for the
+ *  fixture, without touching the DOM. bofa-credit-card.csv carries no bank Category
+ *  column, so that layer is intentionally omitted here. */
+async function expectedOfflineCoveragePercent(filename: string): Promise<number> {
+  await loadMerchantDict()
   const csv = readFileSync(resolve(__dirname, '../sample-data', filename), 'utf8')
   const result = Papa.parse<Record<string, string>>(csv, { header: true, skipEmptyLines: true })
   const mapping = detectFormat(result.meta.fields ?? [], result.data)
@@ -52,7 +57,9 @@ function expectedOfflineCoveragePercent(filename: string): number {
 
   const transferIds = detectTransfers(transactions)
   const nonTransfer = transactions.filter((tx) => !transferIds.has(tx.id))
-  const categorized = nonTransfer.filter((tx) => classifyByMerchant(tx.description, tx.type) !== null)
+  const categorized = nonTransfer.filter(
+    (tx) => classifyByDictionary(tx.description) !== null || classifyByMerchant(tx.description, tx.type) !== null,
+  )
 
   return Math.round((categorized.length / nonTransfer.length) * 100)
 }
@@ -79,7 +86,7 @@ describe('App — offline-first categorization', () => {
   })
 
   it('categorizes ≥80% of transactions on-device with no API key, renders a Sankey, and makes zero network requests', async () => {
-    const expectedPercent = expectedOfflineCoveragePercent('bofa-credit-card.csv')
+    const expectedPercent = await expectedOfflineCoveragePercent('bofa-credit-card.csv')
     expect(expectedPercent).toBeGreaterThanOrEqual(80)
 
     const { container } = render(<App />)
