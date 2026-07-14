@@ -30,12 +30,23 @@ export interface MerchantRule {
   pattern: RegExp
   category: Category
   subcategory: string
+  /** Marks a category-signal keyword rule (PR-2 §2.A, e.g. "Restaurant", "Rent",
+   *  "Medical Clinic") rather than a specific merchant identity. Many unrelated
+   *  real-world merchants can match the same generic rule, so display/grouping code
+   *  (normalize.ts:normalizeVendorName) must not use `name` as their identity. */
+  generic?: boolean
+  /** Restricts this rule to credit-type transactions. Income keyword rules would
+   *  otherwise fire on debit-side text containing the same words (e.g. a brokerage
+   *  "TRADE COMMISSION FEE" debit). */
+  requiresCredit?: boolean
 }
 
 export interface ClassificationResult {
   category: Category
   subcategory: string
   merchant: string
+  /** True when the winning rule is generic (see MerchantRule.generic). */
+  generic: boolean
 }
 
 // ---------------------------------------------------------------------------
@@ -189,13 +200,15 @@ const DINING: MerchantRule[] = [
   { name: 'Caviar',               pattern: /\bCAVIAR\b/i,                                  category: 'Dining', subcategory: 'Food Delivery' },
 
   // --- Generic keyword rule (PR-2 §2.A) — unknown/local restaurants ---
-  { name: 'Restaurant',           pattern: /\bRESTAURANT\b|\bCAFE\b|\bBISTRO\b|\bDINER\b|\bEATERY\b|\bRISTORANTE\b/i, category: 'Dining', subcategory: 'Restaurant' },
+  { name: 'Restaurant',           pattern: /\bRESTAURANT\b|\bCAFE\b|\bBISTRO\b|\bDINER\b|\bEATERY\b|\bRISTORANTE\b/i, category: 'Dining', subcategory: 'Restaurant', generic: true },
 ]
 
 const TRANSPORT: MerchantRule[] = [
   // --- Gas Stations ---
-  // Negative guard: "SHELL BEACH CAFE" is dining, not the gas station chain (§1.4a).
-  { name: 'Shell',                pattern: /\bSHELL\b(?!.*\b(?:BEACH|CAFE)\b)/i,            category: 'Transport', subcategory: 'Gas Station' },
+  // Negative guard: "SHELL BEACH CAFE" is dining, not the gas station chain (§1.4a). Only
+  // the adjacent compound is excluded — "SHELL OIL 5744 PISMO BEACH CA" (a real station in
+  // a beach-named city) must still match.
+  { name: 'Shell',                pattern: /\bSHELL\b(?!\s+BEACH\b)(?!.*\bCAFE\b)/i,        category: 'Transport', subcategory: 'Gas Station' },
   { name: 'Chevron',              pattern: /\bCHEVRON\b/i,                                  category: 'Transport', subcategory: 'Gas Station' },
   { name: 'ExxonMobil',           pattern: /\bEXXON\b|\bMOBIL\b/i,                         category: 'Transport', subcategory: 'Gas Station' },
   { name: 'BP',                   pattern: /\bBP\b.*(?:AMOCO|PROD|#)?/i,                    category: 'Transport', subcategory: 'Gas Station' },
@@ -365,8 +378,8 @@ const SHOPPING: MerchantRule[] = [
   { name: 'Bath & Body Works',    pattern: /BATH\s*(?:&|AND)?\s*BODY/i,                     category: 'Shopping', subcategory: 'Department Store' },
 
   // --- Generic keyword rules (PR-2 §2.A) ---
-  { name: 'Jewelry Store',        pattern: /\bJEWEL(?:RY|ER|ERS)\b/i,                       category: 'Shopping', subcategory: 'Department Store' },
-  { name: 'Apparel',              pattern: /\bWESTERN\s*WEAR\b|\bSPORTING\s*GOODS\b|\bRUNNING\s*SHOES\b/i, category: 'Shopping', subcategory: 'Clothing' },
+  { name: 'Jewelry Store',        pattern: /\bJEWEL(?:RY|ER|ERS)\b/i,                       category: 'Shopping', subcategory: 'Department Store', generic: true },
+  { name: 'Apparel',              pattern: /\bWESTERN\s*WEAR\b|\bSPORTING\s*GOODS\b|\bRUNNING\s*SHOES\b/i, category: 'Shopping', subcategory: 'Clothing', generic: true },
 ]
 
 const SUBSCRIPTIONS: MerchantRule[] = [
@@ -386,7 +399,7 @@ const SUBSCRIPTIONS: MerchantRule[] = [
   { name: 'Audible',              pattern: /\bAUDIBLE\b/i,                                  category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'SiriusXM',             pattern: /SIRIUS\s*XM|SIRIUSXM/i,                        category: 'Subscriptions', subcategory: 'Streaming' },
   // Mandatory qualifier: "PANDORA JEWELRY #442" is a store, not the music service (§1.4a).
-  { name: 'Pandora',              pattern: /\bPANDORA\b\s*(?:RADIO|MUSIC|\.COM)/i,          category: 'Subscriptions', subcategory: 'Streaming' },
+  { name: 'Pandora',              pattern: /\bPANDORA\b\s*(?:RADIO|MUSIC|MEDIA|\.COM)/i,     category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'Tidal',                pattern: /\bTIDAL\b/i,                                    category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'Apple Music',          pattern: /APPLE\s*MUSIC/i,                                category: 'Subscriptions', subcategory: 'Streaming' },
   { name: 'Deezer',               pattern: /\bDEEZER\b/i,                                   category: 'Subscriptions', subcategory: 'Streaming' },
@@ -484,7 +497,7 @@ const ENTERTAINMENT: MerchantRule[] = [
   { name: 'Gopuff Alcohol',       pattern: /GOPUFF.*(?:ALCOHOL|WINE|BEER)/i,                category: 'Entertainment', subcategory: 'Nightlife' },
 
   // --- Generic keyword rule (PR-2 §2.A) ---
-  { name: 'Concert Venue',        pattern: /\bARENA\b|\bSTADIUM\b/i,                        category: 'Entertainment', subcategory: 'Concert/Event' },
+  { name: 'Concert Venue',        pattern: /\bARENA\b|\bSTADIUM\b/i,                        category: 'Entertainment', subcategory: 'Concert/Event', generic: true },
 ]
 
 const HEALTH: MerchantRule[] = [
@@ -539,9 +552,9 @@ const HEALTH: MerchantRule[] = [
   { name: 'Invisalign',           pattern: /INVISALIGN/i,                                    category: 'Health', subcategory: 'Dentist' },
 
   // --- Generic keyword rules (PR-2 §2.A) ---
-  { name: 'Medical Clinic',       pattern: /\bMEDICAL\b|\bCLINIC\b/i,                       category: 'Health', subcategory: 'Doctor/Medical' },
-  { name: 'Spa',                  pattern: /\bSPA\b/i,                                      category: 'Health', subcategory: 'Doctor/Medical' },
-  { name: 'Gym',                  pattern: /\bGYM\b|\bFITNESS\b/i,                          category: 'Health', subcategory: 'Gym' },
+  { name: 'Medical Clinic',       pattern: /\bMEDICAL\b|\bCLINIC\b/i,                       category: 'Health', subcategory: 'Doctor/Medical', generic: true },
+  { name: 'Spa',                  pattern: /\bSPA\b/i,                                      category: 'Health', subcategory: 'Doctor/Medical', generic: true },
+  { name: 'Gym',                  pattern: /\bGYM\b|\bFITNESS\b/i,                          category: 'Health', subcategory: 'Gym', generic: true },
 ]
 
 const TRAVEL: MerchantRule[] = [
@@ -662,7 +675,7 @@ const HOUSING: MerchantRule[] = [
 
   // --- Generic keyword rule (PR-2 §2.A) — rent/lease is the single largest line item
   // in most budgets and previously had no generic fallback rule at all. ---
-  { name: 'Rent',                 pattern: /\bRENT\b(?!\s*A\s*CAR)|\bLEASE\b|\bLANDLORD\b|\bAPTS?\b|\bAPARTMENTS?\b|\bPROPERTY\s*MANAGEMENT\b/i, category: 'Housing', subcategory: 'Rent' },
+  { name: 'Rent',                 pattern: /\bRENT\b(?!\s*A\s*CAR)|\bLEASE\b|\bLANDLORD\b|\bAPTS?\b|\bAPARTMENTS?\b|\bPROPERTY\s*MANAGEMENT\b/i, category: 'Housing', subcategory: 'Rent', generic: true },
 ]
 
 const TRANSFER: MerchantRule[] = [
@@ -677,7 +690,7 @@ const TRANSFER: MerchantRule[] = [
   // (§1.4a #10) — demoted to the narrower Income rules below (processed first anyway).
   { name: 'ACH Transfer',         pattern: /ACH\s*(?:TRANSFER|DEBIT|PMT)/i,                 category: 'Transfer', subcategory: 'Transfer' },
   // --- Generic keyword rule (PR-2 §2.A) ---
-  { name: 'Account Transfer',     pattern: /\bTRANSFER\s*(?:TO|FROM)\s*(?:CHECKING|SAVINGS?|SAV|ACCT|ACCOUNT)\b/i, category: 'Transfer', subcategory: 'Transfer' },
+  { name: 'Account Transfer',     pattern: /\bTRANSFER\s*(?:TO|FROM)\s*(?:CHECKING|SAVINGS?|SAV|ACCT|ACCOUNT)\b/i, category: 'Transfer', subcategory: 'Transfer', generic: true },
 ]
 
 const INCOME: MerchantRule[] = [
@@ -691,13 +704,18 @@ const INCOME: MerchantRule[] = [
   { name: 'HMRC',                 pattern: /\bHMRC\b/i,                                     category: 'Income', subcategory: 'Tax Refund' },
 
   // --- Generic keyword rules (PR-2 §2.A) ---
-  { name: 'Bonus/Commission',     pattern: /\bBONUS\b|\bCOMMISSION\b/i,                     category: 'Income', subcategory: 'Bonus' },
-  { name: 'Freelance Income',     pattern: /\bFREELANCE\b/i,                                category: 'Income', subcategory: 'Freelance' },
+  // Credit-only: the same words appear in debit-side text that isn't income at all, e.g.
+  // "TRADE COMMISSION FEE" (a brokerage fee) or "ACH CREDIT VENMO CASHOUT" (a transfer).
+  { name: 'Bonus/Commission',     pattern: /\bBONUS\b|\bCOMMISSION\b/i,                     category: 'Income', subcategory: 'Bonus', generic: true, requiresCredit: true },
+  { name: 'Freelance Income',     pattern: /\bFREELANCE\b/i,                                category: 'Income', subcategory: 'Freelance', generic: true, requiresCredit: true },
   // ACH credits lacking "PAYROLL" (§1.4a #10) — client/freelance language wins over the
   // generic payroll fallback below; both are processed ahead of the TRANSFER "ACH" rule
   // since INCOME is first in ALL_RULES.
-  { name: 'ACH Credit (client)',  pattern: /ACH\s*CREDIT\b.*\b(?:CLIENT|FREELANCE|CONTRACTOR|INVOICE)\b/i, category: 'Income', subcategory: 'Freelance' },
-  { name: 'ACH Credit (payroll)', pattern: /ACH\s*CREDIT\b/i,                               category: 'Income', subcategory: 'Payroll' },
+  { name: 'ACH Credit (client)',  pattern: /ACH\s*CREDIT\b.*\b(?:CLIENT|FREELANCE|CONTRACTOR|INVOICE)\b/i, category: 'Income', subcategory: 'Freelance', generic: true, requiresCredit: true },
+  // Negative guard: an ACH credit that also mentions a transfer/peer-payment/savings
+  // keyword is a Transfer, not payroll (e.g. "ACH CREDIT VENMO CASHOUT",
+  // "ACH CREDIT BROKERAGE TRANSFER") — this catch-all must not outrank those.
+  { name: 'ACH Credit (payroll)', pattern: /ACH\s*CREDIT\b(?!.*\b(?:TRANSFER|XFER|VENMO|ZELLE|PAYPAL|SAVINGS?|BROKERAGE)\b)/i, category: 'Income', subcategory: 'Payroll', generic: true, requiresCredit: true },
 ]
 
 const CHILDCARE: MerchantRule[] = [
@@ -728,11 +746,11 @@ const CHILDCARE: MerchantRule[] = [
   { name: 'N Family Club',         pattern: /N\s*FAMILY\s*CLUB/i,                              category: 'Childcare', subcategory: 'Daycare' },
 
   // --- Generic patterns ---
-  { name: 'Daycare (generic)',     pattern: /\bDAYCARE\b|\bDAY\s*CARE\b/i,                     category: 'Childcare', subcategory: 'Daycare' },
-  { name: 'Childcare (generic)',   pattern: /\bCHILD\s*CARE\b|\bCHILDCARE\b/i,                 category: 'Childcare', subcategory: 'Daycare' },
-  { name: 'Preschool (generic)',   pattern: /\bPRESCHOOL\b|\bPRE[\s-]SCHOOL\b/i,               category: 'Childcare', subcategory: 'Preschool' },
-  { name: 'After School (generic)', pattern: /\bAFTER\s*SCHOOL\b/i,                            category: 'Childcare', subcategory: 'After School' },
-  { name: 'Summer Camp (generic)', pattern: /\bSUMMER\s*CAMP\b/i,                              category: 'Childcare', subcategory: 'Summer Camp' },
+  { name: 'Daycare (generic)',     pattern: /\bDAYCARE\b|\bDAY\s*CARE\b/i,                     category: 'Childcare', subcategory: 'Daycare', generic: true },
+  { name: 'Childcare (generic)',   pattern: /\bCHILD\s*CARE\b|\bCHILDCARE\b/i,                 category: 'Childcare', subcategory: 'Daycare', generic: true },
+  { name: 'Preschool (generic)',   pattern: /\bPRESCHOOL\b|\bPRE[\s-]SCHOOL\b/i,               category: 'Childcare', subcategory: 'Preschool', generic: true },
+  { name: 'After School (generic)', pattern: /\bAFTER\s*SCHOOL\b/i,                            category: 'Childcare', subcategory: 'After School', generic: true },
+  { name: 'Summer Camp (generic)', pattern: /\bSUMMER\s*CAMP\b/i,                              category: 'Childcare', subcategory: 'Summer Camp', generic: true },
 ]
 
 const EDUCATION: MerchantRule[] = [
@@ -742,7 +760,7 @@ const EDUCATION: MerchantRule[] = [
   { name: 'Great Lakes',           pattern: /GREAT\s*LAKES.*(?:LOAN|EDUC)/i,                   category: 'Education', subcategory: 'Student Loan' },
   { name: 'FedLoan / MOHELA',     pattern: /\bFEDLOAN\b|\bMOHELA\b/i,                         category: 'Education', subcategory: 'Student Loan' },
   { name: 'SoFi Student Loan',    pattern: /SOFI.*(?:STUDENT|LOAN|EDU)/i,                      category: 'Education', subcategory: 'Student Loan' },
-  { name: 'Student Loan (generic)', pattern: /STUDENT\s*LOAN/i,                                category: 'Education', subcategory: 'Student Loan' },
+  { name: 'Student Loan (generic)', pattern: /STUDENT\s*LOAN/i,                                category: 'Education', subcategory: 'Student Loan', generic: true },
 
   // --- Tutoring ---
   { name: 'Kumon',                 pattern: /\bKUMON\b/i,                                     category: 'Education', subcategory: 'Tutoring' },
@@ -767,15 +785,15 @@ const EDUCATION: MerchantRule[] = [
   { name: 'ACT Inc',              pattern: /\bACT\s*INC\b/i,                                  category: 'Education', subcategory: 'Test Prep' },
 
   // --- Generic patterns ---
-  { name: 'Tuition (generic)',    pattern: /\bTUITION\b/i,                                    category: 'Education', subcategory: 'Tuition' },
+  { name: 'Tuition (generic)',    pattern: /\bTUITION\b/i,                                    category: 'Education', subcategory: 'Tuition', generic: true },
 ]
 
 // Catch-all keyword rules that don't have a dedicated category taxonomy home yet
 // (docs/classification-improvement-fable.md §1.4d / §5 flags Donations and Taxes as
 // follow-up taxonomy work) — mapped onto the existing 'Other' category for now.
 const OTHER: MerchantRule[] = [
-  { name: 'Donation',              pattern: /\bDONATION\b|\bCHARITY\b|\bRED\s*CROSS\b/i,       category: 'Other', subcategory: 'Donation' },
-  { name: 'Property Tax',          pattern: /\bPROPERTY\s*TAX\b/i,                             category: 'Other', subcategory: 'Property Tax' },
+  { name: 'Donation',              pattern: /\bDONATION\b|\bCHARITY\b|\bRED\s*CROSS\b/i,       category: 'Other', subcategory: 'Donation', generic: true },
+  { name: 'Property Tax',          pattern: /\bPROPERTY\s*TAX\b/i,                             category: 'Other', subcategory: 'Property Tax', generic: true },
 ]
 
 // ---------------------------------------------------------------------------
@@ -820,25 +838,47 @@ export const ALL_RULES: MerchantRule[] = [
 // Public API
 // ---------------------------------------------------------------------------
 
-/**
- * Attempt to classify a bank-statement description using the static lookup table.
- * Returns null if no merchant pattern matches (caller should fall back to the API).
- *
- * @param rawDescription - The raw description from the bank CSV
- */
-export function classifyByMerchant(rawDescription: string): ClassificationResult | null {
-  const { canonical } = normalizeMerchant(rawDescription)
-  if (!canonical) return null
-
+function matchRules(text: string, type: 'debit' | 'credit' | undefined): ClassificationResult | null {
   for (const rule of ALL_RULES) {
-    if (rule.pattern.test(canonical)) {
+    if (rule.requiresCredit && type === 'debit') continue
+    if (rule.pattern.test(text)) {
       return {
         category: rule.category,
         subcategory: rule.subcategory,
         merchant: rule.name,
+        generic: Boolean(rule.generic),
       }
     }
   }
+  return null
+}
+
+/**
+ * Attempt to classify a bank-statement description using the static lookup table.
+ * Returns null if no merchant pattern matches (caller should fall back to the API).
+ *
+ * Matches against the raw uppercased description first, then the fully normalized
+ * canonical string. Some rules need text the normalizer would otherwise strip before
+ * matching — store-number qualifiers (e.g. "BK #", "GAP #") and brand names that are
+ * also processor prefixes (e.g. "GITHUB", "GODADDY") — so a rule that only matches raw
+ * text must get first look, mirroring the two-pass shape this table used before the
+ * normalizer existed.
+ *
+ * @param rawDescription - The raw description from the bank CSV
+ * @param type - 'debit' | 'credit', when known — gates rules marked `requiresCredit`
+ */
+export function classifyByMerchant(
+  rawDescription: string,
+  type?: 'debit' | 'credit',
+): ClassificationResult | null {
+  const raw = rawDescription.trim().toUpperCase()
+  if (!raw) return null
+
+  const rawMatch = matchRules(raw, type)
+  if (rawMatch) return rawMatch
+
+  const { canonical } = normalizeMerchant(rawDescription)
+  if (canonical && canonical !== raw) return matchRules(canonical, type)
 
   return null
 }

@@ -19,10 +19,16 @@ function cleanDisplayName(name: string): string {
  * Built on the same merchant identity used for classification (merchantLookup.ts /
  * merchant.ts) so a Sankey tooltip and a categorized transaction never disagree about
  * what merchant a description refers to (docs/classification-improvement-fable.md §1.2/§2.A).
+ *
+ * Generic keyword-rule matches (match.generic — "Restaurant", "Rent", "Medical Clinic"…)
+ * are category signals, not merchant identities: many unrelated real-world merchants match
+ * the same generic rule, so using the rule name here would group distinct businesses (two
+ * different apartment complexes, two different clinics) into one vendor bucket. Those fall
+ * through to the canonical text instead, same as an unmatched description.
  */
 export function normalizeVendorName(description: string): string {
   const match = classifyByMerchant(description)
-  if (match) return cleanDisplayName(match.merchant)
+  if (match && !match.generic) return cleanDisplayName(match.merchant)
 
   const { canonical } = normalizeMerchant(description)
   if (!canonical) return description.trim()

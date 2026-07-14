@@ -323,7 +323,7 @@ export async function categorizeTransactions(
   // Layer 1: Static merchant pre-classification — known merchants skip API entirely
   const afterMerchantLookup: Transaction[] = []
   for (const tx of transactions) {
-    const match = classifyByMerchant(tx.description)
+    const match = classifyByMerchant(tx.description, tx.type)
     if (match) {
       allResults.push({ id: tx.id, category: match.category, subcategory: match.subcategory })
       done++

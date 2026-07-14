@@ -48,8 +48,11 @@ describe('normalizeVendorName agrees with classifyByMerchant on merchant identit
   // 44-entry map vs. merchantLookup.ts's rule table) that could drift — e.g. classification
   // saying "Costco Gas" while the Sankey tooltip grouped it under a separate "Costco" bucket.
   // normalizeVendorName is now built directly on classifyByMerchant, so for any description
-  // classifyByMerchant resolves, the display name must be that same rule's name (modulo a
-  // "(...)" disambiguator meant only for developers, e.g. "Uber (ride)" -> "Uber").
+  // that resolves to a specific (non-generic) merchant rule, the display name must be that
+  // same rule's name (modulo a "(...)" disambiguator meant only for developers, e.g.
+  // "Uber (ride)" -> "Uber"). Generic keyword-rule matches are covered separately below —
+  // they intentionally do NOT agree, since the rule name is a category signal, not an
+  // identity (e.g. every restaurant matching "\bCAFE\b" is not "the same merchant").
   const descriptions = [
     'NETFLIX.COM',
     'STARBUCKS #12345',
@@ -62,16 +65,44 @@ describe('normalizeVendorName agrees with classifyByMerchant on merchant identit
     'DOORDASH*ORDER',
     'PG&E ELECTRIC',
     'CVS PHARMACY #00412',
-    'RENT PAYMENT - OAKWOOD APTS',
-    'GYM MEMBERSHIP',
-    'RIVERVIEW MEDICAL CLINIC #9012',
   ]
 
   it.each(descriptions)('"%s"', (description) => {
     const match = classifyByMerchant(description)
     expect(match).not.toBeNull()
+    expect(match!.generic).toBe(false)
     const cleanedRuleName = match!.merchant.replace(/\s*\([^)]*\)\s*$/, '')
     expect(normalizeVendorName(description)).toBe(cleanedRuleName)
+  })
+})
+
+describe('normalizeVendorName falls through to canonical text for generic keyword rules', () => {
+  // Generic keyword rules (PR-2 §2.A — "Rent", "Medical Clinic", "Gym"…) are category
+  // signals for classification, not merchant identities. Two different apartment
+  // complexes or two different clinics must stay distinct vendors for recurring
+  // detection (recurring.ts), one-time-merchant exclusion (budget.ts), and Sankey vendor
+  // drill-downs — collapsing them into the rule name would merge unrelated merchants.
+  it('does not use the generic rule name as the display label', () => {
+    const rent = classifyByMerchant('RENT PAYMENT - OAKWOOD APTS')
+    expect(rent?.generic).toBe(true)
+    expect(normalizeVendorName('RENT PAYMENT - OAKWOOD APTS')).not.toBe('Rent')
+
+    const gym = classifyByMerchant('GYM MEMBERSHIP')
+    expect(gym?.generic).toBe(true)
+    expect(normalizeVendorName('GYM MEMBERSHIP')).not.toBe('Gym')
+
+    const clinic = classifyByMerchant('RIVERVIEW MEDICAL CLINIC #9012')
+    expect(clinic?.generic).toBe(true)
+    expect(normalizeVendorName('RIVERVIEW MEDICAL CLINIC #9012')).not.toBe('Medical Clinic')
+  })
+
+  it('keeps distinct merchants distinct even when they share a generic rule', () => {
+    expect(normalizeVendorName('RENT PAYMENT - OAKWOOD APTS')).not.toBe(
+      normalizeVendorName('RENT PAYMENT - MAPLE APTS'),
+    )
+    expect(normalizeVendorName('RIVERVIEW MEDICAL CLINIC #9012')).not.toBe(
+      normalizeVendorName('DOCTORS MEDICAL GROUP'),
+    )
   })
 })
 

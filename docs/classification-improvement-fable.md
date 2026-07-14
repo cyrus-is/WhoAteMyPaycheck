@@ -100,7 +100,9 @@ The recurring anti-pattern: `(?:...)?` optional qualifier groups that were meant
 
 ## 2. Improvement design (all 100% in-browser)
 
-Current relevant budget facts: initial bundle already excludes `@anthropic-ai/sdk` and `merchantLookup.ts` (lazy import at `useCategorization.ts:151`); `merchantLookup.ts` alone bundles to 62 KB / **12.4 KB gzipped**; CSP is `connect-src 'self' https://api.anthropic.com` (`index.html:7`) — every proposal below needs **zero CSP changes** (same-origin assets are `'self'`).
+Current relevant budget facts: initial bundle excludes `@anthropic-ai/sdk` (lazy import at `useCategorization.ts:151`); CSP is `connect-src 'self' https://api.anthropic.com` (`index.html:7`) — every proposal below needs **zero CSP changes** (same-origin assets are `'self'`).
+
+**Update (PR-2):** `merchantLookup.ts` is no longer excluded from the initial bundle. Unifying the merchant-identity knowledge base (§2.A) means `normalize.ts` — imported eagerly by `sankey.ts`/`budget.ts`/`recurring.ts` from `App.tsx` — now statically imports `classifyByMerchant`, so the ~537-rule table ships in the initial chunk regardless of whether a file has been dropped yet (measured: index chunk 375.9 KB/116.3 KB gz → 430.0 KB/128.6 KB gz, +12.3 KB gz). This is the direct tradeoff for closing the "four disjoint merchant-knowledge bases" gap in §1.4d — keeping `merchantLookup.ts` lazy would mean either reintroducing a second, independently-drifting knowledge base for Sankey/budget/recurring display, or making `normalizeVendorName`/`buildSankeyData`/`generateBudget` async (a wider refactor than this fix; every call site is currently synchronous, including their test suites). PR-7's generated dictionary is a separate, already-lazy addition and unaffected.
 
 ### A. Unified merchant normalizer — `lib/merchant.ts` *(the keystone)*
 

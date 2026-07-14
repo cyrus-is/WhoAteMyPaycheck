@@ -22,22 +22,26 @@ export const PROCESSOR_PREFIXES: { pattern: RegExp; processor: string }[] = [
   { pattern: /^SQC\*\s*/i,                    processor: 'Square Capital' },
   { pattern: /^TST\*\s*/i,                    processor: 'Toast' },
   { pattern: /^TST \*\s*/i,                   processor: 'Toast' },
-  { pattern: /^TOAST?\s*\*?\s*/i,             processor: 'Toast' },
+  // Delimiter required: without it this matched mid-word, e.g. "TOASTED BAGEL CAFE" -> "ED BAGEL CAFE".
+  { pattern: /^TOAST(?=\s|\*)\s*\*?\s*/i,     processor: 'Toast' },
   { pattern: /^PAYPAL \*/i,                   processor: 'PayPal' },
   { pattern: /^PP\*/i,                        processor: 'PayPal' },
   { pattern: /^CLOVER\*\s*/i,                 processor: 'Clover' },
   { pattern: /^CLV\*\s*/i,                    processor: 'Clover' },
-  { pattern: /^STRIPE\s*\*?\s*/i,             processor: 'Stripe' },
+  // Delimiter required: without it this matched mid-word, e.g. "STRIPED BASS RESTAURANT" -> "D BASS RESTAURANT".
+  { pattern: /^STRIPE(?=\s|\*)\s*\*?\s*/i,    processor: 'Stripe' },
   { pattern: /^SP \*\s*/i,                    processor: 'Shopify' },
   { pattern: /^SHOPPAY \*/i,                  processor: 'Shop Pay' },
   { pattern: /^APL\*\s*/i,                    processor: 'Apple' },
-  { pattern: /^APPLE\.COM\/BILL/i,            processor: 'Apple' },
   { pattern: /^GOOGLE \*/i,                   processor: 'Google' },
   { pattern: /^GOOG\*\s*/i,                   processor: 'Google' },
   { pattern: /^DD \*/i,                       processor: 'DoorDash' },
   { pattern: /^DD\*/i,                        processor: 'DoorDash' },
-  { pattern: /^GITHUB\s*/i,                   processor: 'GitHub' },
-  { pattern: /^GODADDY\s*/i,                  processor: 'GoDaddy' },
+  // Asterisk marker required: GitHub/GoDaddy are themselves merchant names (Subscriptions
+  // rules match them directly), not processors — a bare "GITHUB SAN LUIS OBISPO CA" or
+  // "GODADDY.COM" must not have its brand token eaten before merchant matching runs.
+  { pattern: /^GITHUB\s*\*\s*/i,              processor: 'GitHub' },
+  { pattern: /^GODADDY\s*\*\s*/i,             processor: 'GoDaddy' },
   { pattern: /^WPY\*\s*/i,                    processor: 'WorldPay' },
   { pattern: /^CKE\*\s*/i,                    processor: 'Cake (POS)' },
   { pattern: /^POS DEBIT\s*/i,                processor: 'POS' },

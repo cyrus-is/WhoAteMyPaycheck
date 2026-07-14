@@ -61,7 +61,7 @@ export function evaluateLayer(layer: string, rows: GoldTransaction[], classify: 
 
 /** Layer 1 — the static merchant regex table (merchantLookup.ts:classifyByMerchant). */
 export const merchantLookupClassifier: OfflineClassifier = (row) =>
-  classifyByMerchant(row.description)?.category ?? null
+  classifyByMerchant(row.description, row.type)?.category ?? null
 
 /**
  * Layer 0 — transfer keyword detection (transfers.ts:detectTransfers), evaluated one row
