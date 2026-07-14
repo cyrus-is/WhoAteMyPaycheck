@@ -23,6 +23,8 @@ import { HowItWorksModal } from './components/HowItWorksModal'
 import { getHowItWorksSeen } from './lib/howItWorksSeen'
 import { AnomalyInsights } from './components/AnomalyInsights'
 import { detectAnomalies } from './lib/anomaly'
+import { RecurringPanel } from './components/RecurringPanel'
+import { detectRecurring } from './lib/recurring'
 import { CategoryVisibilityToggle } from './components/CategoryVisibilityToggle'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { EXPENSE_CATEGORIES } from './lib/types'
@@ -201,6 +203,18 @@ export function App() {
       : [],
     [cat.hasCategorized, cat.allTransactions, filteredTransactions, dateRange, cat.overrides, activeLens],
   )
+
+  // Recurring detection runs over all history (not the date-filtered view) so cadence
+  // patterns aren't broken by a narrowed range — category overrides are applied first so
+  // the merchant list reflects the same category labels the user sees elsewhere.
+  const recurringMerchants = useMemo(() => {
+    if (!cat.hasCategorized) return []
+    const withOverrides = cat.allTransactions.map((tx) => ({
+      ...tx,
+      category: cat.overrides[tx.id] ?? tx.category,
+    }))
+    return detectRecurring(withOverrides)
+  }, [cat.hasCategorized, cat.allTransactions, cat.overrides])
 
   return (
     <div className="app">
@@ -446,6 +460,10 @@ export function App() {
         )}
 
         <AnomalyInsights anomalies={anomalies} />
+
+        <ErrorBoundary>
+          <RecurringPanel merchants={recurringMerchants} />
+        </ErrorBoundary>
 
         <ErrorBoundary>
           <BudgetPanel
