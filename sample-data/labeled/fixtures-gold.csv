@@ -818,7 +818,7 @@ monzo-uk.csv,Costa Coffee,4.5,debit,Dining,Coffee Shop
 monzo-uk.csv,Shell,58.4,debit,Transport,Gas Station
 monzo-uk.csv,Gym Membership,40,debit,Health,Gym
 monzo-uk.csv,M&S Food,28.75,debit,Groceries,Specialty Food
-monzo-uk.csv,Monzo Flex,250,credit,Transfer,Transfer
+monzo-uk.csv,Monzo Flex,250,debit,Transfer,Transfer
 monzo-uk.csv,Tesco Express,14.9,debit,Groceries,Supermarket
 monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
 monzo-uk.csv,Amazon,67.5,debit,Shopping,Online Retail
@@ -972,7 +972,7 @@ monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
 monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
 monzo-uk.csv,Tesco Express,16.4,debit,Groceries,Supermarket
 monzo-uk.csv,Pret A Manger,7.5,debit,Dining,Coffee Shop
-monzo-uk.csv,Amazon,245,credit,Shopping,Online Retail
+monzo-uk.csv,Amazon,245,debit,Shopping,Online Retail
 monzo-uk.csv,Sainsbury's,78.5,debit,Groceries,Supermarket
 monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
 monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
@@ -982,23 +982,23 @@ monzo-uk.csv,Gym Membership,40,debit,Health,Gym
 monzo-uk.csv,M&S Food,55.8,debit,Groceries,Specialty Food
 monzo-uk.csv,Deliveroo,38.5,debit,Dining,Food Delivery
 monzo-uk.csv,Tesco,91.4,debit,Groceries,Supermarket
-monzo-uk.csv,Amazon,189.99,credit,Shopping,Online Retail
-monzo-uk.csv,Marks & Spencer,120,credit,Shopping,Clothing
+monzo-uk.csv,Amazon,189.99,debit,Shopping,Online Retail
+monzo-uk.csv,Marks & Spencer,120,debit,Shopping,Clothing
 monzo-uk.csv,Pret A Manger,8.25,debit,Dining,Coffee Shop
 monzo-uk.csv,RENT - LANDLORD,1200,debit,Housing,Rent
 monzo-uk.csv,EMPLOYER SALARY,2800,credit,Income,Payroll
 monzo-uk.csv,Tesco Express,18.4,debit,Groceries,Supermarket
 monzo-uk.csv,Pret A Manger,8.5,debit,Dining,Coffee Shop
-monzo-uk.csv,Amazon,312,credit,Shopping,Online Retail
+monzo-uk.csv,Amazon,312,debit,Shopping,Online Retail
 monzo-uk.csv,Sainsbury's,102.4,debit,Groceries,Supermarket
 monzo-uk.csv,Netflix,10.99,debit,Subscriptions,Streaming
 monzo-uk.csv,Spotify,9.99,debit,Subscriptions,Streaming
 monzo-uk.csv,Costa Coffee,6,debit,Dining,Coffee Shop
 monzo-uk.csv,Oyster / TfL,34.1,debit,Transport,Public Transit
 monzo-uk.csv,Gym Membership,40,debit,Health,Gym
-monzo-uk.csv,M&S Food,88.5,credit,Groceries,Specialty Food
+monzo-uk.csv,M&S Food,88.5,debit,Groceries,Specialty Food
 monzo-uk.csv,Deliveroo,45.8,debit,Dining,Food Delivery
-monzo-uk.csv,Tesco,125.4,credit,Groceries,Supermarket
-monzo-uk.csv,Amazon,178,credit,Shopping,Online Retail
-monzo-uk.csv,Restaurant,195,credit,Dining,Restaurant
+monzo-uk.csv,Tesco,125.4,debit,Groceries,Supermarket
+monzo-uk.csv,Amazon,178,debit,Shopping,Online Retail
+monzo-uk.csv,Restaurant,195,debit,Dining,Restaurant
 monzo-uk.csv,Pret A Manger,7.75,debit,Dining,Coffee Shop

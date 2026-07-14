@@ -234,6 +234,13 @@ const FIXTURE_GOLD: Record<string, Record<string, GoldLabel>> = {
 function loadFixtureTransactions(filename: string): Transaction[] {
   const csv = readFileSync(resolve(SAMPLE_DIR, filename), 'utf8')
   const result = Papa.parse<Record<string, string>>(csv, { header: true, skipEmptyLines: true })
+  const mismatchedRow = result.data.findIndex((row) => '__parsed_extra' in row)
+  if (mismatchedRow !== -1) {
+    throw new Error(
+      `${filename}: row ${mismatchedRow + 2} has more fields than the header (field-count mismatch) — ` +
+        'a misparsed row would silently canonize wrong amount/type data as gold. Fix the CSV before regenerating.',
+    )
+  }
   const headers = result.meta.fields ?? []
   const mapping = detectFormat(headers, result.data)
   const { transactions } = parseTransactions(filename, result.data, mapping)
