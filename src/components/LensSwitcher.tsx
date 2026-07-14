@@ -4,6 +4,8 @@ interface LensSwitcherProps {
   active: LensId
   onChange: (lens: LensId) => void
   taxReady: boolean
+  /** Tooltip shown on the disabled Tax lens button — explains what's missing (API key vs. no categorized data yet) */
+  taxDisabledReason?: string
 }
 
 const LENSES: { id: LensId; label: string }[] = [
@@ -12,7 +14,7 @@ const LENSES: { id: LensId; label: string }[] = [
   { id: 'essentials', label: 'Essentials' },
 ]
 
-export function LensSwitcher({ active, onChange, taxReady }: LensSwitcherProps) {
+export function LensSwitcher({ active, onChange, taxReady, taxDisabledReason }: LensSwitcherProps) {
   return (
     <div className="lens-switcher" role="group" aria-label="View lens">
       {LENSES.map(({ id, label }) => {
@@ -25,7 +27,7 @@ export function LensSwitcher({ active, onChange, taxReady }: LensSwitcherProps) 
             onClick={() => !disabled && onChange(id)}
             aria-pressed={active === id}
             disabled={disabled}
-            title={disabled ? 'Run "Categorize with Claude" first to unlock the Tax lens' : undefined}
+            title={disabled ? (taxDisabledReason ?? 'Run "Categorize with Claude" first to unlock the Tax lens') : undefined}
           >
             {label}
           </button>

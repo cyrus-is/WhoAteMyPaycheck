@@ -104,6 +104,37 @@ describe('App — offline-first categorization', () => {
     expect(fetchSpy).not.toHaveBeenCalled()
   })
 
+  it('still renders a Sankey via the Uncategorized sink when a CSV has zero offline merchant hits', async () => {
+    const rows = [
+      { date: '01/05/2024', description: 'ZZQX UNKNOWN MERCHANT 991', amount: '42.10' },
+      { date: '01/12/2024', description: 'PLRVX MERCHANT ID 4471', amount: '18.75' },
+      { date: '01/20/2024', description: 'QWKJH RANDOM VENDOR 205', amount: '63.40' },
+    ]
+    // Self-validating: confirm the fixture genuinely produces zero offline hits, so this test
+    // actually exercises the zero-offline-hit path rather than silently passing on a fluke.
+    for (const row of rows) {
+      expect(classifyByMerchant(row.description, 'debit')).toBeNull()
+    }
+
+    const csv = ['Date,Description,Amount', ...rows.map((r) => `${r.date},${r.description},${r.amount}`)].join('\n')
+    const file = new File([csv], 'synthetic-unknown.csv', { type: 'text/csv' })
+
+    const { container } = render(<App />)
+    await dropFile(container, file)
+
+    await waitFor(() => {
+      expect(container.querySelector('svg')).toBeInTheDocument()
+    })
+
+    // TransactionTable (not RawTable) renders even though hasCategorized is false
+    expect(screen.getByText('Transactions')).toBeInTheDocument()
+
+    // 0% offline coverage — every transaction routes through the Uncategorized sink
+    expect(screen.getByText(/0% categorized on-device\. Add a Claude API key/)).toBeInTheDocument()
+
+    expect(fetchSpy).not.toHaveBeenCalled()
+  })
+
   it('shows "Categorize remaining N with Claude" only when a key is present and a remainder exists', async () => {
     storeApiKey('sk-ant-test-key', false)
     const { container } = render(<App />)

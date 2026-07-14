@@ -62,13 +62,19 @@ export function useCategorization(apiKey: string): CategorizationState {
 
   const nonTransferCount = allTransactions.filter((tx) => tx.category !== 'Transfer').length
 
-  const uncategorizedCount = modeChanged
-    ? nonTransferCount
-    : allTransactions.filter((tx) => tx.subcategory === '' && tx.category !== 'Transfer').length
+  const actualUncategorizedCount =
+    allTransactions.filter((tx) => tx.subcategory === '' && tx.category !== 'Transfer').length
 
-  const percentCategorized = nonTransferCount > 0
-    ? Math.round(((nonTransferCount - uncategorizedCount) / nonTransferCount) * 100)
-    : 0
+  const uncategorizedCount = modeChanged ? nonTransferCount : actualUncategorizedCount
+
+  // Based on actualUncategorizedCount (not the modeChanged-inflated uncategorizedCount) and
+  // capped below 100 while any transaction remains uncategorized, so the banner never claims
+  // full coverage for a mode switch or a rounding-up remainder.
+  const percentCategorized = nonTransferCount === 0
+    ? 0
+    : actualUncategorizedCount === 0
+      ? 100
+      : Math.min(99, Math.round(((nonTransferCount - actualUncategorizedCount) / nonTransferCount) * 100))
 
   const showCategorizeBtn =
     (uncategorizedCount > 0 || modeChanged) && !!apiKey && appState !== 'categorizing'

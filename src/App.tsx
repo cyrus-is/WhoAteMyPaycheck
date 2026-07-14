@@ -26,6 +26,7 @@ import { detectAnomalies } from './lib/anomaly'
 import { CategoryVisibilityToggle } from './components/CategoryVisibilityToggle'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { EXPENSE_CATEGORIES } from './lib/types'
+import { displayCategory, isUnclassifiedDefault } from './lib/classification'
 
 export function App() {
   const [apiKey, setApiKey] = useState<string>(() => getStoredApiKey())
@@ -76,28 +77,27 @@ export function App() {
     )
   }, [cat.allTransactions, dateRange])
 
-  // Categories present in the current filtered view (for the visibility toggle)
+  // Categories present in the current filtered view (for the visibility toggle) — uses the
+  // same displayCategory relabel as the Sankey and TransactionTable so "Uncategorized" spend
+  // is listed (and hideable) as its own entry instead of hiding under "Other".
   const spendingCategories = useMemo(() => {
-    if (!cat.hasCategorized || activeLens !== 'spending') return []
+    if (cat.allTransactions.length === 0 || activeLens !== 'spending') return []
     const totals = new Map<string, number>()
     for (const tx of filteredTransactions) {
-      const c = cat.overrides[tx.id] ?? tx.category
-      if (!EXPENSE_CATEGORIES.has(c)) continue
+      const c = displayCategory(tx, cat.overrides)
+      if (c !== 'Uncategorized' && !EXPENSE_CATEGORIES.has(c)) continue
       if (tx.type !== 'debit') continue
       totals.set(c, (totals.get(c) ?? 0) + tx.amount)
     }
     return [...totals.entries()]
       .map(([name, amount]) => ({ name, amount }))
       .sort((a, b) => b.amount - a.amount)
-  }, [cat.hasCategorized, activeLens, filteredTransactions, cat.overrides])
+  }, [cat.allTransactions.length, activeLens, filteredTransactions, cat.overrides])
 
   // Transactions passed to Sankey — excludes hidden categories (spending lens only)
   const sankeyTransactions = useMemo(() => {
     if (hiddenCategories.size === 0 || activeLens !== 'spending') return filteredTransactions
-    return filteredTransactions.filter((tx) => {
-      const c = cat.overrides[tx.id] ?? tx.category
-      return !hiddenCategories.has(c)
-    })
+    return filteredTransactions.filter((tx) => !hiddenCategories.has(displayCategory(tx, cat.overrides)))
   }, [filteredTransactions, hiddenCategories, activeLens, cat.overrides])
 
   const budget = useBudget(
@@ -145,6 +145,10 @@ export function App() {
     for (const tx of filteredTransactions) {
       const spendingCategory = cat.overrides[tx.id] ?? tx.category
       if (spendingCategory === 'Transfer') continue
+      // Leave still-unclassified transactions unmapped so buildSankeyData's own
+      // isUnclassifiedDefault check routes them to the Uncategorized sink instead of
+      // Other silently inflating the discretionary bucket.
+      if (cat.overrides[tx.id] === undefined && isUnclassifiedDefault(tx)) continue
       result[tx.id] = mapToEssentialsBucket(spendingCategory)
     }
     return result
@@ -156,7 +160,9 @@ export function App() {
   )
 
   const sankeyData = useMemo(() => {
-    if (!cat.hasCategorized) return null
+    // Gated on data existing, not on any offline hit — the Uncategorized sink node absorbs
+    // whatever the offline layers didn't catch, so even a 0%-offline-hit CSV still renders.
+    if (cat.allTransactions.length === 0) return null
     if (activeLens === 'essentials') {
       return buildSankeyData(sankeyTransactions, essentialsOverrides, mergeThreshold, essentialsColors)
     }
@@ -182,7 +188,7 @@ export function App() {
       cat.categorizationMode,
     )
   }, [
-    cat.hasCategorized, activeLens, sankeyTransactions, cat.overrides,
+    cat.allTransactions.length, activeLens, sankeyTransactions, cat.overrides,
     essentialsOverrides, essentialsColors, tax.taxResults, taxCategoryMap,
     tax.taxColors, mergeThreshold, cat.categorizationMode,
   ])
@@ -334,15 +340,20 @@ export function App() {
           </div>
         )}
 
-        {cat.hasCategorized && (
+        {cat.allTransactions.length > 0 && (
           <LensSwitcher
             active={activeLens}
             onChange={handleLensChange}
-            taxReady={cat.hasCategorized}
+            taxReady={cat.hasCategorized && !!apiKey}
+            taxDisabledReason={
+              !apiKey
+                ? 'Add a Claude API key to unlock the Tax lens'
+                : 'Categorize at least one transaction first to unlock the Tax lens'
+            }
           />
         )}
 
-        {cat.hasCategorized && minDate && (
+        {cat.allTransactions.length > 0 && minDate && (
           <DateFilter
             range={dateRange}
             minDate={minDate}
@@ -449,7 +460,7 @@ export function App() {
           />
         </ErrorBoundary>
 
-        {cat.hasCategorized ? (
+        {cat.allTransactions.length > 0 ? (
           <TransactionTable
             transactions={filteredTransactions}
             overrides={cat.overrides}
