@@ -186,3 +186,5 @@ GitHub PATs, AWS tokens, Cloudflare keys, and similar credentials referenced by 
 - **Force-push and deletion are blocked, enforced even for admins.** Rewriting `main` requires manually deleting the protection first — intentionally painful; reconsider before doing it.
 - **Linear history required** — no merge commits into `main`. Land PRs via **squash** or **rebase** only.
 - **No required reviews while solo** — commit directly to `main`. When a real second contributor joins *this* repo, turn required reviews on for it.
+
+Engineering standards: see [ENGINEERING.md](ENGINEERING.md) — binding for agents.
